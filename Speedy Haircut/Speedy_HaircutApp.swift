@@ -9,6 +9,23 @@ import SwiftUI
 import Firebase
 
 
+@main
+struct Speedy_HaircutApp: App {
+    
+//    This pass the UIKit Delegate to our app EXTREMELY NECESSARY
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
+    var body: some Scene {
+        WindowGroup {
+            
+            let authBrain = AuthenticationBrain()
+            
+            ContentView()
+                .environmentObject(authBrain)
+        }
+    }
+}
+
 class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication,
@@ -17,15 +34,5 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         FirebaseApp.configure()
         
         return true
-    }
-}
-
-
-@main
-struct Speedy_HaircutApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
     }
 }
