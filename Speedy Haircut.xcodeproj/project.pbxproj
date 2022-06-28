@@ -8,24 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		3F9C923EC2DFE40D408FA8AA /* Pods_Speedy_Haircut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4DC61C8C2E172E679214CB /* Pods_Speedy_Haircut.framework */; };
+		4C398AC0286AB16A000188D5 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C398ABF286AB16A000188D5 /* SignUpView.swift */; };
+		4C398AC2286AB737000188D5 /* profileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C398AC1286AB737000188D5 /* profileView.swift */; };
 		4C4BF88E286981E7000AC23F /* Speedy_HaircutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4BF88D286981E7000AC23F /* Speedy_HaircutApp.swift */; };
-		4C4BF890286981E7000AC23F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4BF88F286981E7000AC23F /* LoginView.swift */; };
+		4C4BF890286981E7000AC23F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4BF88F286981E7000AC23F /* SignInView.swift */; };
 		4C4BF892286981E9000AC23F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C4BF891286981E9000AC23F /* Assets.xcassets */; };
 		4C4BF895286981E9000AC23F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C4BF894286981E9000AC23F /* Preview Assets.xcassets */; };
 		4C4BF89C286982AD000AC23F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C4BF89B286982AD000AC23F /* GoogleService-Info.plist */; };
 		4CF5EEC228698B7B00AEF857 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF5EEC128698B7B00AEF857 /* FirebaseAuth */; };
 		4CF5EEC428698B7B00AEF857 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF5EEC328698B7B00AEF857 /* FirebaseFirestore */; };
-		4CF5EEC828699DEB00AEF857 /* loginBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF5EEC728699DEB00AEF857 /* loginBrain.swift */; };
+		4CF5EEC828699DEB00AEF857 /* AuthenticationBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */; };
+		4CF5EECB286AAB8E00AEF857 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF5EECA286AAB8E00AEF857 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C398ABF286AB16A000188D5 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		4C398AC1286AB737000188D5 /* profileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileView.swift; sourceTree = "<group>"; };
 		4C4BF88A286981E7000AC23F /* Speedy Haircut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Speedy Haircut.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C4BF88D286981E7000AC23F /* Speedy_HaircutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speedy_HaircutApp.swift; sourceTree = "<group>"; };
-		4C4BF88F286981E7000AC23F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		4C4BF88F286981E7000AC23F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		4C4BF891286981E9000AC23F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C4BF894286981E9000AC23F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4C4BF89B286982AD000AC23F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		4CF5EEC728699DEB00AEF857 /* loginBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginBrain.swift; sourceTree = "<group>"; };
+		4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationBrain.swift; sourceTree = "<group>"; };
+		4CF5EECA286AAB8E00AEF857 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5436FDA635CEC29B0B23D247 /* Pods-Speedy Haircut.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speedy Haircut.debug.xcconfig"; path = "Target Support Files/Pods-Speedy Haircut/Pods-Speedy Haircut.debug.xcconfig"; sourceTree = "<group>"; };
 		8840D9E8998D1F64628EB1C5 /* Pods-Speedy Haircut.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speedy Haircut.release.xcconfig"; path = "Target Support Files/Pods-Speedy Haircut/Pods-Speedy Haircut.release.xcconfig"; sourceTree = "<group>"; };
 		9A4DC61C8C2E172E679214CB /* Pods_Speedy_Haircut.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Speedy_Haircut.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,7 +93,10 @@
 		4CF5EEC528699DB300AEF857 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4C4BF88F286981E7000AC23F /* LoginView.swift */,
+				4C4BF88F286981E7000AC23F /* SignInView.swift */,
+				4C398ABF286AB16A000188D5 /* SignUpView.swift */,
+				4CF5EECA286AAB8E00AEF857 /* ContentView.swift */,
+				4C398AC1286AB737000188D5 /* profileView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -95,7 +104,7 @@
 		4CF5EEC628699DDA00AEF857 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4CF5EEC728699DEB00AEF857 /* loginBrain.swift */,
+				4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -239,8 +248,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C4BF890286981E7000AC23F /* LoginView.swift in Sources */,
-				4CF5EEC828699DEB00AEF857 /* loginBrain.swift in Sources */,
+				4C4BF890286981E7000AC23F /* SignInView.swift in Sources */,
+				4C398AC0286AB16A000188D5 /* SignUpView.swift in Sources */,
+				4C398AC2286AB737000188D5 /* profileView.swift in Sources */,
+				4CF5EEC828699DEB00AEF857 /* AuthenticationBrain.swift in Sources */,
+				4CF5EECB286AAB8E00AEF857 /* ContentView.swift in Sources */,
 				4C4BF88E286981E7000AC23F /* Speedy_HaircutApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
