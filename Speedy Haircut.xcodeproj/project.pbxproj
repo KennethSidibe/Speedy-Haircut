@@ -7,18 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F9C923EC2DFE40D408FA8AA /* Pods_Speedy_Haircut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4DC61C8C2E172E679214CB /* Pods_Speedy_Haircut.framework */; };
 		4C4BF88E286981E7000AC23F /* Speedy_HaircutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4BF88D286981E7000AC23F /* Speedy_HaircutApp.swift */; };
-		4C4BF890286981E7000AC23F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4BF88F286981E7000AC23F /* ContentView.swift */; };
+		4C4BF890286981E7000AC23F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4BF88F286981E7000AC23F /* LoginView.swift */; };
 		4C4BF892286981E9000AC23F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C4BF891286981E9000AC23F /* Assets.xcassets */; };
 		4C4BF895286981E9000AC23F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C4BF894286981E9000AC23F /* Preview Assets.xcassets */; };
+		4C4BF89C286982AD000AC23F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C4BF89B286982AD000AC23F /* GoogleService-Info.plist */; };
+		4CF5EEC228698B7B00AEF857 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF5EEC128698B7B00AEF857 /* FirebaseAuth */; };
+		4CF5EEC428698B7B00AEF857 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF5EEC328698B7B00AEF857 /* FirebaseFirestore */; };
+		4CF5EEC828699DEB00AEF857 /* loginBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF5EEC728699DEB00AEF857 /* loginBrain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4C4BF88A286981E7000AC23F /* Speedy Haircut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Speedy Haircut.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C4BF88D286981E7000AC23F /* Speedy_HaircutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speedy_HaircutApp.swift; sourceTree = "<group>"; };
-		4C4BF88F286981E7000AC23F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4C4BF88F286981E7000AC23F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		4C4BF891286981E9000AC23F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C4BF894286981E9000AC23F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4C4BF89B286982AD000AC23F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4CF5EEC728699DEB00AEF857 /* loginBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginBrain.swift; sourceTree = "<group>"; };
+		5436FDA635CEC29B0B23D247 /* Pods-Speedy Haircut.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speedy Haircut.debug.xcconfig"; path = "Target Support Files/Pods-Speedy Haircut/Pods-Speedy Haircut.debug.xcconfig"; sourceTree = "<group>"; };
+		8840D9E8998D1F64628EB1C5 /* Pods-Speedy Haircut.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speedy Haircut.release.xcconfig"; path = "Target Support Files/Pods-Speedy Haircut/Pods-Speedy Haircut.release.xcconfig"; sourceTree = "<group>"; };
+		9A4DC61C8C2E172E679214CB /* Pods_Speedy_Haircut.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Speedy_Haircut.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +36,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F9C923EC2DFE40D408FA8AA /* Pods_Speedy_Haircut.framework in Frameworks */,
+				4CF5EEC228698B7B00AEF857 /* FirebaseAuth in Frameworks */,
+				4CF5EEC428698B7B00AEF857 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +50,8 @@
 			children = (
 				4C4BF88C286981E7000AC23F /* Speedy Haircut */,
 				4C4BF88B286981E7000AC23F /* Products */,
+				8AF7B8411DBFC6F8C54C7FA9 /* Pods */,
+				AF101D20C87769CB1B562B3D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,8 +66,10 @@
 		4C4BF88C286981E7000AC23F /* Speedy Haircut */ = {
 			isa = PBXGroup;
 			children = (
+				4C4BF89B286982AD000AC23F /* GoogleService-Info.plist */,
 				4C4BF88D286981E7000AC23F /* Speedy_HaircutApp.swift */,
-				4C4BF88F286981E7000AC23F /* ContentView.swift */,
+				4CF5EEC628699DDA00AEF857 /* Model */,
+				4CF5EEC528699DB300AEF857 /* View */,
 				4C4BF891286981E9000AC23F /* Assets.xcassets */,
 				4C4BF893286981E9000AC23F /* Preview Content */,
 			);
@@ -67,6 +84,39 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		4CF5EEC528699DB300AEF857 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4C4BF88F286981E7000AC23F /* LoginView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4CF5EEC628699DDA00AEF857 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4CF5EEC728699DEB00AEF857 /* loginBrain.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8AF7B8411DBFC6F8C54C7FA9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5436FDA635CEC29B0B23D247 /* Pods-Speedy Haircut.debug.xcconfig */,
+				8840D9E8998D1F64628EB1C5 /* Pods-Speedy Haircut.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		AF101D20C87769CB1B562B3D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9A4DC61C8C2E172E679214CB /* Pods_Speedy_Haircut.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,15 +124,21 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C4BF898286981E9000AC23F /* Build configuration list for PBXNativeTarget "Speedy Haircut" */;
 			buildPhases = (
+				DC9EE05E60F1258B2D9B7D70 /* [CP] Check Pods Manifest.lock */,
 				4C4BF886286981E7000AC23F /* Sources */,
 				4C4BF887286981E7000AC23F /* Frameworks */,
 				4C4BF888286981E7000AC23F /* Resources */,
+				12040F232CBD9102E1348888 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Speedy Haircut";
+			packageProductDependencies = (
+				4CF5EEC128698B7B00AEF857 /* FirebaseAuth */,
+				4CF5EEC328698B7B00AEF857 /* FirebaseFirestore */,
+			);
 			productName = "Speedy Haircut";
 			productReference = 4C4BF88A286981E7000AC23F /* Speedy Haircut.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +167,9 @@
 				Base,
 			);
 			mainGroup = 4C4BF881286981E7000AC23F;
+			packageReferences = (
+				4CF5EEC028698B7B00AEF857 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 4C4BF88B286981E7000AC23F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,17 +186,61 @@
 			files = (
 				4C4BF895286981E9000AC23F /* Preview Assets.xcassets in Resources */,
 				4C4BF892286981E9000AC23F /* Assets.xcassets in Resources */,
+				4C4BF89C286982AD000AC23F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		12040F232CBD9102E1348888 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Speedy Haircut/Pods-Speedy Haircut-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Speedy Haircut/Pods-Speedy Haircut-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Speedy Haircut/Pods-Speedy Haircut-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DC9EE05E60F1258B2D9B7D70 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Speedy Haircut-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4C4BF886286981E7000AC23F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C4BF890286981E7000AC23F /* ContentView.swift in Sources */,
+				4C4BF890286981E7000AC23F /* LoginView.swift in Sources */,
+				4CF5EEC828699DEB00AEF857 /* loginBrain.swift in Sources */,
 				4C4BF88E286981E7000AC23F /* Speedy_HaircutApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -195,7 +298,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -249,7 +352,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -261,6 +364,7 @@
 		};
 		4C4BF899286981E9000AC23F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5436FDA635CEC29B0B23D247 /* Pods-Speedy Haircut.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -290,6 +394,7 @@
 		};
 		4C4BF89A286981E9000AC23F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8840D9E8998D1F64628EB1C5 /* Pods-Speedy Haircut.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -339,6 +444,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4CF5EEC028698B7B00AEF857 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4CF5EEC128698B7B00AEF857 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4CF5EEC028698B7B00AEF857 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		4CF5EEC328698B7B00AEF857 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4CF5EEC028698B7B00AEF857 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4C4BF882286981E7000AC23F /* Project object */;
 }
