@@ -14,9 +14,9 @@ struct SignInView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @EnvironmentObject var authBrain:AuthenticationBrain
+    @StateObject var dbBrain:DatabaseBrain = DatabaseBrain()
     
     var body: some View {
-        
         
         ZStack {
             Color.init(FlatWhite()).ignoresSafeArea()
@@ -66,26 +66,24 @@ struct SignInView: View {
                         .background(Color.blue)
                         .cornerRadius(10)
                         .padding()
-                    
                 })
                 
                 NavigationLink("Create Account", destination: SignUpView())
                     .foregroundColor(Color.blue)
                     .padding()
+                    .environmentObject(dbBrain)
                 
                 Spacer()
-                
-                
                 
             }
         }
     }
+    
 }
 
 struct SignInView_Previews: PreviewProvider {
     
     static var previews: some View {
-
         SignInView()
             .environmentObject(AuthenticationBrain())
     }
