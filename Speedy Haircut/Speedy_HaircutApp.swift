@@ -20,7 +20,7 @@ struct Speedy_HaircutApp: App {
             
             let authBrain = AuthenticationBrain()
             
-            ContentView()
+            LoginSwitchView()
                 .environmentObject(authBrain)
         }
     }
