@@ -26,6 +26,7 @@ class AuthenticationBrain: ObservableObject {
             guard let self = self else { return }
             
             guard result != nil, error == nil else {
+                print("SignUp Error, \(error)")
                 return
             }
             
@@ -62,6 +63,7 @@ class AuthenticationBrain: ObservableObject {
             guard let self = self else { return }
             
             guard result != nil, error == nil else {
+                print("Login Error, \(error)")
                 return
             }
             
