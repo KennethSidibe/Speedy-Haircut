@@ -18,26 +18,51 @@ class AuthenticationBrain: ObservableObject {
         return auth.currentUser != nil
     }
     
-    func signUp(username:String, password:String) {
+    func signUp(username:String, password:String, firstName: String, lastName: String, completionHandler: @escaping () -> ()) {
         
-        auth.createUser(withEmail: username, password: password) { [weak self] (result, error) in
+        auth.createUser(withEmail: username, password: password) { [weak self] (result, authError) in
+            
+            let db = Firestore.firestore()
             
 //            Avoid memory leak
             guard let self = self else { return }
             
-            guard result != nil, error == nil else {
-                print("SignUp Error, \(error)")
+            guard result != nil, authError == nil else {
+                print("SignUp Error, \(authError)")
                 return
             }
             
-
-            DispatchQueue.main.async {
-                
-            // Sign Up Successful
-                print("user sign in successfully")
-                self.signIn = true
-            }
+            //MARK: - Create user in db
             
+            let newUser = [
+                "firstName": firstName,
+                "lastName": lastName,
+                "lineNumber": 0
+            ] as! [String: Any]
+            
+            let newUserUid = result!.user.uid
+            
+            db.collection(K.userCollectionName).document(newUserUid).setData(newUser) { dbError in
+                
+                guard dbError == nil else {
+                    print("Error while writing new user data to db, \(dbError)")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    
+                    // Sign Up Successful
+                    print("user sign up successfully signin true")
+                    
+                    self.signIn = true
+                    
+                    print("user sign up successfully signIn : \(self.signIn)")
+                    
+                    completionHandler()
+                    
+                }
+                
+            }
             
         }
         
