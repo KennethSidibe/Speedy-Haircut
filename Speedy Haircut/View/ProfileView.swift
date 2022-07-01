@@ -11,6 +11,7 @@ struct ProfileView: View {
     
     @EnvironmentObject var authBrain:AuthenticationBrain
     @EnvironmentObject var dbBrain:DatabaseBrain
+    @State var queueNumber: Int 
     
     var body: some View {
         
@@ -34,7 +35,18 @@ struct ProfileView: View {
                     .navigationTitle("Profile")
                     .navigationBarTitleDisplayMode(.inline)
                 
+                Text("Queue: \(queueNumber)")
+                
                 Button(action: {
+                    
+                    dbBrain.addToQueue { currentQueueNumber in
+                        
+                        DispatchQueue.main.async {
+                            
+                            queueNumber = currentQueueNumber
+                        }
+                        
+                    }
                     
                 }, label: {
                     Text("Check-in")
@@ -77,7 +89,7 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        ProfileView(queueNumber: 0)
             .environmentObject(AuthenticationBrain())
             .environmentObject(DatabaseBrain())
     }
