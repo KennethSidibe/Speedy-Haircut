@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  SignInView.swift
 //  Speedy Haircut
 //
 //  Created by Kenneth Sidibe on 2022-06-27.
@@ -14,7 +14,7 @@ struct SignInView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @EnvironmentObject var authBrain:AuthenticationBrain
-    @StateObject var dbBrain:DatabaseBrain = DatabaseBrain()
+    @State private var showSignUp:Bool = false
     
     var body: some View {
         
@@ -45,7 +45,7 @@ struct SignInView: View {
                         .cornerRadius(10)
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
-        
+                    
                     
                     SecureField("password",text: $password)
                         .padding()
@@ -68,10 +68,27 @@ struct SignInView: View {
                         .padding()
                 })
                 
-                NavigationLink("Create Account", destination: SignUpView())
-                    .foregroundColor(Color.blue)
-                    .padding()
-                    .environmentObject(dbBrain)
+                Button(action: {
+                    
+                    showSignUp = true
+                    
+                }, label: {
+                    
+                    Text("Create Account")
+                        .foregroundColor(Color.blue)
+                        .padding()
+                        
+                    
+                }).foregroundColor(Color.blue)
+                    .sheet(isPresented: $showSignUp) {
+                        SignUpView(isPresented: $showSignUp)
+                            .environmentObject(authBrain)
+                    }
+                
+//                NavigationLink("Create Account", destination: SignUpView())
+//                    .foregroundColor(Color.blue)
+//                    .padding()
+//                    .environmentObject(authBrain)
                 
                 Spacer()
                 
