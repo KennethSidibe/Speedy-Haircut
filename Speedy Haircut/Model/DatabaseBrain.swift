@@ -10,29 +10,29 @@ import Firebase
 
 class DatabaseBrain: ObservableObject {
     
-    ///MARK: - Properties
+    //MARK: - Properties
     
     @Published var user = User()
     var userUid:String = ""
     
 //    Reference to the db
-    let db = Firestore.firestore().collection(K.userCollectionName)
+    let db = Firestore.firestore()
     
     @Published var isDataAvailable = false
 
     
     //MARK: - GET Data
     
-    func getData( completionHandler: @escaping (User?) -> () ) {
+    func getUserData(with uId:String, completionHandler: @escaping (User?) -> () ) {
         
         let currentUser = User()
-        let docReference = db.document(userUid)
+        let docReference = db.collection(K.userCollectionName).document(uId)
         
         docReference.getDocument { snapshot, error in
             
             if let document = snapshot?.data()  {
                 
-                currentUser.id = document["id"] as? String
+                currentUser.id = docReference.documentID
                 currentUser.firstName = document["firstName"] as? String
                 currentUser.lastName = document["lastName"] as? String
                 currentUser.lineNumber = document["lineNumber"] as? Int
@@ -47,6 +47,72 @@ class DatabaseBrain: ObservableObject {
                 completionHandler(nil)
             }
             
+        }
+        
+    }
+    
+    func addToQueue(completionHandler: @escaping (Int) -> ()) {
+            
+        let docReference = db.collection(K.globalCollectionName).document(K.queueDataIdName)
+        
+        docReference.getDocument { snapshot, error in
+            
+            if let document = snapshot?.data()  {
+                
+                self.user.lineNumber = document["peopleInLine"] as! Int + 1
+                
+                let newQueueNumber = ["lineNumber" : self.user.lineNumber]
+                
+                self.updateQueueData {
+                    
+                    self.updateUserData(with: self.user.id!, data: newQueueNumber as [String : Any]) {
+                        
+                        completionHandler(self.user.lineNumber!)
+                        
+                    }
+                }
+                
+            } else {
+                
+                print("Error while getting doc data, \(String(describing: error))")
+                
+                
+            }
+            
+        }
+        
+    }
+    
+    func updateUserData(with userId:String, data:[String:Any], completionHandler: @escaping () -> ()) {
+        
+        let docReference = db.collection(K.userCollectionName).document(user.id!)
+        
+        docReference.updateData(data) { updateError in
+            
+            guard updateError == nil else {
+                print("Error while updating userData, \(String(describing: updateError))")
+                return
+            }
+            
+            completionHandler()
+        }
+        
+    }
+    
+    func updateQueueData(completionHandler: @escaping () -> ()) {
+        
+        let docReference = db.collection(K.globalCollectionName).document(K.queueDataIdName)
+        
+        let updateLineDoc = ["peopleInLine" : self.user.lineNumber]
+        
+        docReference.updateData(updateLineDoc) { updateError in
+            
+            guard updateError == nil else {
+                print("Error while updating userData, \(String(describing: updateError))")
+                return
+            }
+            
+            completionHandler()
         }
         
     }
