@@ -16,7 +16,6 @@ struct ProfileSwitchView: View {
     var body: some View {
         
         if dbBrain.isDataAvailable {
-            
             ProfileView()
                 .environmentObject(authBrain)
                 .environmentObject(dbBrain)
@@ -25,6 +24,9 @@ struct ProfileSwitchView: View {
         else {
             LoadingView()
                 .onAppear{
+                    
+                    let LoggedUserUid = authBrain.auth.currentUser!.uid
+                    dbBrain.userUid = LoggedUserUid
                     
                     self.dbBrain.getData { user in
                         
