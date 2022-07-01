@@ -68,17 +68,6 @@ class AuthenticationBrain: ObservableObject {
         
     }
     
-    func signOut() {
-        
-        do {
-            try auth.signOut()
-            self.signIn = false
-        } catch {
-            print("Failed to signout, \(error)")
-        }
-        
-    }
-    
     func signIn(username:String, password:String) {
         
         print("signing in with \n username \(username) \n password \(password)")
@@ -101,6 +90,17 @@ class AuthenticationBrain: ObservableObject {
                 self.signIn = true
             }
             
+        }
+        
+    }
+    
+    func signOut() {
+        
+        do {
+            try auth.signOut()
+            self.signIn = false
+        } catch {
+            print("Failed to signout, \(error)")
         }
         
     }

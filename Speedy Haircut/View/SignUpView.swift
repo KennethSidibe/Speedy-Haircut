@@ -15,6 +15,9 @@ struct SignUpView: View {
     @State private var password = ""
     @State private var firstName = ""
     @State private var lastName = ""
+    
+//    Check if SignUp View is still presented
+    
     @Binding var isPresented:Bool
     
     @EnvironmentObject var authBrain:AuthenticationBrain
