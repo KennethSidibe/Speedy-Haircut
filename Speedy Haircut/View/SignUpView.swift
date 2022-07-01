@@ -11,8 +11,12 @@ import FirebaseAuth
 
 struct SignUpView: View {
     
-    @State private var username: String = ""
-    @State private var password: String = ""
+    @State private var username = ""
+    @State private var password = ""
+    @State private var firstName = ""
+    @State private var lastName = ""
+    @Binding var isPresented:Bool
+    
     @EnvironmentObject var authBrain:AuthenticationBrain
     
     var body: some View {
@@ -48,7 +52,7 @@ struct SignUpView: View {
                         
                     
                     GroupBox {
-                        TextField("First name",text: $username)
+                        TextField("First name",text: $firstName)
                             .padding()
                             .frame(width: 300, height: 50, alignment: .center)
                             .background(Color.black.opacity(0.05))
@@ -56,7 +60,7 @@ struct SignUpView: View {
                             .disableAutocorrection(true)
                             .autocapitalization(.none)
                         
-                        TextField("Last Name",text: $username)
+                        TextField("Last Name",text: $lastName)
                             .padding()
                             .frame(width: 300, height: 50, alignment: .center)
                             .background(Color.black.opacity(0.05))
@@ -75,7 +79,14 @@ struct SignUpView: View {
                 
                 Button(action: {
                     
-                    authBrain.signUp(username: username, password: password)
+                    authBrain.signUp(
+                        username: username,
+                        password: password,
+                        firstName: firstName,
+                        lastName: lastName
+                    ) {
+                        self.isPresented = false
+                    }
                     
                 }, label: {
                     Text("Sign Up")
@@ -95,10 +106,8 @@ struct SignUpView: View {
 }
 
 struct SignUpView_Previews: PreviewProvider {
-    
     static var previews: some View {
-
-        SignUpView()
+        SignUpView(isPresented: .constant(true))
             .environmentObject(AuthenticationBrain())
     }
 }
