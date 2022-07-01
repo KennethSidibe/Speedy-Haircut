@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3F9C923EC2DFE40D408FA8AA /* Pods_Speedy_Haircut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4DC61C8C2E172E679214CB /* Pods_Speedy_Haircut.framework */; };
+		4C0E00C0286EC9810054B309 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E00BF286EC9810054B309 /* ProfileView.swift */; };
 		4C398AC0286AB16A000188D5 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C398ABF286AB16A000188D5 /* SignUpView.swift */; };
 		4C398AC2286AB737000188D5 /* ProfileSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C398AC1286AB737000188D5 /* ProfileSwitchView.swift */; };
 		4C398AC6286BAA03000188D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C398AC5286BAA03000188D5 /* GoogleService-Info.plist */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C0E00BF286EC9810054B309 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		4C398ABF286AB16A000188D5 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4C398AC1286AB737000188D5 /* ProfileSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSwitchView.swift; sourceTree = "<group>"; };
 		4C398AC5286BAA03000188D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 		4CF5EEC528699DB300AEF857 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4C0E00BF286EC9810054B309 /* ProfileView.swift */,
 				4C4BF88F286981E7000AC23F /* SignInView.swift */,
 				4C398ABF286AB16A000188D5 /* SignUpView.swift */,
 				4CF5EECA286AAB8E00AEF857 /* LoginSwitchView.swift */,
@@ -275,6 +278,7 @@
 				4C398AC0286AB16A000188D5 /* SignUpView.swift in Sources */,
 				4C398AC2286AB737000188D5 /* ProfileSwitchView.swift in Sources */,
 				4C398AD5286D4E80000188D5 /* LoadingView.swift in Sources */,
+				4C0E00C0286EC9810054B309 /* ProfileView.swift in Sources */,
 				4CF5EEC828699DEB00AEF857 /* AuthenticationBrain.swift in Sources */,
 				4C398ACD286C9987000188D5 /* LottieView.swift in Sources */,
 				4C398AD3286CF255000188D5 /* Constants.swift in Sources */,
