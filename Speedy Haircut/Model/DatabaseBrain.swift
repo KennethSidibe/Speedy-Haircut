@@ -13,9 +13,10 @@ class DatabaseBrain: ObservableObject {
     ///MARK: - Properties
     
     @Published var user = User()
+    var userUid:String = ""
     
 //    Reference to the db
-    let db = Firestore.firestore().collection(K.userCollectionName).document("KennethS")
+    let db = Firestore.firestore().collection(K.userCollectionName)
     
     @Published var isDataAvailable = false
 
@@ -25,8 +26,9 @@ class DatabaseBrain: ObservableObject {
     func getData( completionHandler: @escaping (User?) -> () ) {
         
         let currentUser = User()
+        let docReference = db.document(userUid)
         
-        db.getDocument { snapshot, error in
+        docReference.getDocument { snapshot, error in
             
             if let document = snapshot?.data()  {
                 
