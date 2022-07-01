@@ -17,10 +17,6 @@ struct SignUpView: View {
     
     var body: some View {
         
-        let backgroundColor = "74b9ff"
-        let textFieldBgImage = "TextField"
-        
-        
         ZStack {
             Color.init(FlatWhite()).ignoresSafeArea()
             
@@ -48,13 +44,33 @@ struct SignUpView: View {
                         .cornerRadius(10)
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
+                        .padding(.top)
+                        
                     
-                    SecureField("password",text: $password)
+                    GroupBox {
+                        TextField("First name",text: $username)
+                            .padding()
+                            .frame(width: 300, height: 50, alignment: .center)
+                            .background(Color.black.opacity(0.05))
+                            .cornerRadius(10)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.none)
+                        
+                        TextField("Last Name",text: $username)
+                            .padding()
+                            .frame(width: 300, height: 50, alignment: .center)
+                            .background(Color.black.opacity(0.05))
+                            .cornerRadius(10)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.none)
+                    }.padding(15)
+                    
+                    SecureField("Password",text: $password)
                         .padding()
                         .frame(width: 300, height: 50, alignment: .center)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
-                    
+                        .padding(.bottom)
                 }
                 
                 Button(action: {
@@ -72,8 +88,6 @@ struct SignUpView: View {
                 })
                 
                 Spacer()
-                
-                
                 
             }
         }
