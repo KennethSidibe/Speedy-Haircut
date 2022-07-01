@@ -16,7 +16,7 @@ struct ProfileSwitchView: View {
     var body: some View {
         
         if dbBrain.isDataAvailable {
-            ProfileView()
+            ProfileView(queueNumber: dbBrain.user.lineNumber!)
                 .environmentObject(authBrain)
                 .environmentObject(dbBrain)
             
@@ -25,10 +25,10 @@ struct ProfileSwitchView: View {
             LoadingView()
                 .onAppear{
                     
-                    let LoggedUserUid = authBrain.auth.currentUser!.uid
-                    dbBrain.userUid = LoggedUserUid
+                    let loggedUserUid = authBrain.auth.currentUser!.uid
+                    dbBrain.user.id = loggedUserUid
                     
-                    self.dbBrain.getData { user in
+                    self.dbBrain.getUserData(with: loggedUserUid) { user in
                         
 //                        Delay to let loading animation play
                         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
