@@ -14,6 +14,9 @@ struct SignInView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @EnvironmentObject var authBrain:AuthenticationBrain
+    
+//    Check if we should present the SignUp page or not
+    
     @State private var showSignUp:Bool = false
     
     var body: some View {
@@ -80,15 +83,11 @@ struct SignInView: View {
                         
                     
                 }).foregroundColor(Color.blue)
+                
                     .sheet(isPresented: $showSignUp) {
                         SignUpView(isPresented: $showSignUp)
                             .environmentObject(authBrain)
                     }
-                
-//                NavigationLink("Create Account", destination: SignUpView())
-//                    .foregroundColor(Color.blue)
-//                    .padding()
-//                    .environmentObject(authBrain)
                 
                 Spacer()
                 
@@ -99,7 +98,6 @@ struct SignInView: View {
 }
 
 struct SignInView_Previews: PreviewProvider {
-    
     static var previews: some View {
         SignInView()
             .environmentObject(AuthenticationBrain())
