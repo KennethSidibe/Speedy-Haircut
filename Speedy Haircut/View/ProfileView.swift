@@ -11,7 +11,8 @@ struct ProfileView: View {
     
     @EnvironmentObject var authBrain:AuthenticationBrain
     @EnvironmentObject var dbBrain:DatabaseBrain
-    @State var queueNumber: Int 
+    @State var queueNumber: Int
+    @State var isQueueingViewPresented:Bool = false
     
     var body: some View {
         
@@ -39,11 +40,15 @@ struct ProfileView: View {
                 
                 Button(action: {
                     
+                    isQueueingViewPresented = true
+                    
                     dbBrain.addToQueue { currentQueueNumber in
                         
-                        DispatchQueue.main.async {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                             
                             queueNumber = currentQueueNumber
+                            isQueueingViewPresented = false
+                            
                         }
                         
                     }
@@ -55,6 +60,10 @@ struct ProfileView: View {
                         .background(Color.black)
                         .cornerRadius(10)
                         .foregroundColor(Color.white)
+                    
+                }).fullScreenCover(isPresented: $isQueueingViewPresented, content: {
+                    
+                    QueueingView(isQueueing: $isQueueingViewPresented)
                     
                 })
                 
