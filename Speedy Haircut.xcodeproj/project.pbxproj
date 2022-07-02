@@ -24,6 +24,9 @@
 		4C4BF892286981E9000AC23F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C4BF891286981E9000AC23F /* Assets.xcassets */; };
 		4C4BF895286981E9000AC23F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C4BF894286981E9000AC23F /* Preview Assets.xcassets */; };
 		4C8D8E56286FA249009F5C61 /* QueueingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E55286FA249009F5C61 /* QueueingView.swift */; };
+		4C8D8E5828710948009F5C61 /* QueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5728710948009F5C61 /* QueueView.swift */; };
+		4C8D8E5A28710A48009F5C61 /* UserTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5928710A48009F5C61 /* UserTabView.swift */; };
+		4C8D8E5C28710C69009F5C61 /* ReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5B28710C69009F5C61 /* ReservationView.swift */; };
 		4CF5EEC228698B7B00AEF857 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF5EEC128698B7B00AEF857 /* FirebaseAuth */; };
 		4CF5EEC428698B7B00AEF857 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF5EEC328698B7B00AEF857 /* FirebaseFirestore */; };
 		4CF5EEC828699DEB00AEF857 /* AuthenticationBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */; };
@@ -47,6 +50,9 @@
 		4C4BF891286981E9000AC23F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C4BF894286981E9000AC23F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4C8D8E55286FA249009F5C61 /* QueueingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueingView.swift; sourceTree = "<group>"; };
+		4C8D8E5728710948009F5C61 /* QueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueView.swift; sourceTree = "<group>"; };
+		4C8D8E5928710A48009F5C61 /* UserTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabView.swift; sourceTree = "<group>"; };
+		4C8D8E5B28710C69009F5C61 /* ReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationView.swift; sourceTree = "<group>"; };
 		4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationBrain.swift; sourceTree = "<group>"; };
 		4CF5EECA286AAB8E00AEF857 /* LoginSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSwitchView.swift; sourceTree = "<group>"; };
 		5436FDA635CEC29B0B23D247 /* Pods-Speedy Haircut.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speedy Haircut.debug.xcconfig"; path = "Target Support Files/Pods-Speedy Haircut/Pods-Speedy Haircut.debug.xcconfig"; sourceTree = "<group>"; };
@@ -120,6 +126,9 @@
 				4C398AD4286D4E80000188D5 /* LoadingView.swift */,
 				4C398AC1286AB737000188D5 /* ProfileSwitchView.swift */,
 				4C398ACC286C9987000188D5 /* LottieView.swift */,
+				4C8D8E5728710948009F5C61 /* QueueView.swift */,
+				4C8D8E5928710A48009F5C61 /* UserTabView.swift */,
+				4C8D8E5B28710C69009F5C61 /* ReservationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -283,13 +292,16 @@
 				4C398AD5286D4E80000188D5 /* LoadingView.swift in Sources */,
 				4C0E00C0286EC9810054B309 /* ProfileView.swift in Sources */,
 				4CF5EEC828699DEB00AEF857 /* AuthenticationBrain.swift in Sources */,
+				4C8D8E5828710948009F5C61 /* QueueView.swift in Sources */,
 				4C8D8E56286FA249009F5C61 /* QueueingView.swift in Sources */,
 				4C398ACD286C9987000188D5 /* LottieView.swift in Sources */,
 				4C398AD3286CF255000188D5 /* Constants.swift in Sources */,
 				4C398AD1286CF0C8000188D5 /* User.swift in Sources */,
 				4CF5EECB286AAB8E00AEF857 /* LoginSwitchView.swift in Sources */,
 				4C4BF88E286981E7000AC23F /* Speedy_HaircutApp.swift in Sources */,
+				4C8D8E5C28710C69009F5C61 /* ReservationView.swift in Sources */,
 				4C398ACF286CEFB0000188D5 /* DatabaseBrain.swift in Sources */,
+				4C8D8E5A28710A48009F5C61 /* UserTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
