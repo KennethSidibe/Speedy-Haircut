@@ -25,6 +25,9 @@ struct LottieView: UIViewRepresentable {
         animationView.contentMode = .scaleAspectFill
         animationView.play()
         
+//        This makes the animation restart when added in a tab view 
+        animationView.backgroundBehavior = .pauseAndRestore
+        
         animationView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(animationView)
