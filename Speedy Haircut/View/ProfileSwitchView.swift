@@ -16,7 +16,8 @@ struct ProfileSwitchView: View {
     var body: some View {
         
         if dbBrain.isDataAvailable {
-            ProfileView(queueNumber: dbBrain.user.lineNumber!)
+            
+            UserTabView(queueNumber: dbBrain.user.lineNumber!)
                 .environmentObject(authBrain)
                 .environmentObject(dbBrain)
             
