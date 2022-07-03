@@ -10,12 +10,18 @@ import SwiftUI
 struct UserTabView: View {
     
     @State var tabSelected:Int = 1
+    @State var queueNumber: Int
+    @EnvironmentObject var authBrain:AuthenticationBrain
+    @EnvironmentObject var dbBrain:DatabaseBrain
+//    @State var animate = false
     
     var body: some View {
         
         TabView(selection: $tabSelected){
             
-            SignInView()
+            ProfileView(queueNumber: queueNumber)
+                .environmentObject(authBrain)
+                .environmentObject(dbBrain)
                 .tag(1)
                 .tabItem {
                     Label("Profile", systemImage: "person.crop.circle.fill")
@@ -60,6 +66,8 @@ struct UserTabView: View {
 
 struct UserTabView_Previews: PreviewProvider {
     static var previews: some View {
-        UserTabView()
+        UserTabView(queueNumber: 1)
+            .environmentObject(AuthenticationBrain())
+            .environmentObject(DatabaseBrain())
     }
 }
