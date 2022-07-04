@@ -13,7 +13,6 @@ struct UserTabView: View {
     @State var queueNumber: Int
     @EnvironmentObject var authBrain:AuthenticationBrain
     @EnvironmentObject var dbBrain:DatabaseBrain
-//    @State var animate = false
     
     var body: some View {
         

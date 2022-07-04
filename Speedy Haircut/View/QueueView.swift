@@ -12,8 +12,16 @@
 import SwiftUI
 
 struct QueueView: View {
+    
+    @EnvironmentObject var dbBrain:DatabaseBrain
+    
     var body: some View {
+        
         Text("Here is a list of all the person in the queue")
+        
+        Text("First")
+        
+        
     }
 }
 
