@@ -27,6 +27,7 @@
 		4C8D8E5828710948009F5C61 /* QueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5728710948009F5C61 /* QueueView.swift */; };
 		4C8D8E5A28710A48009F5C61 /* UserTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5928710A48009F5C61 /* UserTabView.swift */; };
 		4C8D8E5C28710C69009F5C61 /* ReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5B28710C69009F5C61 /* ReservationView.swift */; };
+		4C8D8E5E287115F7009F5C61 /* QueueList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5D287115F6009F5C61 /* QueueList.swift */; };
 		4CF5EEC228698B7B00AEF857 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF5EEC128698B7B00AEF857 /* FirebaseAuth */; };
 		4CF5EEC428698B7B00AEF857 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF5EEC328698B7B00AEF857 /* FirebaseFirestore */; };
 		4CF5EEC828699DEB00AEF857 /* AuthenticationBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */; };
@@ -53,6 +54,7 @@
 		4C8D8E5728710948009F5C61 /* QueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueView.swift; sourceTree = "<group>"; };
 		4C8D8E5928710A48009F5C61 /* UserTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabView.swift; sourceTree = "<group>"; };
 		4C8D8E5B28710C69009F5C61 /* ReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationView.swift; sourceTree = "<group>"; };
+		4C8D8E5D287115F6009F5C61 /* QueueList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueList.swift; sourceTree = "<group>"; };
 		4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationBrain.swift; sourceTree = "<group>"; };
 		4CF5EECA286AAB8E00AEF857 /* LoginSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSwitchView.swift; sourceTree = "<group>"; };
 		5436FDA635CEC29B0B23D247 /* Pods-Speedy Haircut.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speedy Haircut.debug.xcconfig"; path = "Target Support Files/Pods-Speedy Haircut/Pods-Speedy Haircut.debug.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		4CF5EEC628699DDA00AEF857 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4C8D8E5D287115F6009F5C61 /* QueueList.swift */,
 				4C398AD2286CF255000188D5 /* Constants.swift */,
 				4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */,
 				4C398ACE286CEFB0000188D5 /* DatabaseBrain.swift */,
@@ -286,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C8D8E5E287115F7009F5C61 /* QueueList.swift in Sources */,
 				4C4BF890286981E7000AC23F /* SignInView.swift in Sources */,
 				4C398AC0286AB16A000188D5 /* SignUpView.swift in Sources */,
 				4C398AC2286AB737000188D5 /* ProfileSwitchView.swift in Sources */,
