@@ -14,6 +14,7 @@ class DatabaseBrain: ObservableObject {
     
     @Published var user = User()
     var userUid:String = ""
+    var sortBrain = QuickSort()
     
 //    Reference to the db
     let db = Firestore.firestore()
@@ -113,6 +114,45 @@ class DatabaseBrain: ObservableObject {
             }
             
             completionHandler()
+        }
+        
+    }
+    
+    func fetchQueueList(completionHandler: @escaping([User]) -> ()) {
+        
+        let dbReference = db.collection(K.userCollectionName)
+        
+        dbReference.getDocuments() { snapshot, error in
+            
+            if let snapshot = snapshot {
+                
+                var userList = [User]()
+                
+                for document in snapshot.documents {
+                    
+                    var user = User()
+                    
+                    user.id = document.documentID
+                    user.firstName = document["firstName"] as? String
+                    user.lastName = document["lastName"] as? String
+                    user.lineNumber = document["lineNumber"] as? Int
+                    user.photo = "pic.jpg"
+                    
+                    userList.append(user)
+                    
+                }
+                
+                let t = Test()
+                
+                
+                self.sortBrain.sortQuick(array: &userList)
+                
+                t.printUserArr(userArray: userList)
+                
+                completionHandler(userList)
+                
+            }
+            
         }
         
     }
