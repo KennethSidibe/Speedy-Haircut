@@ -111,4 +111,16 @@ class Test {
         
     }
     
+    func printUserArr(userArray:Array<User>) {
+        
+        for i in 0...userArray.count - 1 {
+            
+            print("\(userArray[i].firstName!) : \(userArray[i].lineNumber!),", terminator: "")
+            
+        }
+        print()
+        
+    }
+    
+    
 }
