@@ -19,9 +19,6 @@ struct QueueView: View {
         
         Text("Here is a list of all the person in the queue")
         
-        Text("First")
-        
-        
     }
 }
 
