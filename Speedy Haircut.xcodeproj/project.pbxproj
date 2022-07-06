@@ -28,10 +28,12 @@
 		4C8D8E5A28710A48009F5C61 /* UserTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5928710A48009F5C61 /* UserTabView.swift */; };
 		4C8D8E5C28710C69009F5C61 /* ReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5B28710C69009F5C61 /* ReservationView.swift */; };
 		4C8D8E5E287115F7009F5C61 /* QueueList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5D287115F6009F5C61 /* QueueList.swift */; };
+		4CEA638028753EF900619D7F /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEA637F28753EF900619D7F /* Test.swift */; };
 		4CF5EEC228698B7B00AEF857 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF5EEC128698B7B00AEF857 /* FirebaseAuth */; };
 		4CF5EEC428698B7B00AEF857 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF5EEC328698B7B00AEF857 /* FirebaseFirestore */; };
 		4CF5EEC828699DEB00AEF857 /* AuthenticationBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */; };
 		4CF5EECB286AAB8E00AEF857 /* LoginSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF5EECA286AAB8E00AEF857 /* LoginSwitchView.swift */; };
+		4CFEA9EF28750BC400DFF233 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFEA9EE28750BC400DFF233 /* Sort.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,8 +57,10 @@
 		4C8D8E5928710A48009F5C61 /* UserTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabView.swift; sourceTree = "<group>"; };
 		4C8D8E5B28710C69009F5C61 /* ReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationView.swift; sourceTree = "<group>"; };
 		4C8D8E5D287115F6009F5C61 /* QueueList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueList.swift; sourceTree = "<group>"; };
+		4CEA637F28753EF900619D7F /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationBrain.swift; sourceTree = "<group>"; };
 		4CF5EECA286AAB8E00AEF857 /* LoginSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSwitchView.swift; sourceTree = "<group>"; };
+		4CFEA9EE28750BC400DFF233 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 		5436FDA635CEC29B0B23D247 /* Pods-Speedy Haircut.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speedy Haircut.debug.xcconfig"; path = "Target Support Files/Pods-Speedy Haircut/Pods-Speedy Haircut.debug.xcconfig"; sourceTree = "<group>"; };
 		8840D9E8998D1F64628EB1C5 /* Pods-Speedy Haircut.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speedy Haircut.release.xcconfig"; path = "Target Support Files/Pods-Speedy Haircut/Pods-Speedy Haircut.release.xcconfig"; sourceTree = "<group>"; };
 		9A4DC61C8C2E172E679214CB /* Pods_Speedy_Haircut.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Speedy_Haircut.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,7 +146,9 @@
 				4C398AD2286CF255000188D5 /* Constants.swift */,
 				4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */,
 				4C398ACE286CEFB0000188D5 /* DatabaseBrain.swift */,
+				4CFEA9EE28750BC400DFF233 /* Sort.swift */,
 				4C398AD0286CF0C8000188D5 /* User.swift */,
+				4CEA637F28753EF900619D7F /* Test.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -296,10 +302,12 @@
 				4C398AD5286D4E80000188D5 /* LoadingView.swift in Sources */,
 				4C0E00C0286EC9810054B309 /* ProfileView.swift in Sources */,
 				4CF5EEC828699DEB00AEF857 /* AuthenticationBrain.swift in Sources */,
+				4CEA638028753EF900619D7F /* Test.swift in Sources */,
 				4C8D8E5828710948009F5C61 /* QueueView.swift in Sources */,
 				4C8D8E56286FA249009F5C61 /* QueueingView.swift in Sources */,
 				4C398ACD286C9987000188D5 /* LottieView.swift in Sources */,
 				4C398AD3286CF255000188D5 /* Constants.swift in Sources */,
+				4CFEA9EF28750BC400DFF233 /* Sort.swift in Sources */,
 				4C398AD1286CF0C8000188D5 /* User.swift in Sources */,
 				4CF5EECB286AAB8E00AEF857 /* LoginSwitchView.swift in Sources */,
 				4C4BF88E286981E7000AC23F /* Speedy_HaircutApp.swift in Sources */,
