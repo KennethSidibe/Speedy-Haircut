@@ -52,6 +52,7 @@ struct UserTabView: View {
             } else {
                 // Fallback on earlier versions
                 ReservationView()
+                    .environmentObject(dbBrain)
                     .tag(3)
                     .tabItem {
                         Label("Reservation", systemImage: "scissors")
