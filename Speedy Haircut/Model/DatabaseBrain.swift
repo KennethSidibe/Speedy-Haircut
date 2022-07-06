@@ -20,7 +20,6 @@ class DatabaseBrain: ObservableObject {
     let db = Firestore.firestore()
     
     @Published var isDataAvailable = false
-
     
     //MARK: - GET Data
     
@@ -157,4 +156,7 @@ class DatabaseBrain: ObservableObject {
         
     }
     
+    func bookReservation(client:String) {
+        
+    }
 }
