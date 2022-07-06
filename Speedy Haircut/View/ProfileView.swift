@@ -5,6 +5,12 @@
 //  Created by Kenneth Sidibe on 2022-06-30.
 //
 
+/*
+ 
+ View that generates the profile of user
+ 
+ */
+
 import SwiftUI
 
 struct ProfileView: View {
@@ -38,6 +44,8 @@ struct ProfileView: View {
                 
                 Text("Queue: \(queueNumber)")
                 
+                
+                
                 Button(action: {
                     
                     isQueueingViewPresented = true
@@ -66,7 +74,6 @@ struct ProfileView: View {
                     QueueingView(isQueueing: $isQueueingViewPresented)
                     
                 })
-                
                 
                 .toolbar {
                     
@@ -101,5 +108,6 @@ struct ProfileView_Previews: PreviewProvider {
         ProfileView(queueNumber: 0)
             .environmentObject(AuthenticationBrain())
             .environmentObject(DatabaseBrain())
+        
     }
 }
