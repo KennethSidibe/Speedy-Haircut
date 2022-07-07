@@ -44,8 +44,6 @@ struct ProfileView: View {
                 
                 Text("Queue: \(queueNumber)")
                 
-                
-                
                 Button(action: {
                     
                     isQueueingViewPresented = true
@@ -62,6 +60,7 @@ struct ProfileView: View {
                     }
                     
                 }, label: {
+                    
                     Text("Check-in")
                         .padding()
                         .frame(width: 150, height: 50, alignment: .center)
@@ -72,6 +71,23 @@ struct ProfileView: View {
                 }).fullScreenCover(isPresented: $isQueueingViewPresented, content: {
                     
                     QueueingView(isQueueing: $isQueueingViewPresented)
+                    
+                })
+                
+                Button(action: {
+                    
+                    let t = Test()
+                    
+                    t.testUserArray(file: true)
+                    
+                }, label: {
+                    
+                    Text("Test new sort")
+                        .padding()
+                        .frame(width: 150, height: 50, alignment: .center)
+                        .background(Color.black)
+                        .cornerRadius(10)
+                        .foregroundColor(Color.white)
                     
                 })
                 
