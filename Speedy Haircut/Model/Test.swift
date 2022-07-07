@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import AVFoundation
 
 
 class Test {
     
-    func testArray(file:Bool = false) {
+    func testUserArray(file:Bool = false) {
         
         let sort = QuickSort()
         
@@ -22,44 +23,78 @@ class Test {
         
         sort.sortQuick(array: &userList)
         
-        print("CHECK SORT: \(checkSort(userArray: userList))")
+        print("CHECK SORT: \(checkSort(elementArray: userList))")
         
         if file {
             
-            writeToTxt(userList: unsortedList, filename: "unsorted.txt")
+            writeToTxt(list: unsortedList, filename: "unsorted.txt")
             
-            sort.sortQuick(array: &userList)
-            
-            writeToTxt(userList: userList, filename: "sorted.txt")
+            writeToTxt(list: userList, filename: "sorted.txt")
             
         }
         
     }
     
-    func checkSort(userArray: Array<User>) -> Bool {
+    func testReservationArray(file:Bool = false) {
         
-        let max = userArray.count - 2
+        let sort = QuickSort()
+        
+        let randomSize = Int.random(in: 0...1000)
+        
+        var reservationList = createRandomReservations(size: randomSize)
+        
+        let unsortedList = reservationList
+        
+        sort.sortQuick(array: &reservationList)
+        
+        print("CHECK SORT: \(checkSort(elementArray: reservationList))")
+        
+        if file {
+            
+            writeToTxt(list: unsortedList, filename: "unsorted.txt")
+            
+            writeToTxt(list: reservationList, filename: "sorted.txt")
+            
+        }
+        
+    }
+    
+    func checkSort<Element:Comparable>(elementArray: Array<Element>) -> Bool {
+        
+        let max = elementArray.count - 2
         
         for i in 0...max {
             
-            if(userArray[i+1] < userArray[i]) {
+            if(elementArray[i+1] < elementArray[i]) {
                 
                 return false
                 
             }
-            
-            
         }
         
         return true
         
     }
     
-    func writeToTxt(userList:[User], filename:String = "output.txt") {
+    func writeToTxt(list:[Any], filename:String = "output.txt") {
         
-        let strList = self.userToString(array: userList)
+        let strList:Any
+        
+        switch list[0] {
+            
+        case is Reservation:
+            strList = self.reservationToString(array: list as! Array<Reservation>)
+            
+        case is User:
+            strList = self.userToString(array: list as! Array<User>)
+            
+        default:
+            print("This function can only write list of type `User` and `Reservation` for now ")
+            return
+            
+        }
 
-        let strText = strList.joined(separator: ",")
+        let strText = (strList as! [String]).joined(separator: ",")
         
         func getDocumentsDirectory() -> URL {
             let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -88,6 +123,22 @@ class Test {
             
         }
         
+        return list
+    }
+    
+    func reservationToString(array:Array<Reservation>) -> [String] {
+        
+        var list = [String]()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        
+        for i in 0...array.count - 1 {
+            
+            let date = formatter.string(from: array[i].date!)
+            
+            list.append(date)
+            
+        }
         
         return list
     }
@@ -111,6 +162,28 @@ class Test {
         
     }
     
+    func createRandomReservations(size:Int) -> Array<Reservation> {
+        
+        var randomReservationList = [Reservation]()
+        
+        for _ in 0...size {
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy/MM/dd"
+            let longPastedDate = formatter.date(from: "1961/06/09")
+
+            let range:Range<Date> = longPastedDate!..<Date()
+            
+            let newReservation = Reservation()
+            newReservation.date = Date.random(in: range)
+            randomReservationList.append(newReservation)
+            
+        }
+        
+        return randomReservationList
+        
+    }
+    
     func printUserArr(userArray:Array<User>) {
         
         for i in 0...userArray.count - 1 {
@@ -122,5 +195,16 @@ class Test {
         
     }
     
+}
+
+extension Date {
+    
+    static func random(in range: Range<Date>) -> Date {
+        Date(
+            timeIntervalSinceNow: .random(
+                in: range.lowerBound.timeIntervalSinceNow...range.upperBound.timeIntervalSinceNow
+            )
+        )
+    }
     
 }
