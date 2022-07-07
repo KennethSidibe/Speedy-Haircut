@@ -9,7 +9,7 @@ import Foundation
 
 class QuickSort {
     
-    func sortQuick (array: inout Array<User>) {
+    func sortQuick<Element:Comparable> (array: inout Array<Element>) {
         
         let size = array.count - 1
         
@@ -17,7 +17,7 @@ class QuickSort {
         
     }
     
-    func quickSortThree(arraySort: inout Array<User>, low:Int, high: Int){
+    func quickSortThree<Element:Comparable> (arraySort: inout Array<Element>, low:Int, high: Int){
         
         if(high == low + 1){
             
@@ -47,7 +47,7 @@ class QuickSort {
         
     }
     
-    func partitionThree(array: inout Array<User>, low:Int, high: Int) -> (Int, Int){
+    func partitionThree<Element:Comparable> (array: inout Array<Element>, low:Int, high: Int) -> (Int, Int){
         
         let pivot = array[low]
         
