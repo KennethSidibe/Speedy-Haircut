@@ -141,12 +141,7 @@ class DatabaseBrain: ObservableObject {
                     
                 }
                 
-                let t = Test()
-                
-                
                 self.sortBrain.sortQuick(array: &userList)
-                
-                t.printUserArr(userArray: userList)
                 
                 completionHandler(userList)
                 
@@ -156,7 +151,61 @@ class DatabaseBrain: ObservableObject {
         
     }
     
-    func bookReservation(client:String) {
+    func fetchReservationList(completionHandler: @escaping([Reservation]) -> ()) {
+        
+        let dbReference = db.collection(K.reservationCollectionName)
+        
+        dbReference.getDocuments() { snapshot, error in
+            
+            if let snapshot = snapshot {
+                
+                var reservationList = [Reservation]()
+                
+                for document in snapshot.documents {
+                    
+                    var reservation = Reservation()
+                    
+                    reservation.id = document.documentID
+                    reservation.clientName = document["clientName"] as? String
+                    
+                    guard let dateFetch = document["date"] as? TimeInterval else {
+                        print("Error while parsing firestore date field to Timestamp")
+                        return
+                    }
+                    
+                    reservation.date = Date(timeIntervalSince1970: dateFetch)
+                    
+                    reservationList.append(reservation)
+                    
+                }
+                
+                completionHandler(reservationList)
+                
+            }
+            
+        }
         
     }
+    
+    func bookReservation(client:String) {
+        
+        
+        
+    }
+    
+    func CalculateAvailableSlot(){
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
