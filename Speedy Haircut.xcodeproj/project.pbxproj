@@ -13,7 +13,6 @@
 		4C398AC2286AB737000188D5 /* ProfileSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C398AC1286AB737000188D5 /* ProfileSwitchView.swift */; };
 		4C398AC6286BAA03000188D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C398AC5286BAA03000188D5 /* GoogleService-Info.plist */; };
 		4C398AC8286C94DB000188D5 /* Lottie-Animations in Resources */ = {isa = PBXBuildFile; fileRef = 4C398AC7286C94DB000188D5 /* Lottie-Animations */; };
-		4C398ACB286C9857000188D5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4C398ACA286C9857000188D5 /* Lottie */; };
 		4C398ACD286C9987000188D5 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C398ACC286C9987000188D5 /* LottieView.swift */; };
 		4C398ACF286CEFB0000188D5 /* DatabaseBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C398ACE286CEFB0000188D5 /* DatabaseBrain.swift */; };
 		4C398AD1286CF0C8000188D5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C398AD0286CF0C8000188D5 /* User.swift */; };
@@ -28,10 +27,12 @@
 		4C8D8E5A28710A48009F5C61 /* UserTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5928710A48009F5C61 /* UserTabView.swift */; };
 		4C8D8E5C28710C69009F5C61 /* ReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5B28710C69009F5C61 /* ReservationView.swift */; };
 		4C8D8E5E287115F7009F5C61 /* QueueList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5D287115F6009F5C61 /* QueueList.swift */; };
+		4CCE837728762E440036FE7D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4CCE837628762E440036FE7D /* FirebaseAuth */; };
+		4CCE837928762E440036FE7D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CCE837828762E440036FE7D /* FirebaseFirestore */; };
+		4CCE837B28762E440036FE7D /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 4CCE837A28762E440036FE7D /* FirebaseFunctions */; };
+		4CCE837E28762E770036FE7D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4CCE837D28762E770036FE7D /* Lottie */; };
 		4CD55F352875F745008DA74A /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD55F342875F745008DA74A /* Reservation.swift */; };
 		4CEA638028753EF900619D7F /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEA637F28753EF900619D7F /* Test.swift */; };
-		4CF5EEC228698B7B00AEF857 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF5EEC128698B7B00AEF857 /* FirebaseAuth */; };
-		4CF5EEC428698B7B00AEF857 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF5EEC328698B7B00AEF857 /* FirebaseFirestore */; };
 		4CF5EEC828699DEB00AEF857 /* AuthenticationBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */; };
 		4CF5EECB286AAB8E00AEF857 /* LoginSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF5EECA286AAB8E00AEF857 /* LoginSwitchView.swift */; };
 		4CFEA9EF28750BC400DFF233 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFEA9EE28750BC400DFF233 /* Sort.swift */; };
@@ -73,10 +74,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CCE837E28762E770036FE7D /* Lottie in Frameworks */,
 				3F9C923EC2DFE40D408FA8AA /* Pods_Speedy_Haircut.framework in Frameworks */,
-				4CF5EEC228698B7B00AEF857 /* FirebaseAuth in Frameworks */,
-				4CF5EEC428698B7B00AEF857 /* FirebaseFirestore in Frameworks */,
-				4C398ACB286C9857000188D5 /* Lottie in Frameworks */,
+				4CCE837728762E440036FE7D /* FirebaseAuth in Frameworks */,
+				4CCE837928762E440036FE7D /* FirebaseFirestore in Frameworks */,
+				4CCE837B28762E440036FE7D /* FirebaseFunctions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,9 +194,10 @@
 			);
 			name = "Speedy Haircut";
 			packageProductDependencies = (
-				4CF5EEC128698B7B00AEF857 /* FirebaseAuth */,
-				4CF5EEC328698B7B00AEF857 /* FirebaseFirestore */,
-				4C398ACA286C9857000188D5 /* Lottie */,
+				4CCE837628762E440036FE7D /* FirebaseAuth */,
+				4CCE837828762E440036FE7D /* FirebaseFirestore */,
+				4CCE837A28762E440036FE7D /* FirebaseFunctions */,
+				4CCE837D28762E770036FE7D /* Lottie */,
 			);
 			productName = "Speedy Haircut";
 			productReference = 4C4BF88A286981E7000AC23F /* Speedy Haircut.app */;
@@ -225,8 +228,8 @@
 			);
 			mainGroup = 4C4BF881286981E7000AC23F;
 			packageReferences = (
-				4CF5EEC028698B7B00AEF857 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				4C398AC9286C9856000188D5 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				4CCE837528762E440036FE7D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				4CCE837C28762E770036FE7D /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 4C4BF88B286981E7000AC23F /* Products */;
 			projectDirPath = "";
@@ -524,15 +527,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4C398AC9286C9856000188D5 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
-		4CF5EEC028698B7B00AEF857 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		4CCE837528762E440036FE7D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
@@ -540,23 +535,36 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		4CCE837C28762E770036FE7D /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4C398ACA286C9857000188D5 /* Lottie */ = {
+		4CCE837628762E440036FE7D /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4C398AC9286C9856000188D5 /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = Lottie;
-		};
-		4CF5EEC128698B7B00AEF857 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4CF5EEC028698B7B00AEF857 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 4CCE837528762E440036FE7D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		4CF5EEC328698B7B00AEF857 /* FirebaseFirestore */ = {
+		4CCE837828762E440036FE7D /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4CF5EEC028698B7B00AEF857 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 4CCE837528762E440036FE7D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		4CCE837A28762E440036FE7D /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4CCE837528762E440036FE7D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
+		4CCE837D28762E770036FE7D /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4CCE837C28762E770036FE7D /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
