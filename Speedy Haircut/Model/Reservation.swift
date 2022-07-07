@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct Reservation:Identifiable {
+class Reservation:Identifiable, ObservableObject {
     
-    let id:String?
-    let clientName:String?
-    let date:Date?
+    var id:String?
+    var clientName:String?
+    var date:Date?
     
 }
