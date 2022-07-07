@@ -163,7 +163,7 @@ class DatabaseBrain: ObservableObject {
                 
                 for document in snapshot.documents {
                     
-                    var reservation = Reservation()
+                    let reservation = Reservation()
                     
                     reservation.id = document.documentID
                     reservation.clientName = document["clientName"] as? String
@@ -181,6 +181,9 @@ class DatabaseBrain: ObservableObject {
                 
                 completionHandler(reservationList)
                 
+            } else {
+                print("Could not fetch reservations documents, \(String(describing: error))")
+                return
             }
             
         }
