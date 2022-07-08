@@ -16,21 +16,31 @@ struct ReservationView: View {
     
     var body: some View {
         
+        let minuteSlot = ["15", "20", "25", "35", "50"]
+        let hourSlot = ["3", "4", "9", "12"]
+        let minutesFlipBrain:FlipViewModel = FlipViewModel(timeSlot: minuteSlot)
+        let hoursFlipBrain:FlipViewModel = FlipViewModel(timeSlot: hourSlot)
+        
         VStack() {
             
             Text("Make your reservation!")
+                .font(.largeTitle)
                 .padding()
             
             DatePicker(
                 "Pick a date",
                 selection: $reservationDate,
                 in:range ?? Date()...Date().addingTimeInterval(86400*365),
-                displayedComponents: [.date, .hourAndMinute])
+                displayedComponents: [.date])
             .datePickerStyle(.graphical)
             .frame(width: 300, alignment: .center)
             
+            Text("Time")
+                .font(.title3)
+            
+            TimePickerView(hourBrain: hoursFlipBrain, minuteBrain: minutesFlipBrain)
+            
             Button(action: {
-                
                 
                 
             }, label: {
@@ -42,6 +52,7 @@ struct ReservationView: View {
                     .foregroundColor(Color.white)
                 
             })
+            .padding()
         }
         .onAppear {
             
