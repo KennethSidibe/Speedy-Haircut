@@ -129,7 +129,7 @@ class DatabaseBrain: ObservableObject {
                 
                 for document in snapshot.documents {
                     
-                    var user = User()
+                    let user = User()
                     
                     user.id = document.documentID
                     user.firstName = document["firstName"] as? String
@@ -178,6 +178,8 @@ class DatabaseBrain: ObservableObject {
                     reservationList.append(reservation)
                     
                 }
+                
+                self.sortBrain.sortQuick(array: &reservationList)
                 
                 completionHandler(reservationList)
                 
