@@ -135,7 +135,7 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		4C748CFA28778B32000F80E3 /* FlipClock */ = {
+		4C748CFA28778B32000F80E3 /* TimePicker Views */ = {
 			isa = PBXGroup;
 			children = (
 				4C748CFB28778B65000F80E3 /* SingleFlipView.swift */,
@@ -143,24 +143,60 @@
 				4C748D0428778EFF000F80E3 /* FlipViewModel.swift */,
 				4C748D0A2877B1CF000F80E3 /* TimePickerView.swift */,
 			);
-			path = FlipClock;
+			path = "TimePicker Views";
+			sourceTree = "<group>";
+		};
+		4C748D0D2877BA47000F80E3 /* Sign Views */ = {
+			isa = PBXGroup;
+			children = (
+				4C398AC1286AB737000188D5 /* ProfileSwitchView.swift */,
+				4C4BF88F286981E7000AC23F /* SignInView.swift */,
+				4C398ABF286AB16A000188D5 /* SignUpView.swift */,
+				4CF5EECA286AAB8E00AEF857 /* LoginSwitchView.swift */,
+			);
+			path = "Sign Views";
+			sourceTree = "<group>";
+		};
+		4C748D0E2877BA86000F80E3 /* User main Views */ = {
+			isa = PBXGroup;
+			children = (
+				4C0E00BF286EC9810054B309 /* ProfileView.swift */,
+				4C8D8E5728710948009F5C61 /* QueueView.swift */,
+				4C8D8E5928710A48009F5C61 /* UserTabView.swift */,
+				4C8D8E5B28710C69009F5C61 /* ReservationView.swift */,
+			);
+			path = "User main Views";
+			sourceTree = "<group>";
+		};
+		4C748D0F2877BAAF000F80E3 /* Loading Views */ = {
+			isa = PBXGroup;
+			children = (
+				4C398ACC286C9987000188D5 /* LottieView.swift */,
+				4C8D8E55286FA249009F5C61 /* QueueingView.swift */,
+				4C398AD4286D4E80000188D5 /* LoadingView.swift */,
+			);
+			path = "Loading Views";
+			sourceTree = "<group>";
+		};
+		4C748D102877BAFF000F80E3 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				4C8D8E5D287115F6009F5C61 /* QueueList.swift */,
+				4C398AD2286CF255000188D5 /* Constants.swift */,
+				4CD55F342875F745008DA74A /* Reservation.swift */,
+				4C398AD0286CF0C8000188D5 /* User.swift */,
+				4C748D062877A5FA000F80E3 /* TimeSlot.swift */,
+			);
+			path = DataModel;
 			sourceTree = "<group>";
 		};
 		4CF5EEC528699DB300AEF857 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4C748CFA28778B32000F80E3 /* FlipClock */,
-				4C0E00BF286EC9810054B309 /* ProfileView.swift */,
-				4C8D8E55286FA249009F5C61 /* QueueingView.swift */,
-				4C4BF88F286981E7000AC23F /* SignInView.swift */,
-				4C398ABF286AB16A000188D5 /* SignUpView.swift */,
-				4CF5EECA286AAB8E00AEF857 /* LoginSwitchView.swift */,
-				4C398AD4286D4E80000188D5 /* LoadingView.swift */,
-				4C398AC1286AB737000188D5 /* ProfileSwitchView.swift */,
-				4C398ACC286C9987000188D5 /* LottieView.swift */,
-				4C8D8E5728710948009F5C61 /* QueueView.swift */,
-				4C8D8E5928710A48009F5C61 /* UserTabView.swift */,
-				4C8D8E5B28710C69009F5C61 /* ReservationView.swift */,
+				4C748CFA28778B32000F80E3 /* TimePicker Views */,
+				4C748D0E2877BA86000F80E3 /* User main Views */,
+				4C748D0F2877BAAF000F80E3 /* Loading Views */,
+				4C748D0D2877BA47000F80E3 /* Sign Views */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -168,15 +204,11 @@
 		4CF5EEC628699DDA00AEF857 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4C8D8E5D287115F6009F5C61 /* QueueList.swift */,
-				4C398AD2286CF255000188D5 /* Constants.swift */,
+				4C748D102877BAFF000F80E3 /* DataModel */,
 				4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */,
 				4C398ACE286CEFB0000188D5 /* DatabaseBrain.swift */,
-				4CD55F342875F745008DA74A /* Reservation.swift */,
 				4CFEA9EE28750BC400DFF233 /* Sort.swift */,
-				4C398AD0286CF0C8000188D5 /* User.swift */,
 				4CEA637F28753EF900619D7F /* Test.swift */,
-				4C748D062877A5FA000F80E3 /* TimeSlot.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
