@@ -22,8 +22,9 @@ struct ProfileView: View {
     
     var body: some View {
         
-        var currentUser = dbBrain.user
+        let currentUser = dbBrain.user
         let name = currentUser.firstName ?? "User"
+        
         
         NavigationView {
             
