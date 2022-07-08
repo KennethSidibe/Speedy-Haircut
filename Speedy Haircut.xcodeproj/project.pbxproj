@@ -26,7 +26,6 @@
 		4C748D0328778EBA000F80E3 /* FlipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C748D0228778EBA000F80E3 /* FlipView.swift */; };
 		4C748D0528778EFF000F80E3 /* FlipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C748D0428778EFF000F80E3 /* FlipViewModel.swift */; };
 		4C748D072877A5FA000F80E3 /* TimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C748D062877A5FA000F80E3 /* TimeSlot.swift */; };
-		4C748D092877AED0000F80E3 /* TimeSlotBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C748D082877AED0000F80E3 /* TimeSlotBrain.swift */; };
 		4C748D0B2877B1CF000F80E3 /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C748D0A2877B1CF000F80E3 /* TimePickerView.swift */; };
 		4C8D8E56286FA249009F5C61 /* QueueingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E55286FA249009F5C61 /* QueueingView.swift */; };
 		4C8D8E5828710948009F5C61 /* QueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5728710948009F5C61 /* QueueView.swift */; };
@@ -61,11 +60,9 @@
 		4C4BF891286981E9000AC23F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C4BF894286981E9000AC23F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4C748CFB28778B65000F80E3 /* SingleFlipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleFlipView.swift; sourceTree = "<group>"; };
-		4C748D0128778BD6000F80E3 /* Extensions_Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions_Date.swift; sourceTree = "<group>"; };
 		4C748D0228778EBA000F80E3 /* FlipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipView.swift; sourceTree = "<group>"; };
 		4C748D0428778EFF000F80E3 /* FlipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipViewModel.swift; sourceTree = "<group>"; };
 		4C748D062877A5FA000F80E3 /* TimeSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlot.swift; sourceTree = "<group>"; };
-		4C748D082877AED0000F80E3 /* TimeSlotBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlotBrain.swift; sourceTree = "<group>"; };
 		4C748D0A2877B1CF000F80E3 /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
 		4C8D8E55286FA249009F5C61 /* QueueingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueingView.swift; sourceTree = "<group>"; };
 		4C8D8E5728710948009F5C61 /* QueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueView.swift; sourceTree = "<group>"; };
@@ -122,7 +119,6 @@
 				4C398AC5286BAA03000188D5 /* GoogleService-Info.plist */,
 				4C4BF88D286981E7000AC23F /* Speedy_HaircutApp.swift */,
 				4C398AC7286C94DB000188D5 /* Lottie-Animations */,
-				4C748D0028778BD6000F80E3 /* Extensions */,
 				4CF5EEC628699DDA00AEF857 /* Model */,
 				4CF5EEC528699DB300AEF857 /* View */,
 				4C4BF891286981E9000AC23F /* Assets.xcassets */,
@@ -145,18 +141,9 @@
 				4C748CFB28778B65000F80E3 /* SingleFlipView.swift */,
 				4C748D0228778EBA000F80E3 /* FlipView.swift */,
 				4C748D0428778EFF000F80E3 /* FlipViewModel.swift */,
-				4C748D082877AED0000F80E3 /* TimeSlotBrain.swift */,
 				4C748D0A2877B1CF000F80E3 /* TimePickerView.swift */,
 			);
 			path = FlipClock;
-			sourceTree = "<group>";
-		};
-		4C748D0028778BD6000F80E3 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				4C748D0128778BD6000F80E3 /* Extensions_Date.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		4CF5EEC528699DB300AEF857 /* View */ = {
@@ -342,7 +329,6 @@
 				4C748D0328778EBA000F80E3 /* FlipView.swift in Sources */,
 				4C4BF890286981E7000AC23F /* SignInView.swift in Sources */,
 				4CD55F352875F745008DA74A /* Reservation.swift in Sources */,
-				4C748D092877AED0000F80E3 /* TimeSlotBrain.swift in Sources */,
 				4C398AC0286AB16A000188D5 /* SignUpView.swift in Sources */,
 				4C748CFC28778B65000F80E3 /* SingleFlipView.swift in Sources */,
 				4C398AC2286AB737000188D5 /* ProfileSwitchView.swift in Sources */,
