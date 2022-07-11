@@ -117,77 +117,80 @@ class DatabaseBrain: ObservableObject {
         
     }
     
-    func fetchQueueList(completionHandler: @escaping([User]) -> ()) {
+    @MainActor
+    func fetchQueueList() async -> [QueueUser] {
         
-        let dbReference = db.collection(K.userCollectionName)
+        let dbReference = db.collection(K.QueueCollectionName)
         
-        dbReference.getDocuments() { snapshot, error in
+        do {
+            let snapshot = try await dbReference.getDocuments()
             
-            if let snapshot = snapshot {
+            var queueList = [QueueUser]()
+            
+            for document in snapshot.documents {
                 
-                var userList = [User]()
+                let timestamp = document["timeEnteredQueue"] as? Timestamp
                 
-                for document in snapshot.documents {
-                    
-                    let user = User()
-                    
-                    user.id = document.documentID
-                    user.firstName = document["firstName"] as? String
-                    user.lastName = document["lastName"] as? String
-                    user.lineNumber = document["lineNumber"] as? Int
-                    user.photo = "pic.jpg"
-                    
-                    userList.append(user)
-                    
-                }
+                let date = timestamp?.dateValue()
+                let id = document.documentID
+                let name = document["name"] as? String
+                let lineNumber = document["lineNumber"] as? Int
                 
-                self.sortBrain.sortQuick(array: &userList)
+                let queueUser = QueueUser(id: id, name: name, lineNumber: lineNumber, timeEnteredQueue: date)
                 
-                completionHandler(userList)
+                print(timestamp)
+                
+                queueList.append(queueUser)
                 
             }
             
+            self.sortBrain.sortQuick(array: &queueList)
+            
+            return queueList
+            
+        } catch {
+            print("Error while retrieveing queueList from db, \(error)")
+            return []
         }
         
     }
     
-    func fetchReservationList(completionHandler: @escaping([Reservation]) -> ()) {
+    @MainActor
+    func fetchReservationList() async -> [Reservation] {
         
         let dbReference = db.collection(K.reservationCollectionName)
         
-        dbReference.getDocuments() { snapshot, error in
+        do {
             
-            if let snapshot = snapshot {
+            let snapshot = try await dbReference.getDocuments()
+            
+            var reservationList = [Reservation]()
+            
+            for document in snapshot.documents {
                 
-                var reservationList = [Reservation]()
+                let reservation = Reservation()
                 
-                for document in snapshot.documents {
-                    
-                    let reservation = Reservation()
-                    
-                    reservation.id = document.documentID
-                    reservation.clientName = document["clientName"] as? String
-                    
-                    guard let dateFetch = document["date"] as? TimeInterval else {
-                        print("Error while parsing firestore date field to Timestamp")
-                        return
-                    }
-                    
-                    reservation.date = Date(timeIntervalSince1970: dateFetch)
-                    
-                    reservationList.append(reservation)
-                    
+                reservation.id = document.documentID
+                reservation.clientName = document["clientName"] as? String
+                
+                guard let dateFetch = document["date"] as? Timestamp else {
+                    print("Error while parsing firestore date field to Timestamp")
+                    return []
                 }
                 
-                self.sortBrain.sortQuick(array: &reservationList)
+                reservation.date = dateFetch.dateValue()
                 
-                completionHandler(reservationList)
+                reservationList.append(reservation)
                 
-            } else {
-                print("Could not fetch reservations documents, \(String(describing: error))")
-                return
             }
             
+            self.sortBrain.sortQuick(array: &reservationList)
+            
+            return reservationList
+            
+        } catch {
+            print("Could not fetch reservations documents, \(String(describing: error))")
+            return []
         }
         
     }
@@ -195,12 +198,47 @@ class DatabaseBrain: ObservableObject {
     func bookReservation(client:String) {
         
         
+    }
+    
+    @MainActor
+    func CalculateAvailableSlot() async  {
+        
+        let queueList = await fetchQueueList()
+        let reservations = await fetchReservationList()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        
+        guard queueList != [], reservations != [] else {
+            print("Error while retrieveing queueList and reservationsList")
+            return
+        }
+        
+        
         
     }
     
-    func CalculateAvailableSlot(){
+    func getDateInterval() -> ClosedRange<Date> {
         
+        let currentYear = Date()
+        let currentDay = Date()
+        let yearInSeconds = TimeInterval(86400*365)
+        let dayInSeconds = TimeInterval(60*60*24)
+        let dateRange = [Date]()
         
+        let twoHoursBefore = Calendar.current.date(byAdding: .hour, value: -2, to: currentDay) ?? currentDay.addingTimeInterval(-86400*365)
+        
+        let dateInterval = DateInterval(start: twoHoursBefore, duration: yearInSeconds)
+        
+        let range:ClosedRange<Date> = dateInterval.start...dateInterval.end
+        
+        for date in stride(from: dateInterval.start, to: dateInterval.end, by: dayInSeconds) {
+            
+//            To do
+            
+        }
+        
+        return range
+
         
     }
     
@@ -213,4 +251,16 @@ class DatabaseBrain: ObservableObject {
     
     
     
+}
+
+
+extension Date: Strideable {
+    
+    public func distance(to other: Date) -> TimeInterval {
+        return other.timeIntervalSinceReferenceDate - self.timeIntervalSinceReferenceDate
+    }
+
+    public func advanced(by n: TimeInterval) -> Date {
+        return self + n
+    }
 }
