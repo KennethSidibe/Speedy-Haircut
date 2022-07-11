@@ -9,8 +9,8 @@ import Foundation
 
 struct K {
     static let userCollectionName = "users"
-    static let reservationCollectionName = "reservation"
-    static let QueueCollectionName = "reservation"
+    static let reservationCollectionName = "reservations"
+    static let QueueCollectionName = "Queue"
     static let globalCollectionName = "global"
     static let queueDataIdName = "QueueData"
     
