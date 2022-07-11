@@ -14,7 +14,8 @@ import SwiftUI
 struct QueueView: View {
     
     @EnvironmentObject var dbBrain:DatabaseBrain
-    @State var userList:[User] = [User]()
+    @State var userList:[QueueUser] = [QueueUser]()
+    
     
     var body: some View {
         
@@ -28,7 +29,7 @@ struct QueueView: View {
                     
                     HStack {
                         
-                        Text(user.firstName!)
+                        Text(user.name!)
                         
                         Text(String(user.lineNumber!))
                         
@@ -40,13 +41,18 @@ struct QueueView: View {
             
             Button(action: {
                 
-                dbBrain.fetchQueueList { userFetchList in
+                Task {
                     
-                    DispatchQueue.main.async {
-                        userList = userFetchList
+                    let fetchList = await dbBrain.fetchQueueList()
+                    
+                    guard fetchList != [] else {
+                        print("Error while calling dbBrain fetchQueueList")
+                        return
                     }
                     
+                    userList = fetchList
                 }
+                
                 
             }, label: {
                 Text("Check-in")
@@ -60,13 +66,18 @@ struct QueueView: View {
             
         }.onAppear {
             
-            dbBrain.fetchQueueList { userFetchList in
+            Task {
                 
-                DispatchQueue.main.async {
-                    userList = userFetchList
+                let fetchList = await dbBrain.fetchQueueList()
+                
+                guard fetchList != [] else {
+                    print("Error while calling dbBrain fetchQueueList")
+                    return
                 }
                 
+                userList = fetchList
             }
+
         }
         
     }
