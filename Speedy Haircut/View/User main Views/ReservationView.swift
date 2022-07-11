@@ -42,6 +42,11 @@ struct ReservationView: View {
             
             Button(action: {
                 
+                Task {
+                    
+                    await dbBrain.CalculateAvailableSlot()
+                    
+                }
                 
             }, label: {
                 Text("Create reservation")
