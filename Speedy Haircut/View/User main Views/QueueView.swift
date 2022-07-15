@@ -43,9 +43,9 @@ struct QueueView: View {
                 
                 Task {
                     
-                    let fetchList = await dbBrain.fetchQueueList()
+                    let (fetchList, timeEnteredQueueList) = await dbBrain.fetchQueueList()
                     
-                    guard fetchList != [] else {
+                    guard fetchList != [], timeEnteredQueueList != [] else {
                         print("Error while calling dbBrain fetchQueueList")
                         return
                     }
@@ -68,9 +68,9 @@ struct QueueView: View {
             
             Task {
                 
-                let fetchList = await dbBrain.fetchQueueList()
+                let (fetchList, timeEnteredQueueList) = await dbBrain.fetchQueueList()
                 
-                guard fetchList != [] else {
+                guard fetchList != [], timeEnteredQueueList != [] else {
                     print("Error while calling dbBrain fetchQueueList")
                     return
                 }
@@ -86,5 +86,6 @@ struct QueueView: View {
 struct QueueView_Previews: PreviewProvider {
     static var previews: some View {
         QueueView()
+            .environmentObject(DatabaseBrain())
     }
 }
