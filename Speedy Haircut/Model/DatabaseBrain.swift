@@ -118,7 +118,7 @@ class DatabaseBrain: ObservableObject {
     }
     
     @MainActor
-    func fetchQueueList() async -> [QueueUser] {
+    func fetchQueueList() async -> ([QueueUser], [Date]) {
         
         let dbReference = db.collection(K.QueueCollectionName)
         
@@ -126,6 +126,7 @@ class DatabaseBrain: ObservableObject {
             let snapshot = try await dbReference.getDocuments()
             
             var queueList = [QueueUser]()
+            var queueDates = [Date]()
             
             for document in snapshot.documents {
                 
@@ -141,22 +142,23 @@ class DatabaseBrain: ObservableObject {
                 print(timestamp)
                 
                 queueList.append(queueUser)
+                queueDates.append(queueUser.timeEnteredQueue ?? Date())
                 
             }
             
             self.sortBrain.sortQuick(array: &queueList)
             
-            return queueList
+            return (queueList, queueDates)
             
         } catch {
             print("Error while retrieveing queueList from db, \(error)")
-            return []
+            return ([], [])
         }
         
     }
     
     @MainActor
-    func fetchReservationList() async -> [Reservation] {
+    func fetchReservationList() async -> ([Reservation], [Date]) {
         
         let dbReference = db.collection(K.reservationCollectionName)
         
@@ -165,6 +167,7 @@ class DatabaseBrain: ObservableObject {
             let snapshot = try await dbReference.getDocuments()
             
             var reservationList = [Reservation]()
+            var reservationDate = [Date]()
             
             for document in snapshot.documents {
                 
@@ -175,22 +178,23 @@ class DatabaseBrain: ObservableObject {
                 
                 guard let dateFetch = document["date"] as? Timestamp else {
                     print("Error while parsing firestore date field to Timestamp")
-                    return []
+                    return ([], [])
                 }
                 
                 reservation.date = dateFetch.dateValue()
                 
                 reservationList.append(reservation)
+                reservationDate.append(reservation.date ?? Date())
                 
             }
             
             self.sortBrain.sortQuick(array: &reservationList)
             
-            return reservationList
+            return (reservationList, reservationDate)
             
         } catch {
             print("Could not fetch reservations documents, \(String(describing: error))")
-            return []
+            return ([], [])
         }
         
     }
@@ -208,7 +212,7 @@ class DatabaseBrain: ObservableObject {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         
-        guard queueList != [], reservations != [] else {
+        guard queueList != ([], []), reservations != ([], []) else {
             print("Error while retrieveing queueList and reservationsList")
             return
         }
@@ -219,36 +223,25 @@ class DatabaseBrain: ObservableObject {
     
     func getDateInterval() -> ClosedRange<Date> {
         
-        let currentYear = Date()
-        let currentDay = Date()
+        let today = Date()
         let yearInSeconds = TimeInterval(86400*365)
-        let dayInSeconds = TimeInterval(60*60*24)
-        let dateRange = [Date]()
         
-        let twoHoursBefore = Calendar.current.date(byAdding: .hour, value: -2, to: currentDay) ?? currentDay.addingTimeInterval(-86400*365)
-        
-        let dateInterval = DateInterval(start: twoHoursBefore, duration: yearInSeconds)
+        let dateInterval = DateInterval(start: today, duration: yearInSeconds)
         
         let range:ClosedRange<Date> = dateInterval.start...dateInterval.end
         
-        for date in stride(from: dateInterval.start, to: dateInterval.end, by: dayInSeconds) {
-            
-//            To do
-            
-        }
-        
         return range
-
         
     }
     
-    
-    
-    
-    
-    
-    
-    
+    func isDateAvailable(date:Date, queueDates:[Date], reservationDates:[Date]) -> Bool {
+        
+        
+        
+        
+        return true
+        
+    }
     
     
 }
@@ -262,5 +255,18 @@ extension Date: Strideable {
 
     public func advanced(by n: TimeInterval) -> Date {
         return self + n
+    }
+    
+    func isBetween(start:Date, end:Date) -> Bool {
+        
+        guard start < end else {
+            print("startDate is superior to end date")
+            return false
+        }
+        
+        let range = start...end
+        
+        return range.contains(self)
+        
     }
 }
