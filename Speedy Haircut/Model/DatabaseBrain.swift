@@ -139,8 +139,6 @@ class DatabaseBrain: ObservableObject {
                 
                 let queueUser = QueueUser(id: id, name: name, lineNumber: lineNumber, timeEnteredQueue: date)
                 
-                print(timestamp)
-                
                 queueList.append(queueUser)
                 queueDates.append(queueUser.timeEnteredQueue ?? Date())
                 
@@ -171,17 +169,18 @@ class DatabaseBrain: ObservableObject {
             
             for document in snapshot.documents {
                 
-                let reservation = Reservation()
-                
-                reservation.id = document.documentID
-                reservation.clientName = document["clientName"] as? String
+                let reservationId = document.documentID
+                let clientName = document["clientName"] as? String
                 
                 guard let dateFetch = document["date"] as? Timestamp else {
                     print("Error while parsing firestore date field to Timestamp")
                     return ([], [])
                 }
                 
-                reservation.date = dateFetch.dateValue()
+                let reservation = Reservation(
+                    id: reservationId,
+                    clientName: clientName ?? "client",
+                    date: dateFetch.dateValue())
                 
                 reservationList.append(reservation)
                 reservationDate.append(reservation.date ?? Date())
@@ -199,25 +198,46 @@ class DatabaseBrain: ObservableObject {
         
     }
     
-    func bookReservation(client:String) {
+    func bookReservation(client:String, date:Date) {
         
+        let dbReference = db.collection(K.reservationCollectionName)
+        
+        let newReservation = [
+            "clientName": client,
+            "date": date
+        ] as! [ String:Any ]
+        
+        let reservationId = UUID().uuidString
+        
+        dbReference.document(reservationId).setData(newReservation) { error in
+            
+            guard error == nil else {
+                print("Error while creating reservations, \(error)")
+                return
+            }
+            
+        }
         
     }
     
     @MainActor
     func CalculateAvailableSlot() async  {
         
-        let queueList = await fetchQueueList()
-        let reservations = await fetchReservationList()
+        let queueList = await fetchQueueList().1
+        let reservations = await fetchReservationList().1
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        formatter.dateFormat = "dd/MM/yyyy HH:mm"
+        var localTimeZoneName:String { return TimeZone.current.abbreviation() ?? "UTC-4" }
+        formatter.timeZone = TimeZone(identifier: localTimeZoneName)
         
-        guard queueList != ([], []), reservations != ([], []) else {
+        guard queueList != [], reservations != [] else {
             print("Error while retrieveing queueList and reservationsList")
             return
         }
         
+        let date = formatter.date(from: "18-07-2022 10:00") ?? Date()
         
+        getTimeReservable(date: date, queueTimeList: queueList)
         
     }
     
@@ -234,12 +254,80 @@ class DatabaseBrain: ObservableObject {
         
     }
     
+    func getTimeReservable(date: Date, queueTimeList:[Date]) {
+        
+        var increment = 5
+        var minuteSlot:[Int] = {
+            
+            var array = [Int]()
+            array.append(0)
+            var lastElement = array[0]
+            for _ in 0...10 {
+                
+                let numberToAdd = lastElement + increment
+                
+                if numberToAdd >= 60 {
+                    break
+                }
+                
+                array.append(numberToAdd)
+                lastElement = numberToAdd
+                
+                
+                
+            }
+            
+            return array
+            
+        }()
+        let hourSlot = 1...23
+        
+        var queueTimeSlot:([Int], [Int]) = {
+            
+            var hourArray = [Int]()
+            var minuteArray = [Int]()
+            
+            queueTimeList.forEach { date in
+                let hour = Calendar.current.component(.hour, from: date)
+                let minutes = Calendar.current.component(.minute, from: date)
+                hourArray.append(hour)
+                minuteArray.append(minutes)
+            }
+            
+            return (hourArray, minuteArray)
+            
+        }()
+        
+        print("Hour slot : \(hourSlot)")
+        print("queue hours slot : \(queueTimeSlot.0)")
+        print("queue minutes slot : \(queueTimeSlot.1)")
+        
+    }
+    
     func isDateAvailable(date:Date, queueDates:[Date], reservationDates:[Date]) -> Bool {
         
-        
-        
-        
         return true
+        
+    }
+    
+    func hasDayReachedMaximumReservations(date:Date, reservationsDate:[Date]) -> Bool {
+        
+        var count = 0
+        
+        for iterateDay in reservationsDate {
+            
+            if date.isSameDay(date1: date, date2: iterateDay) {
+                
+                count += 1
+                
+                if count >= 10 {
+                    return true
+                }
+            }
+            
+        }
+        
+        return false
         
     }
     
@@ -269,4 +357,16 @@ extension Date: Strideable {
         return range.contains(self)
         
     }
+    
+    func isSameDay(date1:Date, date2:Date) -> Bool {
+        
+        let diff = Calendar.current.dateComponents([.day], from: date1, to: date2)
+            if diff.day == 0 {
+                return true
+            } else {
+                return false
+            }
+        
+    }
+    
 }
