@@ -110,6 +110,10 @@ struct ReservationView: View {
                     
                     await dbBrain.CalculateAvailableSlot()
                     
+                    let name = dbBrain.user.firstName ?? "client"
+                    
+//                    dbBrain.bookReservation(client:name, date: pickedDate ?? Date())
+                    
                 }
                 
             }, label: {
