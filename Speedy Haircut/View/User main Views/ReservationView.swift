@@ -10,9 +10,40 @@ import SwiftUI
 struct ReservationView: View {
     
     @EnvironmentObject var dbBrain:DatabaseBrain
-    @State var reservationDate =  Date()
+    @State var isCalendarPickerShow:Bool = false
     @State var range:ClosedRange<Date>?
+    @State var pickedDate:Date?
+    var unavailableDates: [Date] {
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "dd-MM-yyyy"
+        let date1 = dateFormat.date(from: "20-07-2022")
+        let date2 = dateFormat.date(from: "24-07-2022")
+        let date3 = dateFormat.date(from: "31-07-2022")
+        let date4 = dateFormat.date(from: "18-08-2022")
+        
+        return [date1!, date2!, date3!, date4!]
+    }
+    var today:String {
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "dd-MM-yyyy"
+        let today = Date()
+        
+        return dateFormat.string(from: today)
+    }
+    var pickedDateString: String {
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "dd-MM-yyyy"
+        
+        if let pickedDate = pickedDate {
+            return dateFormat.string(from: pickedDate)
+        } else {
+            return today
+        }
+        
+    }
     
+    
+
     
     var body: some View {
         
@@ -27,16 +58,49 @@ struct ReservationView: View {
                 .font(.largeTitle)
                 .padding()
             
-            DatePicker(
-                "Pick a date",
-                selection: $reservationDate,
-                in:range ?? Date()...Date().addingTimeInterval(86400*365),
-                displayedComponents: [.date])
-            .datePickerStyle(.graphical)
-            .frame(width: 300, alignment: .center)
+            Group {
+                
+                HStack() {
+                    
+                    Text("Reservation Date")
+                        .padding()
+                        .font(.footnote)
+                    
+                    HStack {
+                        Text("\(pickedDateString)")
+                            .frame(width: 200)
+                        
+                        Button(action: {
+                            
+                            isCalendarPickerShow = true
+                            
+                        }, label: {
+                            Image(systemName: "calendar")
+                                .foregroundColor(Color.black)
+                                .padding(.trailing)
+                            
+                        })
+                    }
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.blue, lineWidth: 2)
+                            .frame(height: 35, alignment: .center)
+                    )
+                    
+                }
+                
+            }
+            .fullScreenCover(isPresented: $isCalendarPickerShow) {
+                
+                CalendarPicker(
+                    date: $pickedDate, unavailableDays: unavailableDates)
+                
+            }
+            
             
             Text("Time")
                 .font(.title3)
+            
             
             TimePickerView(hourBrain: hoursFlipBrain, minuteBrain: minutesFlipBrain)
             
@@ -58,28 +122,20 @@ struct ReservationView: View {
                 
             })
             .padding()
+            
         }
         .onAppear {
             
-            let currentYear = Date()
-            let currentDay = Date()
-            let nextYear = Calendar.current.date(byAdding: .year, value: 1, to: currentYear) ?? currentYear.addingTimeInterval(86400*365)
-            
-            let twoHoursBefore = Calendar.current.date(byAdding: .hour, value: -2, to: currentDay) ?? currentDay.addingTimeInterval(-86400*365)
-            
-            range = twoHoursBefore...nextYear
         }
     }
 }
 
 struct ReservationView_Previews: PreviewProvider {
+    
     static var previews: some View {
         
-        let rightNow = Date()
-        let nextYear = Calendar.current.date(byAdding: .year, value: 1, to: rightNow)
-        
-        ReservationView(range: Date()...nextYear!)
-            .environmentObject(DatabaseBrain())
+            ReservationView()
+                .environmentObject(DatabaseBrain())
     }
     
     
