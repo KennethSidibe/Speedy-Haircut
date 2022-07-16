@@ -276,11 +276,6 @@ private extension CalendarPickerViewController {
             value: dayOffset,
             to: baseDate) ?? baseDate
         
-        let aYearAgo = calendar.date(
-            byAdding: .year,
-            value: 1,
-            to: Date()) ?? Date()
-        
         //      We make it false right at init
         let isDayAvailable:Bool =
         !(date.isSunday()) &&
