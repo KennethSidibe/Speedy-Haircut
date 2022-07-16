@@ -13,5 +13,6 @@ struct K {
     static let QueueCollectionName = "Queue"
     static let globalCollectionName = "global"
     static let queueDataIdName = "QueueData"
+    static let maxReservationPerDay = 10
     
 }
