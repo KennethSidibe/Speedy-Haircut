@@ -13,6 +13,18 @@ class Reservation:Identifiable, ObservableObject, Comparable, Equatable {
     var clientName:String?
     var date:Date?
     
+    init(id:String, clientName:String, date:Date) {
+        
+        self.id = id
+        self.clientName = clientName
+        self.date = date
+        
+    }
+    
+    init (date:Date) {
+        self.date = date
+    }
+    
     //MARK: - Comparable delegate methods
     
     static func < (lhs:Reservation, rhs:Reservation) -> Bool {
