@@ -14,6 +14,7 @@
 		4C0A09622882068200FC7665 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A095C2882068100FC7665 /* Day.swift */; };
 		4C0A09632882068200FC7665 /* CalendarPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A095D2882068100FC7665 /* CalendarPickerViewController.swift */; };
 		4C0A09642882068200FC7665 /* MonthMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A095E2882068100FC7665 /* MonthMetadata.swift */; };
+		4C0A0968288218E300FC7665 /* CalendarPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A0967288218E300FC7665 /* CalendarPicker.swift */; };
 		4C0E00C0286EC9810054B309 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E00BF286EC9810054B309 /* ProfileView.swift */; };
 		4C398AC0286AB16A000188D5 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C398ABF286AB16A000188D5 /* SignUpView.swift */; };
 		4C398AC2286AB737000188D5 /* ProfileSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C398AC1286AB737000188D5 /* ProfileSwitchView.swift */; };
@@ -56,6 +57,7 @@
 		4C0A095C2882068100FC7665 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		4C0A095D2882068100FC7665 /* CalendarPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarPickerViewController.swift; sourceTree = "<group>"; };
 		4C0A095E2882068100FC7665 /* MonthMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthMetadata.swift; sourceTree = "<group>"; };
+		4C0A0967288218E300FC7665 /* CalendarPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarPicker.swift; sourceTree = "<group>"; };
 		4C0E00BF286EC9810054B309 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		4C398ABF286AB16A000188D5 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4C398AC1286AB737000188D5 /* ProfileSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSwitchView.swift; sourceTree = "<group>"; };
@@ -114,17 +116,18 @@
 				4C0A09592882068100FC7665 /* CalendarPickerFooterView.swift */,
 				4C0A095A2882068100FC7665 /* CalendarPickerHeaderView.swift */,
 				4C0A095D2882068100FC7665 /* CalendarPickerViewController.swift */,
+				4C0A0967288218E300FC7665 /* CalendarPicker.swift */,
 			);
 			path = CalendarPicker;
 			sourceTree = "<group>";
 		};
-		4C0A0966288206A000FC7665 /* CalendarModel */ = {
+		4C0A0966288206A000FC7665 /* CalendarDataModel */ = {
 			isa = PBXGroup;
 			children = (
 				4C0A095C2882068100FC7665 /* Day.swift */,
 				4C0A095E2882068100FC7665 /* MonthMetadata.swift */,
 			);
-			path = CalendarModel;
+			path = CalendarDataModel;
 			sourceTree = "<group>";
 		};
 		4C4BF881286981E7000AC23F = {
@@ -237,7 +240,7 @@
 		4CF5EEC628699DDA00AEF857 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4C0A0966288206A000FC7665 /* CalendarModel */,
+				4C0A0966288206A000FC7665 /* CalendarDataModel */,
 				4C748D102877BAFF000F80E3 /* DataModel */,
 				4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */,
 				4C398ACE286CEFB0000188D5 /* DatabaseBrain.swift */,
@@ -397,6 +400,7 @@
 				4C0A09632882068200FC7665 /* CalendarPickerViewController.swift in Sources */,
 				4C4BF890286981E7000AC23F /* SignInView.swift in Sources */,
 				4CD55F352875F745008DA74A /* Reservation.swift in Sources */,
+				4C0A0968288218E300FC7665 /* CalendarPicker.swift in Sources */,
 				4C398AC0286AB16A000188D5 /* SignUpView.swift in Sources */,
 				4C748CFC28778B65000F80E3 /* SingleFlipView.swift in Sources */,
 				4C398AC2286AB737000188D5 /* ProfileSwitchView.swift in Sources */,
