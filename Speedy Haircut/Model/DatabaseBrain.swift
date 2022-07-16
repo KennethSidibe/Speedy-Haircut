@@ -298,10 +298,6 @@ class DatabaseBrain: ObservableObject {
             
         }()
         
-        print("Hour slot : \(hourSlot)")
-        print("queue hours slot : \(queueTimeSlot.0)")
-        print("queue minutes slot : \(queueTimeSlot.1)")
-        
     }
     
     func isDateAvailable(date:Date, queueDates:[Date], reservationDates:[Date]) -> Bool {
