@@ -172,8 +172,11 @@ class Test {
 
             let range:Range<Date> = longPastedDate!..<Date()
             
-            let newReservation = Reservation()
-            newReservation.date = Date.random(in: range)
+            
+            let reservationDate = Date.random(in: range)
+            
+            let newReservation = Reservation(date: reservationDate)
+            
             randomReservationList.append(newReservation)
             
         }
