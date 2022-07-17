@@ -25,6 +25,7 @@
 		4C398AD1286CF0C8000188D5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C398AD0286CF0C8000188D5 /* User.swift */; };
 		4C398AD3286CF255000188D5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C398AD2286CF255000188D5 /* Constants.swift */; };
 		4C398AD5286D4E80000188D5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C398AD4286D4E80000188D5 /* LoadingView.swift */; };
+		4C39C6E02883E0ED0059D16A /* reservableTimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C39C6DF2883E0EC0059D16A /* reservableTimeSlot.swift */; };
 		4C4BF88E286981E7000AC23F /* Speedy_HaircutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4BF88D286981E7000AC23F /* Speedy_HaircutApp.swift */; };
 		4C4BF890286981E7000AC23F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4BF88F286981E7000AC23F /* SignInView.swift */; };
 		4C4BF892286981E9000AC23F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C4BF891286981E9000AC23F /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 		4C398AD0286CF0C8000188D5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4C398AD2286CF255000188D5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4C398AD4286D4E80000188D5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		4C39C6DF2883E0EC0059D16A /* reservableTimeSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reservableTimeSlot.swift; sourceTree = "<group>"; };
 		4C4BF88A286981E7000AC23F /* Speedy Haircut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Speedy Haircut.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C4BF88D286981E7000AC23F /* Speedy_HaircutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speedy_HaircutApp.swift; sourceTree = "<group>"; };
 		4C4BF88F286981E7000AC23F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				4CD55F342875F745008DA74A /* Reservation.swift */,
 				4C398AD0286CF0C8000188D5 /* User.swift */,
 				4C748D062877A5FA000F80E3 /* TimeSlot.swift */,
+				4C39C6DF2883E0EC0059D16A /* reservableTimeSlot.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				4C398ACD286C9987000188D5 /* LottieView.swift in Sources */,
 				4C398AD3286CF255000188D5 /* Constants.swift in Sources */,
 				4CFEA9EF28750BC400DFF233 /* Sort.swift in Sources */,
+				4C39C6E02883E0ED0059D16A /* reservableTimeSlot.swift in Sources */,
 				4C398AD1286CF0C8000188D5 /* User.swift in Sources */,
 				4C0A09622882068200FC7665 /* Day.swift in Sources */,
 				4CF5EECB286AAB8E00AEF857 /* LoginSwitchView.swift in Sources */,
