@@ -237,7 +237,7 @@ class DatabaseBrain: ObservableObject {
         
         let date = formatter.date(from: "18-07-2022 10:00") ?? Date()
         
-        getTimeReservable(date: date, queueTimeList: queueList)
+        getTimeReservable(date: date, queueTimeList: queueList, reservationsDate: reservations)
         
     }
     
@@ -254,58 +254,166 @@ class DatabaseBrain: ObservableObject {
         
     }
     
-    func getTimeReservable(date: Date, queueTimeList:[Date]) {
+    func getTimeReservable(date: Date, queueTimeList:[Date], reservationsDate:[Date]) -> [ReservableTimeSlot] {
         
-        var increment = 5
-        var minuteSlot:[Int] = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        
+//        This variable is important because on even/odd days the store has different opening hour
+        let WeekDayOfDate = Calendar.current.component(.weekday, from: date)
+        
+//        We set the opening hour in respect to the day that the user picked to reserve
+        let openingHour =  WeekDayOfDate % 2 == 0 ? K.evenDayOpeningHour : K.oddDayOpeningHour
+        
+        let latestTime = queueTimeList.max()
+        
+        var reservableTimeSlot:[ReservableTimeSlot] = createReservationTimeSlot(lastTimeToReserve: latestTime, dateToReserve: date)
+        
+        
+        var queueTimeSlot:[String] = {
             
-            var array = [Int]()
-            array.append(0)
-            var lastElement = array[0]
-            for _ in 0...10 {
+            var timeArray = [String]()
+            
+            queueTimeList.forEach { date in
                 
-                let numberToAdd = lastElement + increment
+                let time = dateFormatter.string(from: date)
                 
-                if numberToAdd >= 60 {
-                    break
-                }
-                
-                array.append(numberToAdd)
-                lastElement = numberToAdd
-                
-                
+                timeArray.append(time)
                 
             }
             
+            return timeArray
+            
+        }()
+        
+//        If there is 0 any reservation for the date
+        if !(isThereReservationOnDate(date: date, reservationsDate: reservationsDate)) {
+            
+            return reservableTimeSlot
+            
+        }
+        else {
+            
+//            for date in reservationsDate {
+            
+//                  TODO
+            
+//            }
+            
+            return []
+            
+        }
+        
+    }
+    
+//    Check if a reservation already exist for the date provided
+    func isThereReservationOnDate(date: Date, reservationsDate:[Date]) -> Bool {
+        
+        for iterateDay in reservationsDate {
+            
+            if date.isSameDay(date1: date, date2: iterateDay) {
+                
+                return true
+                
+            }
+            
+        }
+        
+        return false
+        
+    }
+    
+    func createReservationTimeSlot(lastTimeToReserve:Date?, dateToReserve:Date) -> [ReservableTimeSlot] {
+        
+//        This variable is important because on even/odd days the store has different opening hour
+        let WeekDayOfDate = Calendar.current.component(.weekday, from: dateToReserve)
+                
+//        We set the opening hour in respect to the day that the user picked to reserve
+        let openingHour =  WeekDayOfDate % 2 == 0 ? K.evenDayOpeningHour : K.oddDayOpeningHour
+        
+        let hourSlot:[Int] = {
+            
+//            We set the first hour reservable by looking at the latest hour a person has entered the queue
+            let firstHourReservable:Int
+            if let lastTimeToReserve = lastTimeToReserve {
+                firstHourReservable = Calendar.current.component(.hour, from: lastTimeToReserve)
+            }
+            else {
+                firstHourReservable = openingHour
+                
+            }
+            
+            var array = [Int]()
+            for i in firstHourReservable...K.closingHour {
+                array.append(i)
+            }
             return array
             
         }()
-        let hourSlot = 1...23
         
-        var queueTimeSlot:([Int], [Int]) = {
+//        The minute of the firstHour to be reservable regarding the queue
+        let lastestTimeMinuteComponent:Int
+        
+        if let lastTimeToReserve = lastTimeToReserve {
+            lastestTimeMinuteComponent = Calendar.current.component(.minute, from: lastTimeToReserve)
+        } else {
+            lastestTimeMinuteComponent = 0
+        }
+        
+        var reservationsTimeSlot:[ReservableTimeSlot] = [ReservableTimeSlot]()
+        
+//        We create the firstHoursSlot since it can be either at the opening of the store or the time after the last person has been added to the queue
+        let firstHourMinutesSlot = createMinuteSlot(minuteToStart: lastestTimeMinuteComponent.roundToFiveDecimal())
+        let firstReservationTimeSlot = ReservableTimeSlot(hour: hourSlot[0], minutes: firstHourMinutesSlot)
+        reservationsTimeSlot.append(firstReservationTimeSlot)
+        
+        
+        var i = 1
+        
+//        We create all the remaining hour to be removed/kept regarding the ongoing date reservation
+        while i < hourSlot.count {
             
-            var hourArray = [Int]()
-            var minuteArray = [Int]()
+            let minutesSlot = createMinuteSlot(minuteToStart: 0)
             
-            queueTimeList.forEach { date in
-                let hour = Calendar.current.component(.hour, from: date)
-                let minutes = Calendar.current.component(.minute, from: date)
-                hourArray.append(hour)
-                minuteArray.append(minutes)
+            let currentHourReservationSlot = ReservableTimeSlot(hour: hourSlot[i], minutes: minutesSlot)
+            
+            reservationsTimeSlot.append(currentHourReservationSlot)
+            
+            i+=1
+            
+        }
+        
+        return reservationsTimeSlot
+        
+    }
+    
+    
+//    This function creates an array representing the minutes slot it is an series of 5 ex [0, 5, 10, 15, ..., 60]
+//    This will always return an incremented sequence of 5 that does not go above 55, 55 included
+    func createMinuteSlot(minuteToStart:Int) -> [Int] {
+        
+        let increment = 5
+        var array = [Int]()
+        array.append(minuteToStart)
+        var lastElement = array[0]
+        for _ in 0...10 {
+            
+            let numberToAdd = lastElement + increment
+            
+            if numberToAdd >= 60 {
+                break
             }
             
-            return (hourArray, minuteArray)
+            array.append(numberToAdd)
+            lastElement = numberToAdd
             
-        }()
+        }
+        
+        return array
         
     }
     
-    func isDateAvailable(date:Date, queueDates:[Date], reservationDates:[Date]) -> Bool {
-        
-        return true
-        
-    }
-    
+//    Check if there was more reservation than the constant set in the files, ex 10 for now
     func hasDayReachedMaximumReservations(date:Date, reservationsDate:[Date]) -> Bool {
         
         var count = 0
@@ -331,6 +439,8 @@ class DatabaseBrain: ObservableObject {
 }
 
 
+
+//MARK: - Date Extension
 extension Date: Strideable {
     
     public func distance(to other: Date) -> TimeInterval {
@@ -362,6 +472,21 @@ extension Date: Strideable {
             } else {
                 return false
             }
+        
+    }
+    
+}
+
+
+//MARK: - Int Extension
+extension Int {
+    
+//    Will return the closest five five multiplicant of a number, eg: 7 -> 10, 9 -> 10, 2 -> 5, 22 -> 25
+    func roundToFiveDecimal() -> Int {
+        
+        let numberToAdd = 5 - (self % 5)
+        
+        return self + numberToAdd
         
     }
     
