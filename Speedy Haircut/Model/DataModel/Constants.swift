@@ -19,5 +19,8 @@ struct K {
     static let evenDayOpeningHour = 9
 //    Th shop opens on odd days at 10
     static let oddDayOpeningHour = 10
+    static let maxReservationPerHour = 3
+    static let queueMinutesOffset = 30
+    
     
 }
