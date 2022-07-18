@@ -220,6 +220,9 @@ class DatabaseBrain: ObservableObject {
         
     }
     
+    
+    
+    //MARK: - Calculate Reservation Time Methods
     @MainActor
     func CalculateAvailableSlot() async  {
         
@@ -237,72 +240,194 @@ class DatabaseBrain: ObservableObject {
         
         let date = formatter.date(from: "18-07-2022 10:00") ?? Date()
         
-        getTimeReservable(date: date, queueTimeList: queueList, reservationsDate: reservations)
+        let timeSlot = getTimeReservable(dateSelected: date, queueTimeList: queueList, reservationsDate: reservations)
         
     }
     
-    func getDateInterval() -> ClosedRange<Date> {
+    func getTimeReservable(dateSelected: Date, queueTimeList:[Date], reservationsDate:[Date]) -> [Int : [Int]] {
         
-        let today = Date()
-        let yearInSeconds = TimeInterval(86400*365)
+        var latestTime = queueTimeList.max()
         
-        let dateInterval = DateInterval(start: today, duration: yearInSeconds)
-        
-        let range:ClosedRange<Date> = dateInterval.start...dateInterval.end
-        
-        return range
-        
-    }
-    
-    func getTimeReservable(date: Date, queueTimeList:[Date], reservationsDate:[Date]) -> [ReservableTimeSlot] {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        
-//        This variable is important because on even/odd days the store has different opening hour
-        let WeekDayOfDate = Calendar.current.component(.weekday, from: date)
-        
-//        We set the opening hour in respect to the day that the user picked to reserve
-        let openingHour =  WeekDayOfDate % 2 == 0 ? K.evenDayOpeningHour : K.oddDayOpeningHour
-        
-        let latestTime = queueTimeList.max()
-        
-        var reservableTimeSlot:[ReservableTimeSlot] = createReservationTimeSlot(lastTimeToReserve: latestTime, dateToReserve: date)
-        
-        
-        var queueTimeSlot:[String] = {
+        if latestTime != nil {
             
-            var timeArray = [String]()
-            
-            queueTimeList.forEach { date in
-                
-                let time = dateFormatter.string(from: date)
-                
-                timeArray.append(time)
-                
+            if !(dateSelected.isSameDay(date1: latestTime!, date2: dateSelected)) {
+                latestTime = nil
             }
             
-            return timeArray
-            
-        }()
+        }
         
-//        If there is 0 any reservation for the date
-        if !(isThereReservationOnDate(date: date, reservationsDate: reservationsDate)) {
+//        A list that contains all the hours available to book if there is no reservation
+        var availableTimeSlot:[ReservableTimeSlot] = createReservationTimeSlot(lastTimeToReserve: latestTime, dateToReserve: dateSelected)
+        
+//        If there is 0 reservation for the date
+        if !(isThereReservationOnDate(date: dateSelected, reservationsDate: reservationsDate)) {
             
-            return reservableTimeSlot
+            let availableTimeSlotDict = Dictionary(
+                uniqueKeysWithValues: availableTimeSlot.map(
+                    { timeSlot in
+                        (timeSlot.hour, timeSlot.minutes)
+                    }
+                )
+            )
+            
+            return availableTimeSlotDict
             
         }
         else {
             
-//            for date in reservationsDate {
+//            We remove the bookedSlot
+            availableTimeSlot = removeBookedSlot(bookedDate: reservationsDate, dateSelected: dateSelected, availableTimes: availableTimeSlot)
             
-//                  TODO
+            let availableTimeSlotDict = Dictionary(
+                uniqueKeysWithValues: availableTimeSlot.map(
+                    { timeSlot in
+                        (timeSlot.hour, timeSlot.minutes)
+                    }
+                )
+            )
             
-//            }
+            print("Hours bookable : \(availableTimeSlotDict.keys)")
             
-            return []
+            printAvailableTimeSlotArray(array: availableTimeSlot)
+            
+            return availableTimeSlotDict
             
         }
+        
+    }
+    
+    func printAvailableTimeSlotArray(array:[ReservableTimeSlot]) {
+        
+        for timeSlot in array {
+            
+            timeSlot.printf()
+            
+        }
+        
+    }
+    
+    func removeBookedSlot(bookedDate:[Date],
+                             dateSelected:Date,
+                             availableTimes:[ReservableTimeSlot]) -> [ReservableTimeSlot] {
+        
+        var availableTimeSlot = availableTimes
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        dateFormatter.timeZone = TimeZone.current
+        
+        let hoursFullyBooked = getUnavailableHours(bookedDate: bookedDate)
+        
+        availableTimeSlot = removeFullyBookedHours(
+            availableTimeSlot: availableTimeSlot,
+            hoursFullyBooked: hoursFullyBooked)
+        
+        
+        availableTimeSlot = removeMinutesSlotBooked(
+            dateSelected: dateSelected,
+            bookedDate: bookedDate,
+            availableTime: availableTimeSlot)
+        
+        return availableTimeSlot
+        
+    }
+    
+    func getUnavailableHours(bookedDate:[Date]) -> [Int] {
+        
+        var hoursToRemove = [Int]()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        dateFormatter.timeZone = TimeZone.current
+        
+        let hoursCount:[Int:Int] = {
+            var dict = [Int:Int]()
+            
+            for date in bookedDate {
+                
+                let hour = Calendar.current.component(.hour, from: date)
+                
+                // if the hour is not present in the dictionnary
+                if dict[hour] == nil {
+                    dict[hour] = 1
+                }
+                else {
+                    dict[hour]! += 1
+                }
+                
+            }
+            
+            return dict
+            
+        }()
+        
+//        We add the hours that has reached the maximum of reservation per hour
+        hoursCount.forEach { (key: Int, value: Int) in
+            if value >= K.maxReservationPerHour {
+                hoursToRemove.append(key)
+            }
+        }
+        
+        return hoursToRemove
+        
+    }
+    
+    func removeMinutesSlotBooked(dateSelected:Date, bookedDate:[Date], availableTime:[ReservableTimeSlot]) -> [ReservableTimeSlot] {
+        
+        var availableTimeSlot = availableTime
+        
+        for date in bookedDate {
+            
+            let isSameDateAsDatePicked = date.isSameDay(date1: date, date2: dateSelected)
+            
+            guard isSameDateAsDatePicked else {
+                continue
+            }
+            
+            let reservationHour = Calendar.current.component(.hour, from: date)
+            let reservationMinute = Calendar.current.component(.minute, from: date).roundToFiveDecimal()
+            
+            for (index, reservationTimeSlot) in availableTimeSlot.enumerated() {
+                
+                // If there is a an hour in the bookedDates that is similar to one in the reservationTimeSlot (available)
+                if reservationTimeSlot.hour == reservationHour {
+                
+                    //  If we find two similar minutes slots in both array, we remove it from the available minutes slot
+                    
+                    if let indexOfMinutesSlotToRemove = reservationTimeSlot.minutes.firstIndex(of: reservationMinute) {
+                        
+                        availableTimeSlot[index].minutes.remove(at: indexOfMinutesSlotToRemove)
+                        
+                    }
+                
+                }
+                
+            }
+            
+        }
+        
+        return availableTimeSlot
+        
+    }
+    
+    func removeFullyBookedHours(availableTimeSlot: [ReservableTimeSlot], hoursFullyBooked:[Int]) -> [ReservableTimeSlot] {
+        
+//        Creating a copy of it to be able to remove element from array
+        var availableTime = availableTimeSlot
+        
+        for (index, timeSlot) in availableTime.enumerated() {
+            
+            let timeSlotHour = timeSlot.hour
+            
+            if hoursFullyBooked.contains(timeSlotHour) {
+                
+                availableTime.remove(at: index)
+                
+            }
+            
+        }
+        
+        return availableTime
         
     }
     
@@ -320,13 +445,13 @@ class DatabaseBrain: ObservableObject {
         }
         
         return false
-        
     }
     
     func createReservationTimeSlot(lastTimeToReserve:Date?, dateToReserve:Date) -> [ReservableTimeSlot] {
         
 //        This variable is important because on even/odd days the store has different opening hour
         let WeekDayOfDate = Calendar.current.component(.weekday, from: dateToReserve)
+        var isFirstHourReservable:Bool = true
                 
 //        We set the opening hour in respect to the day that the user picked to reserve
         let openingHour =  WeekDayOfDate % 2 == 0 ? K.evenDayOpeningHour : K.oddDayOpeningHour
@@ -335,27 +460,48 @@ class DatabaseBrain: ObservableObject {
             
 //            We set the first hour reservable by looking at the latest hour a person has entered the queue
             let firstHourReservable:Int
+            
+//            If there is someone in the queue
             if let lastTimeToReserve = lastTimeToReserve {
-                firstHourReservable = Calendar.current.component(.hour, from: lastTimeToReserve)
+                
+                let lastTimeMinute = Calendar.current.component(.minute, from: lastTimeToReserve)
+                
+                print("last minute entered queue : \(lastTimeMinute)")
+                
+//                if the offset added to the minute of the last person in the queue will pass outside of the hour range ie: the minuteOffset is over 60 minute, we set the first reservable hour to the next hour
+                if lastTimeMinute >= (60 - K.queueMinutesOffset) {
+                    
+                    firstHourReservable = Calendar.current.component(.hour, from: lastTimeToReserve) + 1
+                    
+                    isFirstHourReservable = false
+                    
+//                    if it's not the case we set it
+                } else {
+                    firstHourReservable = Calendar.current.component(.hour, from: lastTimeToReserve)
+                }
             }
+//            If there is no one in the queue for all the day, we can let the user reserve a time for the opening hour
             else {
                 firstHourReservable = openingHour
-                
             }
             
-            var array = [Int]()
-            for i in firstHourReservable...K.closingHour {
-                array.append(i)
+            var hours = [Int]()
+            for i in firstHourReservable..<K.closingHour {
+                hours.append(i)
             }
-            return array
+            return hours
             
         }()
         
 //        The minute of the firstHour to be reservable regarding the queue
         let lastestTimeMinuteComponent:Int
         
-        if let lastTimeToReserve = lastTimeToReserve {
-            lastestTimeMinuteComponent = Calendar.current.component(.minute, from: lastTimeToReserve)
+//        if there is someone in the queue, and the firstHour is reservable
+        if lastTimeToReserve != nil && isFirstHourReservable {
+            
+//            We set the reservable minute to be the last minute
+            lastestTimeMinuteComponent = Calendar.current.component(.minute, from: lastTimeToReserve!).roundToFiveDecimal()
+            
         } else {
             lastestTimeMinuteComponent = 0
         }
@@ -363,7 +509,7 @@ class DatabaseBrain: ObservableObject {
         var reservationsTimeSlot:[ReservableTimeSlot] = [ReservableTimeSlot]()
         
 //        We create the firstHoursSlot since it can be either at the opening of the store or the time after the last person has been added to the queue
-        let firstHourMinutesSlot = createMinuteSlot(minuteToStart: lastestTimeMinuteComponent.roundToFiveDecimal())
+        let firstHourMinutesSlot = createMinuteSlot(minuteToStart: lastestTimeMinuteComponent.roundToFiveDecimal() + K.queueMinutesOffset)
         let firstReservationTimeSlot = ReservableTimeSlot(hour: hourSlot[0], minutes: firstHourMinutesSlot)
         reservationsTimeSlot.append(firstReservationTimeSlot)
         
@@ -413,18 +559,20 @@ class DatabaseBrain: ObservableObject {
         
     }
     
-//    Check if there was more reservation than the constant set in the files, ex 10 for now
-    func hasDayReachedMaximumReservations(date:Date, reservationsDate:[Date]) -> Bool {
+    //MARK: - Limit Reservations Methods
+    
+//    Check if there are more reservations than the maximum allowed, ex 10 for now
+    func hasDayReachedMaximumReservations(date:Date, bookedDate:[Date]) -> Bool {
         
         var count = 0
         
-        for iterateDay in reservationsDate {
+        for iterateDay in bookedDate {
             
             if date.isSameDay(date1: date, date2: iterateDay) {
                 
                 count += 1
                 
-                if count >= 10 {
+                if count >= K.maxReservationPerDay {
                     return true
                 }
             }
@@ -435,6 +583,27 @@ class DatabaseBrain: ObservableObject {
         
     }
     
+    //    Check if there are more reservations than the maximum allowed
+    func hasHourReachedMaximumReservations(date: Date, bookedDate:[Date]) -> Bool {
+     
+        var count = 0
+        
+        for iterateDay in bookedDate {
+            
+            if date.isSameHour(date1: date, date2: iterateDay) {
+                
+                count += 1
+                
+                if count >= K.maxReservationPerHour {
+                    return true
+                }
+            }
+            
+        }
+        
+        return false
+        
+    }
     
 }
 
@@ -475,14 +644,30 @@ extension Date: Strideable {
         
     }
     
+    func isSameHour(date1:Date, date2:Date) -> Bool {
+        
+        let diff = Calendar.current.dateComponents([.hour], from: date1, to: date2)
+            if diff.hour == 0 {
+                return true
+            } else {
+                return false
+            }
+        
+    }
+    
 }
 
 
 //MARK: - Int Extension
 extension Int {
     
-//    Will return the closest five five multiplicant of a number, eg: 7 -> 10, 9 -> 10, 2 -> 5, 22 -> 25
+    /// Will return the closest five multiplicant of a number, eg: 7 -> 10, 9 -> 10, 2 -> 5, 22 -> 25
+    /// - Returns: closest five multiplicant of a number
     func roundToFiveDecimal() -> Int {
+        
+        if self % 5 == 0 {
+            return self
+        }
         
         let numberToAdd = 5 - (self % 5)
         
