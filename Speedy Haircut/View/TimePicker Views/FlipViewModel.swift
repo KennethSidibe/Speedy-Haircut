@@ -10,10 +10,13 @@ import SwiftUI
 class FlipViewModel: ObservableObject, Identifiable {
     
     init(timeSlot:[String]) {
+        print("timeslot at init : \(timeSlot)")
         self.timeSlot = timeSlot
         self.selector = 0
         self.oldValue = String(timeSlot[selector])
         self.newValue = String(timeSlot[selector+1])
+        
+        print()
     }
     
     var timeSlot:[String]
@@ -27,6 +30,7 @@ class FlipViewModel: ObservableObject, Identifiable {
     @Published var animateBottom: Bool = false
 
     func updateTexts(old: String?, new: String?) {
+        print("timeslot at update : \(timeSlot)")
         
         guard old != new else { return }
         oldValue = old
@@ -45,9 +49,12 @@ class FlipViewModel: ObservableObject, Identifiable {
     
     func nextTimeSlot() {
         
-        oldValue = String(timeSlot[selector])
+        print("timeslot at next : \(timeSlot)")
+        
+        oldValue = timeSlot[selector]
         animateTop = false
         animateBottom = false
+        
 
         withAnimation(Animation.easeIn(duration: 0.2)) { [weak self] in
             
@@ -56,7 +63,7 @@ class FlipViewModel: ObservableObject, Identifiable {
             if selector == timeSlot.count {
                 selector = 0
             }
-            self?.newValue = String(timeSlot[selector])
+            self?.newValue = timeSlot[selector]
             self?.animateTop = true
         }
 
@@ -67,9 +74,11 @@ class FlipViewModel: ObservableObject, Identifiable {
     
     func previousTimeSlot() {
         
-        oldValue = String(timeSlot[selector])
+        oldValue = timeSlot[selector]
         animateTop = false
         animateBottom = false
+        
+        print("timeslot at previous : \(timeSlot)")
 
         withAnimation(Animation.easeIn(duration: 0.2)) { [weak self] in
             
@@ -78,7 +87,7 @@ class FlipViewModel: ObservableObject, Identifiable {
             if selector < 0 {
                 selector = timeSlot.count - 1
             }
-            self?.newValue = String(timeSlot[selector])
+            self?.newValue = timeSlot[selector]
             self?.animateTop = true
         }
 
@@ -87,9 +96,9 @@ class FlipViewModel: ObservableObject, Identifiable {
         }
     }
     
-    func resetSlot() {
+    func resetSlot(newTimeSlot:[String]) {
         
-        oldValue = String(timeSlot[selector])
+        oldValue = timeSlot[selector]
         animateTop = false
         animateBottom = false
 
@@ -97,12 +106,26 @@ class FlipViewModel: ObservableObject, Identifiable {
             
             selector = 0
             
-            self?.newValue = String(timeSlot[selector])
+            self?.timeSlot = newTimeSlot
+            
+            self?.newValue = timeSlot[selector]
             self?.animateTop = true
         }
 
         withAnimation(Animation.easeOut(duration: 0.2).delay(0.2)) { [weak self] in
             self?.animateBottom = true
+        }
+        
+    }
+    
+    func getCurrentTime() -> Int {
+        
+        print("timeslot flip view model\(timeSlot)")
+        
+        if let time = Int(timeSlot[selector]) {
+            return time
+        } else {
+            return 0
         }
         
     }
