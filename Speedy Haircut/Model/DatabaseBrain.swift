@@ -224,7 +224,7 @@ class DatabaseBrain: ObservableObject {
     
     //MARK: - Calculate Reservation Time Methods
     @MainActor
-    func CalculateAvailableSlot() async  {
+    func CalculateAvailableSlot(dateSelected:Date) async -> [Int:[Int]] {
         
         let queueList = await fetchQueueList().1
         let reservations = await fetchReservationList().1
@@ -235,12 +235,14 @@ class DatabaseBrain: ObservableObject {
         
         guard queueList != [], reservations != [] else {
             print("Error while retrieveing queueList and reservationsList")
-            return
+            return [:]
         }
         
-        let date = formatter.date(from: "18-07-2022 10:00") ?? Date()
         
-        let timeSlot = getTimeReservable(dateSelected: date, queueTimeList: queueList, reservationsDate: reservations)
+        
+        let timeSlot = getTimeReservable(dateSelected: dateSelected, queueTimeList: queueList, reservationsDate: reservations)
+        
+        return timeSlot
         
     }
     
@@ -285,10 +287,6 @@ class DatabaseBrain: ObservableObject {
                     }
                 )
             )
-            
-            print("Hours bookable : \(availableTimeSlotDict.keys)")
-            
-            printAvailableTimeSlotArray(array: availableTimeSlot)
             
             return availableTimeSlotDict
             
