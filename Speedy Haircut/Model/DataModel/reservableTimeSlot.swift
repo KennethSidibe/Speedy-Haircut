@@ -7,9 +7,17 @@
 
 import Foundation
 
-struct ReservableTimeSlot {
+struct ReservableTimeSlot:Equatable {
     
     let hour:Int
-    let minutes:[Int]
+    var minutes:[Int]
+ 
+    
+    func printf() {
+        
+        print("Hours bookable : \(hour)")
+        print("Minutes Bookable : \(minutes)")
+        
+    }
     
 }
