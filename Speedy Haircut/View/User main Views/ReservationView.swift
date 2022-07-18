@@ -110,9 +110,13 @@ struct ReservationView: View {
                     
                     await dbBrain.CalculateAvailableSlot()
                     
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+                    
+                    let reservDate = dateFormatter.date(from: "18-07-2022 12:10")
                     let name = dbBrain.user.firstName ?? "client"
                     
-//                    dbBrain.bookReservation(client:name, date: pickedDate ?? Date())
+//                    dbBrain.bookReservation(client:name, date: reservDate ?? Date())
                     
                 }
                 
