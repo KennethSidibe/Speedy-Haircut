@@ -7,10 +7,10 @@
 
 import Foundation
 
-class reservationBrain {
+class ReservationBrain {
     
     //MARK: - Properties
-    private var queueList:[Date]
+    private var queueDates:[Date]
     private var reservations:[Date]
     private var pickedDate:Date?
     private var pickedTime:Date?
@@ -35,12 +35,12 @@ class reservationBrain {
     }
     
     //MARK: - Initializer
-    init(queueList:[Date], reservations:[Date]){
-        self.queueList = queueList
+    init(queueDates:[Date], reservations:[Date]){
+        self.queueDates = queueDates
         self.reservations = reservations
     }
     
-    //MARK: - Get View Data
+    //MARK: - Get View Data Methods
     func getPickedDate() -> Date {
         dateFormatter.dateFormat = "dd-MM-yyyy"
         
@@ -72,6 +72,10 @@ class reservationBrain {
     
     func getAvailableTimeSlot() -> [Int:[Int]]? {
         return availableTimeSlot
+    }
+    
+    func getUnavailableDates() -> [Date] {
+        return unavailableDates
     }
     
     //MARK: - Calculate Reservation Time Methods
