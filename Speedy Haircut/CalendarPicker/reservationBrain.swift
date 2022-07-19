@@ -9,8 +9,51 @@ import Foundation
 
 struct reservationBrain {
     
-    let queueList:[Date]
-    let reservations:[Date]
+    private let queueList:[Date]
+    private let reservations:[Date]
+    private var pickedDate:Date?
+    private var pickedTime:Date?
+    private var dateFormatter:DateFormatter
+    private var calendar:Calendar {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone.current
+        
+        return calendar
+    }
+    private var availableTimeSlot:[Int:[Int]]
+    
+    //MARK: - Get View Data
+    func getPickedDate() -> Date {
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        return pickedDate ?? Date()
+    }
+    
+    func getPickedDateString() -> String {
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        return dateFormatter.string(from: self.pickedDate ?? Date())
+    }
+    
+    func getPickedTime() -> Date {
+        dateFormatter.dateFormat = "HH:mm"
+        
+        let hour = calendar.component(.hour, from: pickedTime ?? Date())
+        let minutes = calendar.component(.minute, from: pickedTime ?? Date())
+        
+        let timeString = String(hour)+":"+String(minutes)
+        
+        return dateFormatter.date(from: timeString)!
+    }
+    
+    func getPickedTimeString() -> String {
+        dateFormatter.dateFormat = "HH:mm"
+        
+        return dateFormatter.string(from: self.pickedTime ?? Date())
+    }
+    func getAvailableTimeSlot() -> [Int:[Int]] {
+        return availableTimeSlot
+    }
     
     //MARK: - Calculate Reservation Time Methods
     func CalculateAvailableSlot(dateSelected:Date, queueList:[Date], reservations:[Date]) -> [Int:[Int]] {
@@ -26,8 +69,6 @@ struct reservationBrain {
             print("Error while retrieveing queueList and reservationsList")
             return [:]
         }
-        
-        
         
         let timeSlot = getTimeReservable(dateSelected: dateSelected, queueTimeList: queueList, reservationsDate: reservations)
         
