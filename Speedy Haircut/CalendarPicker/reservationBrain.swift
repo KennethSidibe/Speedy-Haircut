@@ -7,20 +7,28 @@
 
 import Foundation
 
-struct reservationBrain {
+class reservationBrain {
     
-    private let queueList:[Date]
-    private let reservations:[Date]
+    //MARK: - Properties
+    private var queueList:[Date]
+    private var reservations:[Date]
     private var pickedDate:Date?
     private var pickedTime:Date?
-    private var dateFormatter:DateFormatter
+    private var dateFormatter:DateFormatter = DateFormatter()
     private var calendar:Calendar {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone.current
         
         return calendar
     }
-    private var availableTimeSlot:[Int:[Int]]
+    private var availableTimeSlot:[Int:[Int]]?
+    @Published private var unavailableDates: [Date]?
+    
+    //MARK: - Initializer
+    init(queueList:[Date], reservations:[Date]){
+        self.queueList = queueList
+        self.reservations = reservations
+    }
     
     //MARK: - Get View Data
     func getPickedDate() -> Date {
@@ -51,7 +59,8 @@ struct reservationBrain {
         
         return dateFormatter.string(from: self.pickedTime ?? Date())
     }
-    func getAvailableTimeSlot() -> [Int:[Int]] {
+    
+    func getAvailableTimeSlot() -> [Int:[Int]]? {
         return availableTimeSlot
     }
     
@@ -76,7 +85,8 @@ struct reservationBrain {
         
     }
     
-    func getTimeReservable(dateSelected: Date, queueTimeList:[Date], reservationsDate:[Date]) -> [Int : [Int]] {
+    func getTimeReservable(dateSelected: Date, queueTimeList:[Date],
+                           reservationsDate:[Date]) -> [Int : [Int]] {
         
         var latestTime = queueTimeList.max()
         
@@ -108,7 +118,9 @@ struct reservationBrain {
         else {
             
 //            We remove the bookedSlot
-            availableTimeSlot = removeBookedSlot(bookedDate: reservationsDate, dateSelected: dateSelected, availableTimes: availableTimeSlot)
+            availableTimeSlot = removeBookedSlot(bookedDate: reservationsDate,
+                                                 dateSelected: dateSelected,
+                                                 availableTimes: availableTimeSlot)
             
             let availableTimeSlotDict = Dictionary(
                 uniqueKeysWithValues: availableTimeSlot.map(
@@ -200,7 +212,8 @@ struct reservationBrain {
         
     }
     
-    func removeMinutesSlotBooked(dateSelected:Date, bookedDate:[Date], availableTime:[ReservableTimeSlot]) -> [ReservableTimeSlot] {
+    func removeMinutesSlotBooked(dateSelected:Date, bookedDate:[Date],
+                                 availableTime:[ReservableTimeSlot]) -> [ReservableTimeSlot] {
         
         var availableTimeSlot = availableTime
         
@@ -238,7 +251,8 @@ struct reservationBrain {
         
     }
     
-    func removeFullyBookedHours(availableTimeSlot: [ReservableTimeSlot], hoursFullyBooked:[Int]) -> [ReservableTimeSlot] {
+    func removeFullyBookedHours(availableTimeSlot: [ReservableTimeSlot],
+                                hoursFullyBooked:[Int]) -> [ReservableTimeSlot] {
         
 //        Creating a copy of it to be able to remove element from array
         var availableTime = availableTimeSlot
@@ -275,7 +289,8 @@ struct reservationBrain {
         return false
     }
     
-    func createReservationTimeSlot(lastTimeToReserve:Date?, dateToReserve:Date) -> [ReservableTimeSlot] {
+    func createReservationTimeSlot(lastTimeToReserve:Date?,
+                                   dateToReserve:Date) -> [ReservableTimeSlot] {
         
 //        This variable is important because on even/odd days the store has different opening hour
         let WeekDayOfDate = Calendar.current.component(.weekday, from: dateToReserve)
