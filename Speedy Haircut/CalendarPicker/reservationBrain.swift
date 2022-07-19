@@ -22,7 +22,17 @@ class reservationBrain {
         return calendar
     }
     private var availableTimeSlot:[Int:[Int]]?
-    @Published private var unavailableDates: [Date]?
+    private var unavailableDates: [Date] {
+        var dates = [Date]()
+        for date in reservations {
+            let isDateNotReservable = hasDayReachedMaximumReservations(date: date,
+                                                                    bookedDate: reservations)
+            if isDateNotReservable {
+                dates.append(date)
+            }
+        }
+        return dates
+    }
     
     //MARK: - Initializer
     init(queueList:[Date], reservations:[Date]){
