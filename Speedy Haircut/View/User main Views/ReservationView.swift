@@ -11,7 +11,6 @@ struct ReservationView: View {
     
     @EnvironmentObject var dbBrain:DatabaseBrain
     @State var isCalendarPickerShow:Bool = false
-    @State var range:ClosedRange<Date>?
     @State var pickedDate:Date?
     @State var pickedTime:Date?
     @State var isTimePickerShow:Bool = false
