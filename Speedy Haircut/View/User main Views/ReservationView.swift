@@ -16,6 +16,36 @@ struct ReservationView: View {
     @State var pickedDate:Date?
     @State var pickedDateString:String?
     @State var pickedTime:Date?
+    var reservationsDate:[Date] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        var reserv = [Date]()
+        let reserv1 = dateFormatter.date(from: "23-07-2022 12:15")!
+        let reserv2 = dateFormatter.date(from: "23-07-2022 12:35")!
+        let reserv3 = dateFormatter.date(from: "23-07-2022 12:50")!
+        let reserv4 = dateFormatter.date(from: "25-07-2022 11:20")!
+        
+        reserv.append(reserv1)
+        reserv.append(reserv2)
+        reserv.append(reserv3)
+        reserv.append(reserv4)
+        
+        return reserv
+    }
+    var queueDates:[Date] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        var dates = [Date]()
+        let queue1 = dateFormatter.date(from: "22-07-2022 09:30")!
+        let queue2 = dateFormatter.date(from: "22-07-2022 10:20")!
+        let queue3 = dateFormatter.date(from: "22-07-2022 10:20")!
+        
+        dates.append(queue1)
+        dates.append(queue2)
+        dates.append(queue3)
+        
+        return dates
+    }
     private var dateFormatter = DateFormatter()
     @State var availableTimeSlot: [Int: [Int]]?
     @State var minutesFlipBrain:FlipViewModel?
@@ -179,8 +209,11 @@ struct ReservationView: View {
             
             Task {
                 
-                let reservations = await dbBrain.fetchReservationList().1
-                let queueDates = await dbBrain.fetchQueueList().1
+//                let reservations = await dbBrain.fetchReservationList().1
+//                let queueDates = await dbBrain.fetchQueueList().1
+                
+                let reservations = self.reservationsDate
+                let queueDates = self.queueDates
                 
                 reservBrain.setBrain(reservations: reservations, queueDates: queueDates, datePicked: pickedDate)
 
