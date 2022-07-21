@@ -11,50 +11,20 @@ struct ReservationView: View {
     
     @EnvironmentObject var dbBrain:DatabaseBrain
     @State var isCalendarPickerShow:Bool = false
-    @State var pickedDate:Date?
-    @State var pickedTime:Date?
     @State var isTimePickerShow:Bool = false
+    private var reservBrain:ReservationBrain = ReservationBrain()
+    @State var pickedDate:Date?
+    @State var pickedDateString:String?
+    @State var pickedTime:Date?
+    private var dateFormatter = DateFormatter()
     @State var availableTimeSlot: [Int: [Int]]?
-    var unavailableDates: [Date] {
-        let dateFormat = DateFormatter()
-        dateFormat.dateFormat = "dd-MM-yyyy"
-        let date1 = dateFormat.date(from: "20-07-2022")
-        let date2 = dateFormat.date(from: "24-07-2022")
-        let date3 = dateFormat.date(from: "31-07-2022")
-        let date4 = dateFormat.date(from: "18-08-2022")
-        
-        return [date1!, date2!, date3!, date4!]
-    }
     @State var minutesFlipBrain:FlipViewModel?
     @State var hoursFlipBrain:FlipViewModel?
-    var today:String {
-        let dateFormat = DateFormatter()
-        dateFormat.dateFormat = "dd-MM-yyyy"
-        let today = Date()
+    private var today:String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
         
-        return dateFormat.string(from: today)
-    }
-    var pickedDateString: String {
-        let dateFormat = DateFormatter()
-        dateFormat.dateFormat = "dd-MM-yyyy"
-        
-        if let pickedDate = pickedDate {
-            return dateFormat.string(from: pickedDate)
-        } else {
-            return today
-        }
-    }
-    var pickedTimeString:String {
-        let dateFormat = DateFormatter()
-        dateFormat.dateFormat = "HH:mm"
-        
-        if let pickedTime = pickedTime {
-            return dateFormat.string(from: pickedTime)
-        } else {
-            
-            return dateFormat.string(from: Date())
-        }
-        
+        return dateFormatter.string(from: Date())
     }
     
     var body: some View {
@@ -75,7 +45,7 @@ struct ReservationView: View {
                         .font(.footnote)
                     
                     HStack {
-                        Text("\(pickedDateString)")
+                        Text("\(pickedDateString ?? today)")
                             .frame(width: 200)
                         
                         Button(action: {
@@ -83,6 +53,7 @@ struct ReservationView: View {
                             isCalendarPickerShow = true
                             
                         }, label: {
+                            
                             Image(systemName: "calendar")
                                 .foregroundColor(Color.blue)
                                 .padding(.trailing)
@@ -94,14 +65,18 @@ struct ReservationView: View {
                             .stroke(Color.blue, lineWidth: 2)
                             .frame(height: 35, alignment: .center)
                     )
-                    
                 }
                 
             }
             .fullScreenCover(isPresented: $isCalendarPickerShow) {
                 
                 CalendarPicker(
-                    date: $pickedDate, unavailableDays: unavailableDates)
+                    date: $pickedDate,
+                    dateString: $pickedDateString,
+                    unavailableDays: reservBrain.getUnavailableDates() ?? [Date()])
+                .onChange(of: pickedDate ?? Date()) { newValue in
+                    reservBrain.setPickedDate(pickedDate: newValue)
+                }
                 
             }
             
@@ -115,7 +90,7 @@ struct ReservationView: View {
                         .font(.footnote)
                     
                     HStack {
-                        Text("\(pickedTimeString)")
+                        Text("\(reservBrain.getPickedTimeString())")
                             .frame(width: 200)
                         
                         Button(action: {
@@ -175,6 +150,7 @@ struct ReservationView: View {
             Text("Time")
                 .font(.title3)
             
+//            Create Reservation
             Button(action: {
                 
                 let dateFormatter = DateFormatter()
@@ -184,7 +160,7 @@ struct ReservationView: View {
                 
                 let name = dbBrain.user.firstName ?? "client"
                 
-                //                    dbBrain.bookReservation(client:name, date: reservDate ?? Date())
+                //  dbBrain.bookReservation(client:name, date: reservDate ?? Date())
                     
                 
             }, label: {
@@ -203,24 +179,10 @@ struct ReservationView: View {
             
             Task {
                 
-                self.availableTimeSlot = await dbBrain.CalculateAvailableSlot(dateSelected: pickedDate ?? Date())
+                let reservations = await dbBrain.fetchReservationList().1
+                let queueDates = await dbBrain.fetchQueueList().1
                 
-                let availableHourSlot = availableTimeSlot!.keys.sorted()
-                
-                let availableHourSlotString = availableHourSlot.map { key in
-                    return String(key)
-                }
-                
-                print("available hour string : \(availableHourSlotString)")
-                
-                
-                let firstKey = availableHourSlot.min()!
-                
-                let firstMinutesSlot = availableTimeSlot![firstKey]
-                
-                let firstMinutesSlotString = firstMinutesSlot!.map { key in
-                    String(key)
-                }
+                reservBrain.setBrain(reservations: reservations, queueDates: queueDates, datePicked: pickedDate)
 
             }
         }
@@ -236,7 +198,7 @@ struct ReservationView_Previews: PreviewProvider {
         let hourSlot = ["3", "4", "9", "12"]
         let minutesFlipBrain = FlipViewModel(timeSlot: minuteSlot)
         let hoursFlipBrain = FlipViewModel(timeSlot: hourSlot)
-            ReservationView(minutesFlipBrain: minutesFlipBrain, hoursFlipBrain: hoursFlipBrain)
+        ReservationView()
                 .environmentObject(DatabaseBrain())
     }
     
