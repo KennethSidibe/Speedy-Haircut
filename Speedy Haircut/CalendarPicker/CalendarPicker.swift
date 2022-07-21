@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CalendarPicker: UIViewControllerRepresentable {
     @Binding var date:Date?
+    @Binding var dateString:String?
     let unavailableDays:[Date]
     
     func makeUIViewController(context: Context) -> CalendarPickerViewController {
@@ -19,6 +20,7 @@ struct CalendarPicker: UIViewControllerRepresentable {
         let calendarPicker = CalendarPickerViewController(
             baseDate: currentDate, unavailableDays: unavailableDays) { date in
                 self.date = date
+                setDateToString(dateToString: date)
             }
         
         return calendarPicker
@@ -27,12 +29,20 @@ struct CalendarPicker: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: CalendarPickerViewController, context: Context) {
     }
     
+    func setDateToString(dateToString:Date) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        self.dateString = dateFormatter.string(from: dateToString)
+    }
+    
 }
 
 @available(iOS 13.0, *)
 struct CalendarPickerPreviewContainer:View {
     
     @State var date:Date?
+    @State var dateString:String?
     var unavailableDates: [Date] {
         
         let dateFormat = DateFormatter()
@@ -48,7 +58,9 @@ struct CalendarPickerPreviewContainer:View {
     
     var body: some View {
         
-        CalendarPicker(date: $date, unavailableDays: unavailableDates)
+        CalendarPicker(date: $date,
+                       dateString: $dateString,
+                       unavailableDays: unavailableDates)
         
     }
     
