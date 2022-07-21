@@ -7,13 +7,15 @@
 
 import Foundation
 
-class ReservationBrain {
+class ReservationBrain: ObservableObject {
     
     //MARK: - Properties
-    private var queueDates:[Date]
-    private var reservations:[Date]
-    private var pickedDate:Date?
-    private var pickedTime:Date?
+     var queueDates:[Date]?
+     var reservations:[Date]?
+    @Published private var pickedDate:Date?
+    @Published var pickedDateString:String?
+    @Published var pickedTimeString:String?
+    @Published private var pickedTime:Date?
     private var dateFormatter:DateFormatter = DateFormatter()
     private var calendar:Calendar {
         var calendar = Calendar(identifier: .gregorian)
@@ -22,19 +24,14 @@ class ReservationBrain {
         return calendar
     }
     private var availableTimeSlot:[Int:[Int]]?
-    private var unavailableDates: [Date] {
-        var dates = [Date]()
-        for date in reservations {
-            let isDateNotReservable = hasDayReachedMaximumReservations(date: date,
-                                                                    bookedDate: reservations)
-            if isDateNotReservable {
-                dates.append(date)
-            }
-        }
-        return dates
-    }
+    private var unavailableDates: [Date]?
     
     //MARK: - Initializer
+    init() {
+        self.queueDates = nil
+        self.reservations = nil
+    }
+    
     init(queueDates:[Date], reservations:[Date]){
         self.queueDates = queueDates
         self.reservations = reservations
@@ -74,8 +71,61 @@ class ReservationBrain {
         return availableTimeSlot
     }
     
-    func getUnavailableDates() -> [Date] {
+    func getUnavailableDates() -> [Date]? {
         return unavailableDates
+    }
+    
+    func setPickedDate(pickedDate:Date) {
+        self.pickedDate = pickedDate
+        
+    }
+    
+    func setPickedTime(pickedTime:Date) {
+        self.pickedTime = pickedTime
+    }
+    
+    //MARK: - Set Methods
+    func setBrain(reservations:[Date], queueDates:[Date], datePicked:Date?) {
+        self.reservations = reservations
+        self.queueDates = queueDates
+        self.setUnavailableDates()
+        let availableTimeSlot = getTimeReservable(
+            dateSelected: datePicked ?? Date(),
+            queueTimeList: queueDates,
+            reservationsDate: reservations)
+        self.availableTimeSlot = availableTimeSlot
+    }
+    
+    func setUnavailableDates()  {
+        if let reservations = reservations {
+            var dates = [Date]()
+            for date in reservations {
+                let isDateNotReservable = hasDayReachedMaximumReservations(date: date,
+                                                                        bookedDate: reservations)
+                if isDateNotReservable {
+                    dates.append(date)
+                }
+            }
+            unavailableDates = dates
+        }
+    }
+    
+    func setAvailableTimeSlot() {
+        if pickedDate != nil &&
+            queueDates !=  nil &&
+            reservations != nil {
+            
+            let availableTimeSlot = getTimeReservable(dateSelected: pickedDate!, queueTimeList: queueDates!, reservationsDate: reservations!)
+            
+            self.availableTimeSlot = availableTimeSlot
+        }
+    }
+    
+    func setQueueDates(queueDates:[Date]) {
+        self.queueDates = queueDates
+    }
+    func setReservations(reservations:[Date]) {
+        self.reservations = reservations
     }
     
     //MARK: - Calculate Reservation Time Methods
