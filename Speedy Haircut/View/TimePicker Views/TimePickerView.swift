@@ -10,7 +10,8 @@ import SwiftUI
 struct TimePickerView: View {
     
     @Binding var timePicked:Date?
-    @Binding var isPresented:Bool
+    @Binding var timePickedString:String?
+    @Binding var timePickerFlipBrains:TimePickerFlipBrains?
     let hoursFlipBrain:FlipViewModel
     let minutesFlipBrain:FlipViewModel
     let availableTimeSlot:[Int: [Int] ]
@@ -18,13 +19,15 @@ struct TimePickerView: View {
     init(hourBrain: FlipViewModel,
          minuteBrain: FlipViewModel,
          timePicked: Binding<Date?>,
-         isPresented: Binding<Bool>,
+         timePickedString: Binding<String?>,
+         timePickerFlipBrains: Binding<TimePickerFlipBrains?>,
          availableTimeSlot: [Int: [Int]]
     ) {
         self.hoursFlipBrain = hourBrain
         self.minutesFlipBrain = minuteBrain
         self._timePicked = timePicked
-        self._isPresented = isPresented
+        self._timePickedString = timePickedString
+        self._timePickerFlipBrains = timePickerFlipBrains
         self.availableTimeSlot = availableTimeSlot
         self.minutesFlipBrain.selector = 0
         self.hoursFlipBrain.selector = 0
@@ -114,18 +117,23 @@ struct TimePickerView: View {
             Button(action: {
                 
                 let hour = hoursFlipBrain.getCurrentTime()
-                let minutes = hoursFlipBrain.getCurrentTime()
+                let minutes = minutesFlipBrain.getCurrentTime()
                 
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "HH:mm"
+                let minutesString:String = {
+                    if minutes == 0 {
+                        return "00"
+                    }
+                    return String(minutes)
+                }()
                 
-                let timeString = String(hour) + ":" + String(minutes)
+                let timeString = String(hour) + ":" + minutesString
                 
                 timePicked = dateFormatter.date(from: timeString)
+                timePickedString = timeString
                 
-                self.isPresented = false
-                
-                
+                self.timePickerFlipBrains = nil
                 
             }, label: {
                 Text("Set Time")
@@ -142,37 +150,46 @@ struct TimePickerView: View {
     }
 }
 
-struct TimePickerView_Previews: PreviewProvider {
-    
-    @State static var timePicked:Date?
-    @State static var isPresented:Bool = true
-    
-    static var previews: some View {
-        
-        let minuteSlot = ["15", "20", "25", "35", "50"]
-        let hourSlot = ["3", "4", "9", "12"]
-        let availableTimeSlot:[ Int: [Int] ] = {
-            
-            var dict = [Int: [Int]]()
-                
-                for (index, hour) in hourSlot.enumerated() {
-                    
-                    let key = Int(hourSlot[index])
-                    
-                    dict[key!] = minuteSlot.map({ element in
-                        Int(element)!
-                    })
-                    
-                }
-                
-            return dict
-                
-        }()
-        
-        let hourBrain = FlipViewModel(timeSlot: hourSlot)
-        let minuteBrain = FlipViewModel(timeSlot: minuteSlot)
-        
-        TimePickerView(hourBrain: hourBrain, minuteBrain: minuteBrain, timePicked: $timePicked, isPresented: $isPresented, availableTimeSlot: availableTimeSlot)
-    }
-    
-}
+//struct TimePickerView_Previews: PreviewProvider {
+//
+//    @State static var timePicked:Date?
+//    @State static var isPresented:Bool = true
+//    @State var timePickerFlipBrainsPreview:TimePickerFlipBrains?
+//
+//    static var previews: some View {
+//
+//        let minuteSlot = ["15", "20", "25", "35", "50"]
+//        let hourSlot = ["3", "4", "9", "12"]
+//        let availableTimeSlot:[ Int: [Int] ] = {
+//
+//            var dict = [Int: [Int]]()
+//
+//                for (index, hour) in hourSlot.enumerated() {
+//
+//                    let key = Int(hourSlot[index])
+//
+//                    dict[key!] = minuteSlot.map({ element in
+//                        Int(element)!
+//                    })
+//
+//                }
+//
+//            return dict
+//
+//        }()
+//
+//        let hourBrain = FlipViewModel(timeSlot: hourSlot)
+//        let minuteBrain = FlipViewModel(timeSlot: minuteSlot)
+//        self.timePickerFlipBrainsPreview = TimePickerFlipBrains(
+//            hoursFlipBrains: hourBrain,
+//            minutesFlipBrains: minuteBrain)
+//
+//
+//        TimePickerView(hourBrain: hourBrain,
+//                       minuteBrain: minuteBrain,
+//                       timePicked: $timePicked,
+//                       isPresented: $timePickerFlipBrainsPreview,
+//                       availableTimeSlot: availableTimeSlot)
+//    }
+//
+//}
