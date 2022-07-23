@@ -33,7 +33,18 @@ extension Date: Strideable {
     
     func isSameDay(date1:Date, date2:Date) -> Bool {
         
-        let diff = Calendar.current.dateComponents([.day], from: date1, to: date2)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        let date1ToString = dateFormatter.string(from: date1)
+        let date1NoTime = dateFormatter.date(from: date1ToString)!
+        
+        let date2ToString = dateFormatter.string(from: date2)
+        let date2NoTime = dateFormatter.date(from: date2ToString)!
+        
+        
+        
+        let diff = Calendar.current.dateComponents([.day], from: date1NoTime, to: date2NoTime)
             if diff.day == 0 {
                 return true
             } else {
