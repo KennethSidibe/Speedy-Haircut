@@ -10,7 +10,6 @@ import SwiftUI
 class FlipViewModel: ObservableObject, Identifiable {
     
     init(timeSlot:[String]) {
-        print("timeslot at init : \(timeSlot)")
         self.timeSlot = timeSlot
         self.selector = 0
         self.oldValue = String(timeSlot[selector])
