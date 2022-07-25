@@ -45,7 +45,7 @@
 		4CCE837B28762E440036FE7D /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 4CCE837A28762E440036FE7D /* FirebaseFunctions */; };
 		4CCE837E28762E770036FE7D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4CCE837D28762E770036FE7D /* Lottie */; };
 		4CD55F352875F745008DA74A /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD55F342875F745008DA74A /* Reservation.swift */; };
-		4CDE7BAD28871D1A00C012CE /* reservationBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE7BAC28871D1A00C012CE /* reservationBrain.swift */; };
+		4CDE7BAD28871D1A00C012CE /* ReservationBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE7BAC28871D1A00C012CE /* ReservationBrain.swift */; };
 		4CDE7BAF28871E4200C012CE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE7BAE28871E4200C012CE /* Extensions.swift */; };
 		4CEA638028753EF900619D7F /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEA637F28753EF900619D7F /* Test.swift */; };
 		4CF5EEC828699DEB00AEF857 /* AuthenticationBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */; };
@@ -88,7 +88,7 @@
 		4C8D8E5B28710C69009F5C61 /* ReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationView.swift; sourceTree = "<group>"; };
 		4C8D8E5D287115F6009F5C61 /* QueueList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueList.swift; sourceTree = "<group>"; };
 		4CD55F342875F745008DA74A /* Reservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
-		4CDE7BAC28871D1A00C012CE /* reservationBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = reservationBrain.swift; path = "Speedy Haircut/CalendarPicker/reservationBrain.swift"; sourceTree = SOURCE_ROOT; };
+		4CDE7BAC28871D1A00C012CE /* ReservationBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReservationBrain.swift; path = "Speedy Haircut/CalendarPicker/ReservationBrain.swift"; sourceTree = SOURCE_ROOT; };
 		4CDE7BAE28871E4200C012CE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4CEA637F28753EF900619D7F /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationBrain.swift; sourceTree = "<group>"; };
@@ -250,7 +250,7 @@
 				4C0A0966288206A000FC7665 /* CalendarDataModel */,
 				4C748D102877BAFF000F80E3 /* DataModel */,
 				4CF5EEC728699DEB00AEF857 /* AuthenticationBrain.swift */,
-				4CDE7BAC28871D1A00C012CE /* reservationBrain.swift */,
+				4CDE7BAC28871D1A00C012CE /* ReservationBrain.swift */,
 				4CDE7BAE28871E4200C012CE /* Extensions.swift */,
 				4C398ACE286CEFB0000188D5 /* DatabaseBrain.swift */,
 				4CFEA9EE28750BC400DFF233 /* Sort.swift */,
@@ -428,7 +428,7 @@
 				4C39C6E02883E0ED0059D16A /* reservableTimeSlot.swift in Sources */,
 				4C398AD1286CF0C8000188D5 /* User.swift in Sources */,
 				4C0A09622882068200FC7665 /* Day.swift in Sources */,
-				4CDE7BAD28871D1A00C012CE /* reservationBrain.swift in Sources */,
+				4CDE7BAD28871D1A00C012CE /* ReservationBrain.swift in Sources */,
 				4CF5EECB286AAB8E00AEF857 /* LoginSwitchView.swift in Sources */,
 				4C748D0B2877B1CF000F80E3 /* TimePickerView.swift in Sources */,
 				4C4BF88E286981E7000AC23F /* Speedy_HaircutApp.swift in Sources */,
