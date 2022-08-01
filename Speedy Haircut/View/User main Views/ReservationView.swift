@@ -160,15 +160,11 @@ struct ReservationView: View {
                             
                             let hoursFlipModel:FlipViewModel = {
                                 let hoursSlot = reservBrain.getHoursSlotFlipBrain()
-                                print("hour slot: ",hoursSlot)
-                                print()
                                 return FlipViewModel(timeSlot: hoursSlot)
                             }()
                                 
                             let minutesFlipModel:FlipViewModel = {
                                 let firstMinutesSlot:[String] = reservBrain.getFirstMinutesSlot()
-                                print("minutes slot: ",firstMinutesSlot)
-                                print()
                                 return FlipViewModel(timeSlot: firstMinutesSlot)
                             }()
                             
