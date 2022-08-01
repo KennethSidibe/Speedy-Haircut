@@ -219,7 +219,6 @@ struct ReservationView: View {
                 let name = dbBrain.user.firstName ?? "client"
                 
                 //  dbBrain.bookReservation(client:name, date: reservDate ?? Date())
-                    
                 
             }, label: {
                 Text("Create reservation")

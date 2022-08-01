@@ -29,18 +29,18 @@ struct ProfileSwitchView: View {
                     let loggedUserUid = authBrain.auth.currentUser!.uid
                     dbBrain.user.id = loggedUserUid
                     
-                    self.dbBrain.getUserData(with: loggedUserUid) { user in
+                    Task {
                         
-//                        Delay to let loading animation play
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                        if let currentUser = await self.dbBrain.getUserData(with: loggedUserUid) {
                             
-                            if let currentUser = user {
+                            //                        Delay to let loading animation play
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                                 
-                                self.dbBrain.user = currentUser
-                                self.dbBrain.isDataAvailable = true
+                                    self.dbBrain.user = currentUser
+                                    self.dbBrain.isDataAvailable = true
+                                
                                 
                             }
-                            
                         }
                     }
                 }

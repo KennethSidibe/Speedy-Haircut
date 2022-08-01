@@ -15,6 +15,8 @@ class DatabaseBrain: ObservableObject {
     @Published var user = User()
     var userUid:String = ""
     var sortBrain = QuickSort()
+    private var reservations:[Date]?
+    private var queueList:[Date]?
     
 //    Reference to the db
     let db = Firestore.firestore()
@@ -23,14 +25,16 @@ class DatabaseBrain: ObservableObject {
     
     //MARK: - GET Data
     
-    func getUserData(with uId:String, completionHandler: @escaping (User?) -> () ) {
+    func getUserData(with uId:String) async -> User? {
         
         let currentUser = User()
         let docReference = db.collection(K.userCollectionName).document(uId)
         
-        docReference.getDocument { snapshot, error in
+        do {
             
-            if let document = snapshot?.data()  {
+            let snapshot = try await docReference.getDocument()
+            
+            if let document = snapshot.data()  {
                 
                 currentUser.id = docReference.documentID
                 currentUser.firstName = document["firstName"] as? String
@@ -38,16 +42,16 @@ class DatabaseBrain: ObservableObject {
                 currentUser.lineNumber = document["lineNumber"] as? Int
                 currentUser.photo = "pic.jpg"
                 
-                completionHandler(currentUser)
+                return currentUser
                 
-            } else {
-                
-                print("Error while getting doc data, \(String(describing: error))")
-                
-                completionHandler(nil)
             }
             
+        } catch {
+            print("Error while getting doc data, \(String(describing: error))")
+            return nil
         }
+        
+        return nil
         
     }
     
