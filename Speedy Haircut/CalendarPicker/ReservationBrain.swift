@@ -208,11 +208,6 @@ class ReservationBrain: ObservableObject {
         
         if latestTime != nil {
             
-            print("lastest person in queue : \(latestTime!)")
-            print("date selected : ", dateSelected)
-            
-            print("condition :", dateSelected.isSameDay(date1: latestTime!, date2: dateSelected))
-            
             if !(dateSelected.isSameDay(date1: latestTime!, date2: dateSelected)) {
                 latestTime = nil
             }
