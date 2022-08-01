@@ -89,6 +89,7 @@ class ReservationBrain: ObservableObject {
     }
     
     func getFirstMinutesSlot() -> [String] {
+        
         guard availableTimeSlot != nil else {
             print("available time slot is nil")
             
@@ -102,10 +103,6 @@ class ReservationBrain: ObservableObject {
             return String(minutesSlot)
         }))
         return firstMinutesSlot
-    }
-    
-    func getHoursForFlipBrain() -> [String] {
-        return ["0"]
     }
     
     func getUnavailableDates() -> [Date]? {

@@ -158,14 +158,17 @@ struct ReservationView: View {
                         
                         Button(action: {
                             
-                            
                             let hoursFlipModel:FlipViewModel = {
                                 let hoursSlot = reservBrain.getHoursSlotFlipBrain()
+                                print("hour slot: ",hoursSlot)
+                                print()
                                 return FlipViewModel(timeSlot: hoursSlot)
                             }()
                                 
                             let minutesFlipModel:FlipViewModel = {
                                 let firstMinutesSlot:[String] = reservBrain.getFirstMinutesSlot()
+                                print("minutes slot: ",firstMinutesSlot)
+                                print()
                                 return FlipViewModel(timeSlot: firstMinutesSlot)
                             }()
                             
@@ -243,14 +246,7 @@ struct ReservationView: View {
                 let reservations = self.reservationsDate
                 let queueDates = self.queueDates
                 
-                var testDate:Date = {
-                    var dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "dd-MM-yyyy"
-                    let date = dateFormatter.date(from: "23-07-2022")!
-                    return date
-                }()
-                
-                self.pickedDate = testDate
+                self.pickedDate = Date()
                 
                 reservBrain.setBrain(reservations: reservations, queueDates: queueDates, datePicked: pickedDate)
 
