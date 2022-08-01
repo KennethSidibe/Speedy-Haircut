@@ -15,8 +15,8 @@ class DatabaseBrain: ObservableObject {
     @Published var user = User()
     var userUid:String = ""
     var sortBrain = QuickSort()
-    private var reservations:[Date]?
-    private var queueList:[Date]?
+    private var reservations:([Reservation], [Date])?
+    private var queueList:([QueueUser], [Date])?
     
 //    Reference to the db
     let db = Firestore.firestore()
@@ -24,7 +24,6 @@ class DatabaseBrain: ObservableObject {
     @Published var isDataAvailable = false
     
     //MARK: - GET Data
-    
     func getUserData(with uId:String) async -> User? {
         
         let currentUser = User()
@@ -52,6 +51,21 @@ class DatabaseBrain: ObservableObject {
         }
         
         return nil
+        
+    }
+    
+    func setDatabaseBrain() async {
+        
+        guard user != nil else {
+            print("User cannot be found ")
+            return
+        }
+        
+        let reservations = await fetchReservationList()
+        let queueList = await fetchQueueList()
+        
+        self.reservations = reservations
+        self.queueList = queueList
         
     }
     
@@ -223,4 +237,17 @@ class DatabaseBrain: ObservableObject {
         }
         
     }
+}
+
+//MARK: - Get methods
+extension DatabaseBrain {
+    
+    func getReservations() -> ([Reservation], [Date])? {
+        return reservations
+    }
+    func getQueueList() -> ([QueueUser], [Date])?{
+        return queueList
+    }
+
+    
 }

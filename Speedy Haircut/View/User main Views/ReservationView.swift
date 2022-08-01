@@ -196,6 +196,7 @@ struct ReservationView: View {
                 
             }
             .sheet(item: $timePickerFlipBrains) { flipBrains in
+                
                 TimePickerView(hourBrain: flipBrains.hoursFlipBrains,
                                minuteBrain: flipBrains.minutesFlipBrains,
                                timePicked: $pickedTime,
@@ -214,11 +215,11 @@ struct ReservationView: View {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
                 
-                let reservDate = dateFormatter.date(from: "18-07-2022 12:10")
+                let reservDate = dateFormatter.date(from: "04-08-2022 12:10")
                 
                 let name = dbBrain.user.firstName ?? "client"
                 
-                //  dbBrain.bookReservation(client:name, date: reservDate ?? Date())
+                  dbBrain.bookReservation(client:name, date: reservDate ?? Date())
                 
             }, label: {
                 Text("Create reservation")
@@ -236,11 +237,8 @@ struct ReservationView: View {
             
             Task {
                 
-//                let reservations = await dbBrain.fetchReservationList().1
-//                let queueDates = await dbBrain.fetchQueueList().1
-                
-                let reservations = self.reservationsDate
-                let queueDates = self.queueDates
+                let reservations = dbBrain.getReservations()!.1
+                let queueDates = dbBrain.getQueueList()!.1
                 
                 self.pickedDate = Date()
                 

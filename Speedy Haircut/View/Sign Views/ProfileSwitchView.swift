@@ -33,10 +33,12 @@ struct ProfileSwitchView: View {
                         
                         if let currentUser = await self.dbBrain.getUserData(with: loggedUserUid) {
                             
+                            self.dbBrain.user = currentUser
+                            await self.dbBrain.setDatabaseBrain()
+                            
                             //                        Delay to let loading animation play
                             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                                 
-                                    self.dbBrain.user = currentUser
                                     self.dbBrain.isDataAvailable = true
                                 
                                 
