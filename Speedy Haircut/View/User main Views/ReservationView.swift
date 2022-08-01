@@ -25,61 +25,6 @@ struct ReservationView: View {
     @State var pickedTimeString:String?
     @State var timePickerFlipBrains:TimePickerFlipBrains?
     
-    private var reservationsDate:[Date] {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-        var reserv = [Date]()
-        let reserv1 = dateFormatter.date(from: "04-08-2022 12:15")!
-        let reserv2 = dateFormatter.date(from: "04-08-2022 12:35")!
-        let reserv3 = dateFormatter.date(from: "04-08-2022 12:50")!
-        
-        let reserv4 = dateFormatter.date(from: "25-07-2022 11:20")!
-        let reserv5 = dateFormatter.date(from: "25-07-2022 11:40")!
-        let reserv6 = dateFormatter.date(from: "25-07-2022 11:10")!
-        let reserv7 = dateFormatter.date(from: "25-07-2022 11:14")!
-        let reserv8 = dateFormatter.date(from: "25-07-2022 11:28")!
-        let reserv9 = dateFormatter.date(from: "25-07-2022 11:28")!
-        let reserv10 = dateFormatter.date(from: "25-07-2022 11:28")!
-        let reserv11 = dateFormatter.date(from: "25-07-2022 11:08")!
-        let reserv12 = dateFormatter.date(from: "25-07-2022 11:11")!
-        let reserv13 = dateFormatter.date(from: "25-07-2022 11:44")!
-        let reserv14 = dateFormatter.date(from: "25-07-2022 11:54")!
-        let reserv15 = dateFormatter.date(from: "25-07-2022 11:09")!
-        
-        reserv.append(reserv1)
-        reserv.append(reserv2)
-        reserv.append(reserv3)
-        reserv.append(reserv4)
-        reserv.append(reserv5)
-        reserv.append(reserv6)
-        reserv.append(reserv7)
-        reserv.append(reserv8)
-        reserv.append(reserv9)
-        reserv.append(reserv10)
-        reserv.append(reserv11)
-        reserv.append(reserv12)
-        reserv.append(reserv13)
-        reserv.append(reserv14)
-        reserv.append(reserv15)
-        
-        return reserv
-    }
-    
-    private var queueDates:[Date] {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-        var dates = [Date]()
-        let queue1 = dateFormatter.date(from: "01-08-2022 09:30")!
-        let queue2 = dateFormatter.date(from: "01-08-2022 10:20")!
-        let queue3 = dateFormatter.date(from: "01-08-2022 10:20")!
-        
-        dates.append(queue1)
-        dates.append(queue2)
-        dates.append(queue3)
-        
-        return dates
-    }
-    
     private var today:String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
@@ -219,7 +164,7 @@ struct ReservationView: View {
                 
                 let name = dbBrain.user.firstName ?? "client"
                 
-                  dbBrain.bookReservation(client:name, date: reservDate ?? Date())
+//                  dbBrain.bookReservation(client:name, date: reservDate ?? Date())
                 
             }, label: {
                 Text("Create reservation")
