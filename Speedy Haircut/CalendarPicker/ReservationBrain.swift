@@ -23,10 +23,11 @@ class ReservationBrain: ObservableObject {
         
         return calendar
     }
-    private var availableTimeSlot:[Int:[Int]]?
+    private var availableTimeSlot:[Int: [Int] ]?
     private var unavailableDates: [Date]?
     
     //MARK: - Initializer
+    
     init() {
         self.queueDates = nil
         self.reservations = nil

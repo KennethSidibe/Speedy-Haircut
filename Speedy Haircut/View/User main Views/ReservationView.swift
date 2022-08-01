@@ -63,6 +63,7 @@ struct ReservationView: View {
         
         return reserv
     }
+    
     private var queueDates:[Date] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
@@ -77,12 +78,14 @@ struct ReservationView: View {
         
         return dates
     }
+    
     private var today:String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
         
         return dateFormatter.string(from: Date())
     }
+    
     private var todayTime:String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
@@ -200,10 +203,6 @@ struct ReservationView: View {
                 
             }
             
-            
-            
-            
-            
             Text("Time")
                 .font(.title3)
             
@@ -244,18 +243,19 @@ struct ReservationView: View {
                 
                 self.pickedDate = Date()
                 
-                reservBrain.setBrain(reservations: reservations, queueDates: queueDates, datePicked: pickedDate)
+                reservBrain.setBrain(
+                    reservations: reservations,
+                    queueDates: queueDates,
+                    datePicked: pickedDate)
 
             }
         }
-        
     }
 }
 
 struct ReservationView_Previews: PreviewProvider {
     
     static var previews: some View {
-        
         let minuteSlot = ["15", "20", "25", "35", "50"]
         let hourSlot = ["3", "4", "9", "12"]
         let minutesFlipBrain = FlipViewModel(timeSlot: minuteSlot)
