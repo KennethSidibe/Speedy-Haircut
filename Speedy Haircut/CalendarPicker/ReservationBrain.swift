@@ -108,8 +108,17 @@ class ReservationBrain: ObservableObject {
         }
         
         let firstKey = availableTimeSlot!.keys.sorted().first!
-        let firstMinutesSlot:[String] = (availableTimeSlot![firstKey]!.sorted().map({ minutesSlot in
-            return String(minutesSlot)
+        let firstMinutesSlot:[String] = (availableTimeSlot![firstKey]!.sorted().map({ minutes in
+            
+            if minutes == 0 {
+                return "00"
+            } else if minutes == 5 {
+                return "05"
+            }
+            else {
+                return String(minutes)
+            }
+            
         }))
         return firstMinutesSlot
     }
