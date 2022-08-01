@@ -89,6 +89,13 @@ class ReservationBrain: ObservableObject {
         
     }
     
+    func setAvailableTimSlotForDate(date:Date) {
+        
+        availableTimeSlot = getTimeReservable(dateSelected: date,
+                                              queueTimeList: queueDates,
+                                              reservationsDate: reservations)
+    }
+    
     func getFirstMinutesSlot() -> [String] {
         
         guard availableTimeSlot != nil else {
