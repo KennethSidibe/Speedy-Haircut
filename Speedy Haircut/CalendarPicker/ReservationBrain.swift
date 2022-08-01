@@ -150,6 +150,7 @@ class ReservationBrain: ObservableObject {
     }
     
     func setUnavailableDates()  {
+        
         dateFormatter.dateFormat = "dd-MM-yyy"
         
         if let reservations = reservations {
@@ -161,7 +162,7 @@ class ReservationBrain: ObservableObject {
                 let dateString = dateFormatter.string(from: date)
                 let dateNoTime = dateFormatter.date(from: dateString)!
                 
-                let isDateNotReservable = hasDayReachedMaximumReservations(date: dateNoTime,
+                let isDateNotReservable = hasDayReachedMaximumReservations(date: date,
                                                                            bookedDate: reservations, unavailableDays: unavailableDays)
                 
                 if isDateNotReservable {
