@@ -217,12 +217,6 @@ class ReservationBrain: ObservableObject {
         
         if latestTime != nil {
             
-            
-            print("date selected", dateSelected)
-            print("latest time : ", latestTime)
-            print()
-            print("test : ", dateSelected.isSameDay(date1: latestTime!, date2: dateSelected))
-            
             if !(dateSelected.isSameDay(date1: latestTime!, date2: dateSelected)) {
                 latestTime = nil
             }
@@ -360,7 +354,8 @@ class ReservationBrain: ObservableObject {
         
     }
     
-    func removeMinutesSlotBooked(dateSelected:Date, bookedDate:[Date],
+    func removeMinutesSlotBooked(dateSelected:Date,
+                                 bookedDate:[Date],
                                  availableTime:[ReservableTimeSlot]) -> [ReservableTimeSlot] {
         
         var availableTimeSlot = availableTime
@@ -498,11 +493,16 @@ class ReservationBrain: ObservableObject {
         
         var reservationsTimeSlot:[ReservableTimeSlot] = [ReservableTimeSlot]()
         
-//        We create the firstHoursSlot since it can be either at the opening of the store or the time after the last person has been added to the queue
-        let firstHourMinutesSlot = createMinuteSlot(minuteToStart: lastestTimeMinuteComponent.roundToFiveDecimal() + K.queueMinutesOffset)
-        let firstReservationTimeSlot = ReservableTimeSlot(hour: hourSlot[0], minutes: firstHourMinutesSlot)
-        reservationsTimeSlot.append(firstReservationTimeSlot)
+//        if there is 0 person in the queue, we set the minutes offset to 0 otherwise we set our constant
+        let minuteOffset = lastTimeToReserve == nil ? 0 : K.queueMinutesOffset
         
+//        We create the firstHoursSlot since it can be either at the opening of the store or the time after the last person has been added to the queue
+        let firstHourMinutesSlot = createMinuteSlot(minuteToStart: lastestTimeMinuteComponent.roundToFiveDecimal() + minuteOffset)
+        
+        let firstReservationTimeSlot = ReservableTimeSlot(hour: hourSlot[0],
+                                                          minutes: firstHourMinutesSlot)
+        
+        reservationsTimeSlot.append(firstReservationTimeSlot)
         
         var i = 1
         

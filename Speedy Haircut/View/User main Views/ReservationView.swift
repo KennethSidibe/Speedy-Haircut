@@ -32,6 +32,7 @@ struct ReservationView: View {
         let reserv1 = dateFormatter.date(from: "04-08-2022 12:15")!
         let reserv2 = dateFormatter.date(from: "04-08-2022 12:35")!
         let reserv3 = dateFormatter.date(from: "04-08-2022 12:50")!
+        
         let reserv4 = dateFormatter.date(from: "25-07-2022 11:20")!
         let reserv5 = dateFormatter.date(from: "25-07-2022 11:40")!
         let reserv6 = dateFormatter.date(from: "25-07-2022 11:10")!
