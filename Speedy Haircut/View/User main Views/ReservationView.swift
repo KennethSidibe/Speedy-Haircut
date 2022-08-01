@@ -29,9 +29,9 @@ struct ReservationView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
         var reserv = [Date]()
-        let reserv1 = dateFormatter.date(from: "23-07-2022 12:15")!
-        let reserv2 = dateFormatter.date(from: "23-07-2022 12:35")!
-        let reserv3 = dateFormatter.date(from: "23-07-2022 12:50")!
+        let reserv1 = dateFormatter.date(from: "04-08-2022 12:15")!
+        let reserv2 = dateFormatter.date(from: "04-08-2022 12:35")!
+        let reserv3 = dateFormatter.date(from: "04-08-2022 12:50")!
         let reserv4 = dateFormatter.date(from: "25-07-2022 11:20")!
         let reserv5 = dateFormatter.date(from: "25-07-2022 11:40")!
         let reserv6 = dateFormatter.date(from: "25-07-2022 11:10")!
@@ -68,9 +68,9 @@ struct ReservationView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
         var dates = [Date]()
-        let queue1 = dateFormatter.date(from: "22-07-2022 09:30")!
-        let queue2 = dateFormatter.date(from: "22-07-2022 10:20")!
-        let queue3 = dateFormatter.date(from: "22-07-2022 10:20")!
+        let queue1 = dateFormatter.date(from: "01-08-2022 09:30")!
+        let queue2 = dateFormatter.date(from: "01-08-2022 10:20")!
+        let queue3 = dateFormatter.date(from: "01-08-2022 10:20")!
         
         dates.append(queue1)
         dates.append(queue2)
@@ -162,12 +162,14 @@ struct ReservationView: View {
                         Button(action: {
                             
                             let hoursFlipModel:FlipViewModel = {
+                                reservBrain.setAvailableTimSlotForDate(date: pickedDate ?? Date())
                                 let hoursSlot = reservBrain.getHoursSlotFlipBrain()
                                 return FlipViewModel(timeSlot: hoursSlot)
                             }()
                                 
                             let minutesFlipModel:FlipViewModel = {
                                 let firstMinutesSlot:[String] = reservBrain.getFirstMinutesSlot()
+                                print(reservBrain.getAvailableTimeSlot()?.keys.sorted())
                                 return FlipViewModel(timeSlot: firstMinutesSlot)
                             }()
                             
