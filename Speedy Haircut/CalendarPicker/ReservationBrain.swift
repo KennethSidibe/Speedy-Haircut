@@ -10,8 +10,8 @@ import Foundation
 class ReservationBrain: ObservableObject {
     
     //MARK: - Properties
-     var queueDates:[Date]?
-     var reservations:[Date]?
+    private var queueDates:[Date]?
+    private var reservations:[Date]?
     @Published private var pickedDate:Date?
     @Published var pickedDateString:String?
     @Published var pickedTimeString:String?
@@ -27,7 +27,6 @@ class ReservationBrain: ObservableObject {
     private var unavailableDates: [Date]?
     
     //MARK: - Initializer
-    
     init() {
         self.queueDates = nil
         self.reservations = nil
@@ -40,8 +39,6 @@ class ReservationBrain: ObservableObject {
     
     //MARK: - Get View Data Methods
     func getPickedDate() -> Date {
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        
         return pickedDate ?? Date()
     }
     
@@ -93,7 +90,6 @@ class ReservationBrain: ObservableObject {
     }
     
     func setAvailableTimSlotForDate(date:Date) {
-        
         availableTimeSlot = getTimeReservable(dateSelected: date,
                                               queueTimeList: queueDates,
                                               reservationsDate: reservations)

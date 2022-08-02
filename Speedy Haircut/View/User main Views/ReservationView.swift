@@ -16,14 +16,14 @@ struct TimePickerFlipBrains:Identifiable {
 struct ReservationView: View {
     
     @EnvironmentObject var dbBrain:DatabaseBrain
-    @State var isCalendarPickerShow:Bool = false
-    @State var isTimePickerShow:Bool = false
+    @State private var isCalendarPickerShow:Bool = false
+    @State private var isTimePickerShow:Bool = false
     private var reservBrain:ReservationBrain = ReservationBrain()
-    @State var pickedDate:Date?
-    @State var pickedDateString:String?
-    @State var pickedTime:Date?
-    @State var pickedTimeString:String?
-    @State var timePickerFlipBrains:TimePickerFlipBrains?
+    @State private var pickedDate:Date?
+    @State private var pickedDateString:String?
+    @State private var pickedTime:Date?
+    @State private var pickedTimeString:String?
+    @State private var timePickerFlipBrains:TimePickerFlipBrains?
     
     private var today:String {
         let dateFormatter = DateFormatter()
