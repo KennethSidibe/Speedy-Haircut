@@ -209,19 +209,17 @@ struct ReservationView: View {
                 let reservations = dbBrain.getReservations()!.1
                 let queueDates = dbBrain.getQueueList()!.1
                 
-                self.pickedDate = Date()
-                
                 reservBrain.setBrain(
                     reservations: reservations,
                     queueDates: queueDates,
                     datePicked: pickedDate)
                 
-                print(reservBrain.getFirstReservableDate())
-                print()
+                self.pickedDate = reservBrain.getFirstReservableDate()
+                self.pickedTime = reservBrain.getFirstReservableTimeSlot()
                 
-                print(reservBrain.getFirstReservableTimeSlot())
-                print()
-
+                self.pickedDateString = reservBrain.getPickedDateString()
+                self.pickedTimeString = reservBrain.getPickedTimeString()
+                
             }
         }
     }
