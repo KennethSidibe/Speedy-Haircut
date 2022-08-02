@@ -47,8 +47,9 @@ class ReservationBrain: ObservableObject {
     
     func getPickedDateString() -> String {
         dateFormatter.dateFormat = "dd-MM-yyyy"
+        let dateString = dateFormatter.string(from: Date())
         
-        return dateFormatter.string(from: self.pickedDate ?? Date())
+        return self.pickedDateString ?? dateString
     }
     
     func getPickedTime() -> Date {
@@ -64,8 +65,9 @@ class ReservationBrain: ObservableObject {
     
     func getPickedTimeString() -> String {
         dateFormatter.dateFormat = "HH:mm"
+        let timeString = dateFormatter.string(from: Date())
         
-        return dateFormatter.string(from: self.pickedTime ?? Date())
+        return self.pickedTimeString ?? timeString
     }
     
     func getAvailableTimeSlot() -> [Int:[Int]]? {
@@ -127,24 +129,14 @@ class ReservationBrain: ObservableObject {
         return unavailableDates
     }
     
-    //MARK: - Set Methods
-    func setBrain(reservations:[Date], queueDates:[Date], datePicked:Date?) {
-        self.reservations = reservations
-        self.queueDates = queueDates
-        self.setUnavailableDates()
-        let availableTimeSlot = getTimeReservable(
-            dateSelected: datePicked ?? Date(),
-            queueTimeList: queueDates,
-            reservationsDate: reservations)
-        
-        self.availableTimeSlot = availableTimeSlot
-    }
-    
     func getFirstReservableDate() -> Date {
         
         guard unavailableDates != nil else {
             print("Cannot return first reservable date, unavailable dates is nil")
+            
             setAvailableTimSlotForDate(date: Date())
+            self.pickedDateString = dateFormatter.string(from: Date())
+            
             return Date()
         }
         
@@ -156,6 +148,7 @@ class ReservationBrain: ObservableObject {
         let dayDurationInSeconds: TimeInterval = 60*60*24
         
         for date in stride(from: today, to: nextYear, by: dayDurationInSeconds) {
+            
             let dateNoTime:Date = {
                 dateFormatter.dateFormat = "dd-MM-yyyy"
                 
@@ -164,12 +157,18 @@ class ReservationBrain: ObservableObject {
                 
                 return dateNoTime
             }()
+            
             if !(unavailableDates!.contains(dateNoTime)) {
+                
                 setAvailableTimSlotForDate(date: dateNoTime)
+                
+                self.pickedDateString = dateFormatter.string(from: dateNoTime)
+                
                 return dateNoTime
             }
         }
         setAvailableTimSlotForDate(date: Date())
+        self.pickedDateString = dateFormatter.string(from: Date())
         return Date()
     }
     
@@ -200,15 +199,44 @@ class ReservationBrain: ObservableObject {
             return dateNoTime
         }()
         
-        let minutes:Int = availableTimeSlot![hour]!.first!
+        let minutes:String = {
+            let minuteTemp = availableTimeSlot![hour]!.first!
+            
+            if minuteTemp == 0 {
+                return "00"
+            }
+            else if minuteTemp == 5 {
+                return "05"
+            }
+            
+            return String(minuteTemp)
+        }()
         
-        let timeString = String(hour) + ":" + String(minutes)
+        
+        let timeString = String(hour) + ":" + minutes
         
         let firstReservableTimeSlot = dateFormatter.date(from: timeString) ?? now
+        
+        self.pickedTimeString = timeString
         
         return firstReservableTimeSlot
         
     }
+    
+    //MARK: - Set Methods
+    func setBrain(reservations:[Date], queueDates:[Date], datePicked:Date?) {
+        self.reservations = reservations
+        self.queueDates = queueDates
+        self.setUnavailableDates()
+        let availableTimeSlot = getTimeReservable(
+            dateSelected: datePicked ?? Date(),
+            queueTimeList: queueDates,
+            reservationsDate: reservations)
+        
+        self.availableTimeSlot = availableTimeSlot
+    }
+    
+    
     
     func setPickedDate(pickedDate:Date) {
         self.pickedDate = pickedDate
