@@ -216,7 +216,7 @@ class DatabaseBrain: ObservableObject {
         
     }
     
-    func bookReservation(client:String, date:Date) {
+    func bookReservation(client:String, date:Date, completionHandler: @escaping () -> ()) {
         
         let dbReference = db.collection(K.reservationCollectionName)
         
@@ -233,6 +233,8 @@ class DatabaseBrain: ObservableObject {
                 print("Error while creating reservations, \(error)")
                 return
             }
+            
+            completionHandler()
             
         }
         

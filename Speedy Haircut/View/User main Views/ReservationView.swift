@@ -166,33 +166,22 @@ struct ReservationView: View {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
                 
-                let reservDate = dateFormatter.date(from: "04-08-2022 12:10")
-                
                 let name = dbBrain.user.firstName ?? "client"
                 
-//                  dbBrain.bookReservation(client:name, date: reservDate ?? Date())
-                
                 if let pickedTime = pickedTime, let pickedDate = pickedDate {
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "dd-MM-yyyy"
                     
-                    let timeFormatter = DateFormatter()
-                    timeFormatter.dateFormat = "HH:mm"
+                    let reservationDate = reservBrain.getReservationDate(date: pickedDate, time: pickedTime)
+                    let clientName = dbBrain.user.firstName!
                     
-                    let dateString = dateFormatter.string(from: pickedDate)
-                    let timeString = timeFormatter.string(from: pickedTime)
                     
-                    print("date string", dateString)
-                    print()
-                    print("time string", timeString)
-                    
-                    let reservDateString = dateString + " " + timeString
-                    
-                    dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-                    
-                    let reservDate = dateFormatter.date(from: reservDateString)
-                    
-                    print("Final reserv date : ", reservDate)
+                    dbBrain.bookReservation(client: name, date: reservationDate) {
+                        
+                        DispatchQueue.main.async {
+                            
+                            print("Reservation succesful !")
+                        
+                        }
+                    }
                     
                 }
                 

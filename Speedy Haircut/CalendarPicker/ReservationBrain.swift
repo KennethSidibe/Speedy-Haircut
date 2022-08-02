@@ -223,6 +223,26 @@ class ReservationBrain: ObservableObject {
         
     }
     
+    func getReservationDate(date pickedDate:Date, time pickedTime:Date) -> Date {
+        
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        
+        let dateString = dateFormatter.string(from: pickedDate)
+        let timeString = timeFormatter.string(from: pickedTime)
+        
+        let reservDateString = dateString + " " + timeString
+        
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        
+        let reservDate = dateFormatter.date(from: reservDateString)
+        
+        return reservDate!
+        
+    }
+    
     //MARK: - Set Methods
     func setBrain(reservations:[Date], queueDates:[Date], datePicked:Date?) {
         self.reservations = reservations
@@ -295,6 +315,7 @@ class ReservationBrain: ObservableObject {
     func setQueueDates(queueDates:[Date]) {
         self.queueDates = queueDates
     }
+    
     func setReservations(reservations:[Date]) {
         self.reservations = reservations
     }
