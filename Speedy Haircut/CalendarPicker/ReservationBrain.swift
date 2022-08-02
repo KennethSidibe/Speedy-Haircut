@@ -579,7 +579,6 @@ class ReservationBrain: ObservableObject {
             if let lastTimeToReserve = lastTimeToReserve {
                 
                 let lastTimeMinute = Calendar.current.component(.minute, from: lastTimeToReserve)
-                let lastHour = calendar.component(.hour, from: lastTimeToReserve)
                 
 //                if the offset added to the minute of the last person in the queue will pass outside of the hour range ie: the minuteOffset is over 60 minute, we set the first reservable hour to the next hour
                 if lastTimeMinute >= (60 - K.queueMinutesOffset) {

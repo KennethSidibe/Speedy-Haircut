@@ -170,9 +170,8 @@ struct ReservationView: View {
                 
                 if let pickedTime = pickedTime, let pickedDate = pickedDate {
                     
-                    let reservationDate = reservBrain.getReservationDate(date: pickedDate, time: pickedTime)
-                    let clientName = dbBrain.user.firstName!
-                    
+                    let reservationDate = reservBrain.getReservationDate(date: pickedDate,
+                                                                         time: pickedTime)
                     
                     dbBrain.bookReservation(client: name, date: reservationDate) {
                         
