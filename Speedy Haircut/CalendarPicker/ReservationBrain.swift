@@ -32,12 +32,7 @@ class ReservationBrain: ObservableObject {
         self.reservations = nil
     }
     
-    init(queueDates:[Date], reservations:[Date]){
-        self.queueDates = queueDates
-        self.reservations = reservations
-    }
-    
-    //MARK: - Get View Data Methods
+    //MARK: - Get Methods
     func getPickedDate() -> Date {
         return pickedDate ?? Date()
     }
@@ -47,6 +42,13 @@ class ReservationBrain: ObservableObject {
         let dateString = dateFormatter.string(from: Date())
         
         return self.pickedDateString ?? dateString
+    }
+    
+    func getDateNoTime(date:Date) -> Date {
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        let dateString = dateFormatter.string(from: date)
+        return dateFormatter.date(from: dateString)!
     }
     
     func getPickedTime() -> Date {
@@ -276,8 +278,7 @@ class ReservationBrain: ObservableObject {
             
             for date in reservations {
                 
-                let dateString = dateFormatter.string(from: date)
-                let dateNoTime = dateFormatter.date(from: dateString)!
+                let dateNoTime = getDateNoTime(date: date)
                 
                 let isDateNotReservable = hasDayReachedMaximumReservations(date: date,
                                                                            bookedDate: reservations, unavailableDays: unavailableDays)
