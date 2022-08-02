@@ -709,14 +709,13 @@ class ReservationBrain: ObservableObject {
         
         dateFormatter.dateFormat = "dd-MM-yyy"
         
+//        We iterate over all the reservations and if there is more than 10 occurences of that particular date in the booking date we add it to our unavailable days list
         for iterateDay in bookedDate {
             
+//            If our unavailableDays is not nil we will check if the date we are checking is not already present, if yes we return true
             if unavailableDays != nil {
                         
-                let dateNoTime:Date = {
-                    let dateString = dateFormatter.string(from: date)
-                    return dateFormatter.date(from: dateString)!
-                }()
+                let dateNoTime:Date = getDateNoTime(date: date)
                 
                 if unavailableDays!.contains(dateNoTime) {
                     return true
@@ -744,6 +743,7 @@ class ReservationBrain: ObservableObject {
 
         var count = 0
         
+//        We iterate over all the booking date, if the date to check has same day and hour as one date in the reservation we increase our count. If the count > maximumPerHour we return true
         for iterateDay in bookedDate {
             
             if date.isSameHour(date1: date, date2: iterateDay) {
