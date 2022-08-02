@@ -166,6 +166,30 @@ struct ReservationView: View {
                 
 //                  dbBrain.bookReservation(client:name, date: reservDate ?? Date())
                 
+                if let pickedTime = pickedTime, let pickedDate = pickedDate {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "dd-MM-yyyy"
+                    
+                    let timeFormatter = DateFormatter()
+                    timeFormatter.dateFormat = "HH:mm"
+                    
+                    let dateString = dateFormatter.string(from: pickedDate)
+                    let timeString = timeFormatter.string(from: pickedTime)
+                    
+                    print("date string", dateString)
+                    print()
+                    print("time string", timeString)
+                    
+                    let reservDateString = dateString + " " + timeString
+                    
+                    dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+                    
+                    let reservDate = dateFormatter.date(from: reservDateString)
+                    
+                    print("Final reserv date : ", reservDate)
+                    
+                }
+                
             }, label: {
                 Text("Create reservation")
                     .padding()
@@ -191,6 +215,12 @@ struct ReservationView: View {
                     reservations: reservations,
                     queueDates: queueDates,
                     datePicked: pickedDate)
+                
+                print(reservBrain.getFirstReservableDate())
+                print()
+                
+                print(reservBrain.getFirstReservableTimeSlot())
+                print()
 
             }
         }
