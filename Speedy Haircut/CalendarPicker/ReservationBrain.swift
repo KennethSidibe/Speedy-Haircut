@@ -127,15 +127,6 @@ class ReservationBrain: ObservableObject {
         return unavailableDates
     }
     
-    func setPickedDate(pickedDate:Date) {
-        self.pickedDate = pickedDate
-        
-    }
-    
-    func setPickedTime(pickedTime:Date) {
-        self.pickedTime = pickedTime
-    }
-    
     //MARK: - Set Methods
     func setBrain(reservations:[Date], queueDates:[Date], datePicked:Date?) {
         self.reservations = reservations
@@ -147,6 +138,88 @@ class ReservationBrain: ObservableObject {
             reservationsDate: reservations)
         
         self.availableTimeSlot = availableTimeSlot
+    }
+    
+    func getFirstReservableDate() -> Date {
+        
+        guard unavailableDates != nil else {
+            print("Cannot return first reservable date, unavailable dates is nil")
+            setAvailableTimSlotForDate(date: Date())
+            return Date()
+        }
+        
+        let today = Date()
+        let nextYear = Calendar.current.date(byAdding: .year,
+                                             value: 1,
+                                             to: today)!
+        
+        let dayDurationInSeconds: TimeInterval = 60*60*24
+        
+        for date in stride(from: today, to: nextYear, by: dayDurationInSeconds) {
+            let dateNoTime:Date = {
+                dateFormatter.dateFormat = "dd-MM-yyyy"
+                
+                let dateString = dateFormatter.string(from: date)
+                let dateNoTime = dateFormatter.date(from: dateString)!
+                
+                return dateNoTime
+            }()
+            if !(unavailableDates!.contains(dateNoTime)) {
+                setAvailableTimSlotForDate(date: dateNoTime)
+                return dateNoTime
+            }
+        }
+        setAvailableTimSlotForDate(date: Date())
+        return Date()
+    }
+    
+    func getFirstReservableTimeSlot() -> Date {
+        
+        dateFormatter.dateFormat = "HH:mm"
+        
+        guard availableTimeSlot != nil else {
+            print("Cannot return first reservable time slot, available time slot is nil")
+            
+            let time = String(K.evenDayOpeningHour) + ":00"
+            
+            
+            return dateFormatter.date(from: time)!
+        }
+        
+        let hour:Int = {
+            let keys = availableTimeSlot!.keys.sorted()
+            return keys.first!
+        }()
+        
+        let now:Date = {
+            dateFormatter.dateFormat = "HH:mm"
+            
+            let dateString = dateFormatter.string(from: Date())
+            let dateNoTime = dateFormatter.date(from: dateString)!
+            
+            return dateNoTime
+        }()
+        
+        let minutes:Int = availableTimeSlot![hour]!.first!
+        
+        let timeString = String(hour) + ":" + String(minutes)
+        
+        let firstReservableTimeSlot = dateFormatter.date(from: timeString) ?? now
+        
+        return firstReservableTimeSlot
+        
+    }
+    
+    func setPickedDate(pickedDate:Date) {
+        self.pickedDate = pickedDate
+    }
+    
+    func setPickedTime(pickedTime:Date) {
+        self.pickedTime = pickedTime
+    }
+    
+    func setFirstAvailableTimeSlot() {
+        self.pickedTime = pickedTime
     }
     
     func setUnavailableDates()  {
