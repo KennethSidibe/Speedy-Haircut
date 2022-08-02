@@ -87,7 +87,13 @@ struct ReservationView: View {
                     dateString: $pickedDateString,
                     unavailableDays: reservBrain.getUnavailableDates() ?? [Date()])
                 .onChange(of: pickedDate ?? Date()) { newValue in
+                    
+//                    Set new Picked date and new timeSlot
                     reservBrain.setPickedDate(pickedDate: newValue)
+                    reservBrain.setAvailableTimSlotForDate(date: newValue)
+                    
+                    self.pickedTime = reservBrain.getFirstReservableTimeSlot()
+                    self.pickedTimeString = reservBrain.getPickedTimeString()
                 }
                 
             }
