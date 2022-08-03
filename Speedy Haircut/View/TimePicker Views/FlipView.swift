@@ -13,7 +13,7 @@ struct FlipView: View {
         self.viewModel = viewModel
     }
 
-    @ObservedObject var viewModel: FlipViewModel
+    @ObservedObject private var viewModel: FlipViewModel
 
     var body: some View {
         VStack(spacing: 0) {

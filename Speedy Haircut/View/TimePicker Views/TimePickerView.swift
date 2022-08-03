@@ -9,12 +9,12 @@ import SwiftUI
 
 struct TimePickerView: View {
     
-    @Binding var timePicked:Date?
-    @Binding var timePickedString:String?
-    @Binding var timePickerFlipBrains:TimePickerFlipBrains?
-    let hoursFlipBrain:FlipViewModel
-    let minutesFlipBrain:FlipViewModel
-    let availableTimeSlot:[Int: [Int] ]
+    @Binding private var timePicked:Date?
+    @Binding private var timePickedString:String?
+    @Binding private var timePickerFlipBrains:TimePickerFlipBrains?
+    private let hoursFlipBrain:FlipViewModel
+    private let minutesFlipBrain:FlipViewModel
+    private let availableTimeSlot:[Int: [Int] ]
     
     init(hourBrain: FlipViewModel,
          minuteBrain: FlipViewModel,
