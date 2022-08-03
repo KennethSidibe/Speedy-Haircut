@@ -311,8 +311,6 @@ private extension CalendarPickerViewController {
         //    if the first day of the week is a friday (6) that means to complete the last row we need to add 6 days at the end of the calendar
         let additionalDays = 7 - calendar.component(.weekday, from: lastDayInMonth)
         
-        print(additionalDays)
-        
         guard additionalDays > 0 else {
             return []
         }
