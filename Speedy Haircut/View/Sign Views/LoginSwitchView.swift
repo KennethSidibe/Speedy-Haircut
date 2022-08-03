@@ -27,7 +27,7 @@ struct LoginSwitchView: View {
         }
 //        If there is already a current user in our auth, we assign true to the signIn boolean
         .onAppear {
-            self.authBrain.setIsSignedIn(true)
+            self.authBrain.setIsSignedIn(self.authBrain.isSignin)
         }
         
     }
