@@ -318,28 +318,8 @@ class ReservationBrain: ObservableObject {
     }
     
     //MARK: - Calculate Reservation Time Methods
-    func CalculateAvailableSlot(dateSelected:Date, queueList:[Date], reservations:[Date]) -> [Int:[Int]] {
-        
-//        let queueList = await fetchQueueList().1
-//        let reservations = await fetchReservationList().1
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy HH:mm"
-        var localTimeZoneName:String { return TimeZone.current.abbreviation() ?? "UTC-4" }
-        formatter.timeZone = TimeZone(identifier: localTimeZoneName)
-        
-        guard queueList != [], reservations != [] else {
-            print("Error while retrieveing queueList and reservationsList")
-            return [:]
-        }
-        
-        let timeSlot = getTimeReservable(dateSelected: dateSelected, queueTimeList: queueList, reservationsDate: reservations)
-        
-        return timeSlot
-        
-    }
-    
-    func getTimeReservable(dateSelected: Date, queueTimeList:[Date]?,
+    func getTimeReservable(dateSelected: Date,
+                           queueTimeList:[Date]?,
                            reservationsDate:[Date]?) -> [Int : [Int]] {
         
         var latestTime = queueTimeList?.max()
