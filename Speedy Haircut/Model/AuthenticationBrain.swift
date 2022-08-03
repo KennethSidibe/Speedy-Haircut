@@ -85,8 +85,6 @@ class AuthenticationBrain: ObservableObject {
     
     func signIn(username:String, password:String) {
         
-        print("signing in with \n username \(username) \n password \(password)")
-        
         auth.signIn(withEmail: username, password: password) { [weak self] result, error in
             
             guard let self = self else { return }
