@@ -666,6 +666,9 @@ class ReservationBrain: ObservableObject {
         
     }
     
+    /// Thisn function create an array representing the hours slot reservable, eg : [10,11,12,...]
+    /// - Parameter hourToStart: The hours to start counting
+    /// - Returns: An array of all the hours slot reservable respect to the closing hour of the store
     func createHourSlot(hourToStart:Int) -> [String] {
         let increment = 1
         var array = [Int]()
