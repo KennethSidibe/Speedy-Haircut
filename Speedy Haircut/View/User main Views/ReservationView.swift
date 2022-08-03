@@ -209,7 +209,7 @@ struct ReservationView: View {
                     datePicked: pickedDate)
                 
                 
-//                Methods to set date and time input forms to first date & time reservable 
+//                Methods to set date and time input forms to first date & time reservable
                 self.pickedDate = reservBrain.getFirstReservableDate()
                 self.pickedTime = reservBrain.getFirstReservableTimeSlot()
                 
