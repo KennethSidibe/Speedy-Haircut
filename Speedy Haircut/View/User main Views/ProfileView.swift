@@ -25,7 +25,6 @@ struct ProfileView: View {
         let currentUser = dbBrain.user
         let name = currentUser.firstName ?? "User"
         
-        
         NavigationView {
             
             VStack(spacing: 20) {
@@ -72,23 +71,6 @@ struct ProfileView: View {
                 }).fullScreenCover(isPresented: $isQueueingViewPresented, content: {
                     
                     QueueingView(isQueueing: $isQueueingViewPresented)
-                    
-                })
-                
-                Button(action: {
-                    
-                    let t = Test()
-                    
-                    t.testUserArray(file: true)
-                    
-                }, label: {
-                    
-                    Text("Test new sort")
-                        .padding()
-                        .frame(width: 150, height: 50, alignment: .center)
-                        .background(Color.black)
-                        .cornerRadius(10)
-                        .foregroundColor(Color.white)
                     
                 })
                 
