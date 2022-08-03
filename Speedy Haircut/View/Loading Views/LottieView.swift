@@ -11,9 +11,13 @@ import UIKit
 
 struct LottieView: UIViewRepresentable {
     
+    init(fileName: String) {
+        self.fileName = fileName
+    }
+    
     typealias UIViewType = UIView
     
-    let fileName:String
+    private let fileName:String
     
     func makeUIView(context: Context) -> UIView {
         

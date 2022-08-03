@@ -10,8 +10,8 @@ import ChameleonFramework
 
 struct LoadingView: View {
     
-    @EnvironmentObject var dbBrain:DatabaseBrain
-    @EnvironmentObject var authBrain:AuthenticationBrain
+    @EnvironmentObject private var dbBrain:DatabaseBrain
+    @EnvironmentObject private var authBrain:AuthenticationBrain
     
     var body: some View {
         

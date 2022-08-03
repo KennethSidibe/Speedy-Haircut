@@ -13,8 +13,8 @@ import SwiftUI
 
 struct QueueView: View {
     
-    @EnvironmentObject var dbBrain:DatabaseBrain
-    @State var userList:[QueueUser] = [QueueUser]()
+    @EnvironmentObject private var dbBrain:DatabaseBrain
+    @State private var userList:[QueueUser] = [QueueUser]()
     
     
     var body: some View {

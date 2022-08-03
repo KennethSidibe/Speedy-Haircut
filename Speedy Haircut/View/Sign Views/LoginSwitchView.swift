@@ -10,7 +10,7 @@ import FirebaseAuth
 
 struct LoginSwitchView: View {
     
-    @StateObject var authBrain:AuthenticationBrain = AuthenticationBrain()
+    @StateObject private var authBrain:AuthenticationBrain = AuthenticationBrain()
     
     var body: some View {
         

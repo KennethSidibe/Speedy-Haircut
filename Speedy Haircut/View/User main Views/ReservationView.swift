@@ -15,7 +15,7 @@ struct TimePickerFlipBrains:Identifiable {
 
 struct ReservationView: View {
     
-    @EnvironmentObject var dbBrain:DatabaseBrain
+    @EnvironmentObject private var dbBrain:DatabaseBrain
     @State private var isCalendarPickerShow:Bool = false
     @State private var isTimePickerShow:Bool = false
     private var reservBrain:ReservationBrain = ReservationBrain()

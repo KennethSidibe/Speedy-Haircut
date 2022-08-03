@@ -9,10 +9,14 @@ import SwiftUI
 
 struct UserTabView: View {
     
-    @State var tabSelected:Int = 1
-    @State var queueNumber: Int
-    @EnvironmentObject var authBrain:AuthenticationBrain
-    @EnvironmentObject var dbBrain:DatabaseBrain
+    init(queueNumber:Int) {
+        self.queueNumber = queueNumber
+    }
+    
+    @State private var tabSelected:Int = 1
+    @State private var queueNumber: Int
+    @EnvironmentObject private var authBrain:AuthenticationBrain
+    @EnvironmentObject private var dbBrain:DatabaseBrain
     
     var body: some View {
         

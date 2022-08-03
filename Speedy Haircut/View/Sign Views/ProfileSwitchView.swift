@@ -10,8 +10,8 @@ import FirebaseAuth
 
 struct ProfileSwitchView: View {
     
-    @EnvironmentObject var authBrain:AuthenticationBrain
-    @StateObject var dbBrain = DatabaseBrain()
+    @EnvironmentObject private var authBrain:AuthenticationBrain
+    @StateObject private var dbBrain = DatabaseBrain()
     
     var body: some View {
         
@@ -25,7 +25,7 @@ struct ProfileSwitchView: View {
         else {
             LoadingView()
                 .onAppear{
-                    
+
                     let loggedUserUid = authBrain.getSignedUserUid()!
                     dbBrain.setUserUid(userUid: loggedUserUid)
                     

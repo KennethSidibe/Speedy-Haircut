@@ -9,7 +9,12 @@ import SwiftUI
 import ChameleonFramework
 
 struct QueueingView: View {
-    @Binding var isQueueing: Bool
+    
+    init(isQueueing:Binding<Bool>) {
+        self._isQueueing = isQueueing
+    }
+    
+    @Binding private var isQueueing: Bool
     
     var body: some View {
         

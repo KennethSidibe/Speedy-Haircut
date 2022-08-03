@@ -15,10 +15,14 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    @EnvironmentObject var authBrain:AuthenticationBrain
-    @EnvironmentObject var dbBrain:DatabaseBrain
-    @State var queueNumber: Int
-    @State var isQueueingViewPresented:Bool = false
+    init(queueNumber:Int) {
+        self.queueNumber = queueNumber
+    }
+    
+    @EnvironmentObject private var authBrain:AuthenticationBrain
+    @EnvironmentObject private var dbBrain:DatabaseBrain
+    @State private var queueNumber: Int
+    @State private var isQueueingViewPresented:Bool = false
     
     var body: some View {
         

@@ -13,7 +13,7 @@ struct SignInView: View {
     
     @State private var username: String = ""
     @State private var password: String = ""
-    @EnvironmentObject var authBrain:AuthenticationBrain
+    @EnvironmentObject private var authBrain:AuthenticationBrain
     
 //    Check if we should present the SignUp page or not
     
