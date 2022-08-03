@@ -475,16 +475,18 @@ class ReservationBrain: ObservableObject {
         
         var availableTimeSlot = availableTime
         
-        for date in bookedDate {
+        
+        for currentDate in bookedDate {
             
-            let isSameDateAsDatePicked = date.isSameDay(date1: date, date2: dateSelected)
+            let isSameDateAsDatePicked = currentDate.isSameDay(date1: currentDate, date2: dateSelected)
             
+//            We chekc if the current date is the same as the date selected, if it is not we do not check this date and just continue
             guard isSameDateAsDatePicked else {
                 continue
             }
             
-            let reservationHour = Calendar.current.component(.hour, from: date)
-            let reservationMinute = Calendar.current.component(.minute, from: date).roundToFiveDecimal()
+            let reservationHour = Calendar.current.component(.hour, from: currentDate)
+            let reservationMinute = Calendar.current.component(.minute, from: currentDate).roundToFiveDecimal()
             
             for (index, reservationTimeSlot) in availableTimeSlot.enumerated() {
                 
@@ -515,12 +517,12 @@ class ReservationBrain: ObservableObject {
 //        Creating a copy of it to be able to remove element from array
         var availableTime = availableTimeSlot
         
-//        We iterate over the available time slot
-        for (index, timeSlot) in availableTime.enumerated() {
+//        We iterate over the available time slot, if we find a same occurrence in the fullyBooked hours array we remove it
+        for (index, availableTimeSlot) in availableTime.enumerated() {
             
-            let timeSlotHour = timeSlot.hour
+            let availableTimeSlotHour = availableTimeSlot.hour
             
-            if hoursFullyBooked.contains(timeSlotHour) {
+            if hoursFullyBooked.contains(availableTimeSlotHour) {
                 
                 availableTime.remove(at: index)
                 
