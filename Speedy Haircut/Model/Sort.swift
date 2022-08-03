@@ -17,7 +17,7 @@ class QuickSort {
         
     }
     
-    func quickSortThree<Element:Comparable> (arraySort: inout Array<Element>, low:Int, high: Int){
+    private func quickSortThree<Element:Comparable> (arraySort: inout Array<Element>, low:Int, high: Int){
         
         if(high == low + 1){
             
@@ -47,7 +47,7 @@ class QuickSort {
         
     }
     
-    func partitionThree<Element:Comparable> (array: inout Array<Element>, low:Int, high: Int) -> (Int, Int){
+    private func partitionThree<Element:Comparable> (array: inout Array<Element>, low:Int, high: Int) -> (Int, Int){
         
         let pivot = array[low]
         
