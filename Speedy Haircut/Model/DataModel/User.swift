@@ -7,10 +7,7 @@
 
 import Foundation
 
-
-
 class User:Identifiable, ObservableObject, Comparable {
-    
     
     var id:String?
     var firstName:String?
