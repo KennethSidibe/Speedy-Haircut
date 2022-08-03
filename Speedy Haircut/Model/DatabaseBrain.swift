@@ -11,17 +11,16 @@ import Firebase
 class DatabaseBrain: ObservableObject {
     
     //MARK: - Properties
-    
     @Published private var user = User()
     private var userUid:String = ""
     private var sortBrain = QuickSort()
     private var reservations:([Reservation], [Date])?
     private var queueList:([QueueUser], [Date])?
-    
 //    Reference to the db
-    let db = Firestore.firestore()
+    private let db = Firestore.firestore()
+    @Published private var isDataAvailable = false
     
-    @Published var isDataAvailable = false
+    
     
     //MARK: - GET methods
     func getUserData(with uId:String) async -> User? {
@@ -54,22 +53,6 @@ class DatabaseBrain: ObservableObject {
         
     }
     
-    func getUser() -> User {
-        return self.user
-    }
-    
-    func getUserLineNumber() -> Int? {
-        return self.user.lineNumber
-    }
-    
-    func getUserFirstName() -> String? {
-        return self.user.firstName
-    }
-    
-    func getUserUid() -> String? {
-        return self.user.id
-    }
-    
     //MARK: - SET methods
     func setDatabaseBrain() async {
         
@@ -84,14 +67,6 @@ class DatabaseBrain: ObservableObject {
         self.reservations = reservations
         self.queueList = queueList
         
-    }
-    
-    func setUser(user:User) {
-        self.user = user
-    }
-    
-    func setUserUid(userUid:String) {
-        self.user.id = userUid
     }
     
     func addToQueue(completionHandler: @escaping (Int) -> ()) {
@@ -272,9 +247,46 @@ extension DatabaseBrain {
     func getReservations() -> ([Reservation], [Date])? {
         return reservations
     }
+    
     func getQueueList() -> ([QueueUser], [Date])?{
         return queueList
     }
+    
+    func getUser() -> User {
+        return self.user
+    }
+    
+    func getUserLineNumber() -> Int? {
+        return self.user.lineNumber
+    }
+    
+    func getUserFirstName() -> String? {
+        return self.user.firstName
+    }
+    
+    func getUserUid() -> String? {
+        return self.user.id
+    }
+    
+    func isUserDataAvailable() -> Bool {
+        return self.isDataAvailable
+    }
 
+}
+
+//MARK: - Set methods
+extension DatabaseBrain {
+    
+    func setUser(user:User) {
+        self.user = user
+    }
+    
+    func setUserUid(userUid:String) {
+        self.user.id = userUid
+    }
+    
+    func setIsDataAvailable(_ newValue: Bool) {
+        self.isDataAvailable = newValue
+    }
     
 }

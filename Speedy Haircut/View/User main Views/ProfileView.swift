@@ -80,7 +80,7 @@ struct ProfileView: View {
                         Button(action: {
                             authBrain.signOut()
                             dbBrain.setUser(user: User())
-                            dbBrain.isDataAvailable = false
+                            dbBrain.setIsDataAvailable(false) 
                         }, label: {
                             Text("Sign out")
                                 .padding()
