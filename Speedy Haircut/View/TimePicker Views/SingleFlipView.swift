@@ -62,7 +62,6 @@ struct SingleFlipView: View {
     }
 
     // MARK: - Private
-
     private let text: String
     private let type: FlipType
 
