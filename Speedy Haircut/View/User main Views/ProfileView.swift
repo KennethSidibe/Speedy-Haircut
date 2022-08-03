@@ -22,7 +22,7 @@ struct ProfileView: View {
     
     var body: some View {
         
-        let currentUser = dbBrain.user
+        let currentUser = dbBrain.getUser()
         let name = currentUser.firstName ?? "User"
         
         NavigationView {
@@ -79,7 +79,7 @@ struct ProfileView: View {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
                         Button(action: {
                             authBrain.signOut()
-                            dbBrain.user = User()
+                            dbBrain.setUser(user: User())
                             dbBrain.isDataAvailable = false
                         }, label: {
                             Text("Sign out")

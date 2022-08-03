@@ -166,7 +166,7 @@ struct ReservationView: View {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
                 
-                let name = dbBrain.user.firstName ?? "client"
+                let name = dbBrain.getUserFirstName() ?? "client"
                 
                 if let pickedTime = pickedTime, let pickedDate = pickedDate {
                     

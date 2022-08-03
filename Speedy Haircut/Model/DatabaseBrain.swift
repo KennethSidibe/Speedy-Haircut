@@ -12,9 +12,9 @@ class DatabaseBrain: ObservableObject {
     
     //MARK: - Properties
     
-    @Published var user = User()
-    var userUid:String = ""
-    var sortBrain = QuickSort()
+    @Published private var user = User()
+    private var userUid:String = ""
+    private var sortBrain = QuickSort()
     private var reservations:([Reservation], [Date])?
     private var queueList:([QueueUser], [Date])?
     
@@ -23,7 +23,7 @@ class DatabaseBrain: ObservableObject {
     
     @Published var isDataAvailable = false
     
-    //MARK: - GET Data
+    //MARK: - GET methods
     func getUserData(with uId:String) async -> User? {
         
         let currentUser = User()
@@ -54,6 +54,23 @@ class DatabaseBrain: ObservableObject {
         
     }
     
+    func getUser() -> User {
+        return self.user
+    }
+    
+    func getUserLineNumber() -> Int? {
+        return self.user.lineNumber
+    }
+    
+    func getUserFirstName() -> String? {
+        return self.user.firstName
+    }
+    
+    func getUserUid() -> String? {
+        return self.user.id
+    }
+    
+    //MARK: - SET methods
     func setDatabaseBrain() async {
         
         guard user != nil else {
@@ -67,6 +84,14 @@ class DatabaseBrain: ObservableObject {
         self.reservations = reservations
         self.queueList = queueList
         
+    }
+    
+    func setUser(user:User) {
+        self.user = user
+    }
+    
+    func setUserUid(userUid:String) {
+        self.user.id = userUid
     }
     
     func addToQueue(completionHandler: @escaping (Int) -> ()) {
