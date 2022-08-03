@@ -91,12 +91,6 @@ class ReservationBrain: ObservableObject {
         
     }
     
-    func setAvailableTimSlotForDate(date:Date) {
-        availableTimeSlot = getTimeReservable(dateSelected: date,
-                                              queueTimeList: queueDates,
-                                              reservationsDate: reservations)
-    }
-    
     func getFirstMinutesSlot() -> [String] {
         
         guard availableTimeSlot != nil else {
@@ -254,7 +248,11 @@ class ReservationBrain: ObservableObject {
         self.availableTimeSlot = availableTimeSlot
     }
     
-    
+    func setAvailableTimSlotForDate(date:Date) {
+        availableTimeSlot = getTimeReservable(dateSelected: date,
+                                              queueTimeList: queueDates,
+                                              reservationsDate: reservations)
+    }
     
     func setPickedDate(pickedDate:Date) {
         self.pickedDate = pickedDate
@@ -387,7 +385,7 @@ class ReservationBrain: ObservableObject {
         
     }
     
-    func printAvailableTimeSlotArray(array:[ReservableTimeSlot]) {
+    private func printAvailableTimeSlotArray(array:[ReservableTimeSlot]) {
         
         for timeSlot in array {
             
@@ -397,7 +395,7 @@ class ReservationBrain: ObservableObject {
         
     }
     
-    func removeBookedSlot(bookedDate:[Date],
+    private func removeBookedSlot(bookedDate:[Date],
                              dateSelected:Date,
                              availableTimes:[ReservableTimeSlot]) -> [ReservableTimeSlot] {
         
@@ -425,7 +423,7 @@ class ReservationBrain: ObservableObject {
         
     }
     
-    func getUnavailableHours(pickedDate:Date, bookedDate:[Date]) -> [Int] {
+    private func getUnavailableHours(pickedDate:Date, bookedDate:[Date]) -> [Int] {
         
         var hoursToRemove = [Int]()
         
@@ -469,7 +467,7 @@ class ReservationBrain: ObservableObject {
         
     }
     
-    func removeMinutesSlotBooked(dateSelected:Date,
+    private func removeMinutesSlotBooked(dateSelected:Date,
                                  bookedDate:[Date],
                                  availableTime:[ReservableTimeSlot]) -> [ReservableTimeSlot] {
         
@@ -511,7 +509,7 @@ class ReservationBrain: ObservableObject {
         
     }
     
-    func removeFullyBookedHours(availableTimeSlot: [ReservableTimeSlot],
+    private func removeFullyBookedHours(availableTimeSlot: [ReservableTimeSlot],
                                 hoursFullyBooked:[Int]) -> [ReservableTimeSlot] {
         
 //        Creating a copy of it to be able to remove element from array
@@ -535,7 +533,7 @@ class ReservationBrain: ObservableObject {
     }
     
 //    Check if a reservation already exist for the date provided
-    func isThereReservationOnDate(date: Date, reservationsDate:[Date]) -> Bool {
+    private func isThereReservationOnDate(date: Date, reservationsDate:[Date]) -> Bool {
         
         for iterateDay in reservationsDate {
             
@@ -643,7 +641,7 @@ class ReservationBrain: ObservableObject {
     
 //    This function creates an array representing the minutes slot it is an series of 5 ex [0, 5, 10, 15, ..., 60]
 //    This will always return an incremented sequence of 5 that does not go above 55, 55 included
-    func createMinuteSlot(minuteToStart:Int) -> [Int] {
+    private func createMinuteSlot(minuteToStart:Int) -> [Int] {
         
         let increment = 5
         var array = [Int]()
@@ -669,7 +667,7 @@ class ReservationBrain: ObservableObject {
     /// Thisn function create an array representing the hours slot reservable, eg : [10,11,12,...]
     /// - Parameter hourToStart: The hours to start counting
     /// - Returns: An array of all the hours slot reservable respect to the closing hour of the store
-    func createHourSlot(hourToStart:Int) -> [String] {
+    private func createHourSlot(hourToStart:Int) -> [String] {
         let increment = 1
         var array = [Int]()
         array.append(hourToStart)
@@ -695,7 +693,7 @@ class ReservationBrain: ObservableObject {
     //MARK: - Limit Reservations Methods
     
 //    Check if there are more reservations than the maximum allowed, ex 10 for now
-    func hasDayReachedMaximumReservations(date:Date, bookedDate:[Date], unavailableDays:[Date]?) -> Bool {
+    private func hasDayReachedMaximumReservations(date:Date, bookedDate:[Date], unavailableDays:[Date]?) -> Bool {
         
         var count = 0
         
@@ -731,7 +729,7 @@ class ReservationBrain: ObservableObject {
     }
     
     //    Check if there are more reservations than the maximum allowed
-    func hasHourReachedMaximumReservations(date: Date, bookedDate:[Date]) -> Bool {
+    private func hasHourReachedMaximumReservations(date: Date, bookedDate:[Date]) -> Bool {
 
         var count = 0
         
