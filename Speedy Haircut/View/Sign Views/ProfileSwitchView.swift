@@ -36,7 +36,7 @@ struct ProfileSwitchView: View {
                             self.dbBrain.setUser(user: currentUser)
                             await self.dbBrain.setDatabaseBrain()
                             
-                            //                        Delay to let loading animation play
+                            // Delay to let loading animation play
                             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                                 
                                     self.dbBrain.setIsDataAvailable(true) 
