@@ -43,29 +43,6 @@ struct TimePickerView: View {
                     
 //                    Up Button
                     Button(action: {
-                        hoursFlipBrain.previousTimeSlot()
-                        
-                        let pickedHour = hoursFlipBrain.getCurrentTime()
-                        let newMinutesSlot = availableTimeSlot[pickedHour]
-                        
-                        let newMinutesSlotString = newMinutesSlot?.map({ value -> String in
-                            if value == 0 {
-                                return "00"
-                            } else {
-                                return String(value)
-                            }
-                        })
-                        
-                        
-                        minutesFlipBrain.resetSlot(newTimeSlot: newMinutesSlotString!)
-                    }, label: {
-                        Image(systemName: "arrowtriangle.up.fill")
-                    })
-                    
-                    FlipView(viewModel: hoursFlipBrain)
-                    
-//                    Down Button
-                    Button(action: {
                         
                         hoursFlipBrain.nextTimeSlot()
                         
@@ -79,6 +56,32 @@ struct TimePickerView: View {
                                 return String(value)
                             }
                         })
+                        
+                        minutesFlipBrain.resetSlot(newTimeSlot: newMinutesSlotString!)
+                        
+                        
+                    }, label: {
+                        Image(systemName: "arrowtriangle.up.fill")
+                    })
+                    
+                    FlipView(viewModel: hoursFlipBrain)
+                    
+//                    Down Button
+                    Button(action: {
+                        
+                        hoursFlipBrain.previousTimeSlot()
+                        
+                        let pickedHour = hoursFlipBrain.getCurrentTime()
+                        let newMinutesSlot = availableTimeSlot[pickedHour]
+                        
+                        let newMinutesSlotString = newMinutesSlot?.map({ value -> String in
+                            if value == 0 {
+                                return "00"
+                            } else {
+                                return String(value)
+                            }
+                        })
+                        
                         
                         minutesFlipBrain.resetSlot(newTimeSlot: newMinutesSlotString!)
                         
