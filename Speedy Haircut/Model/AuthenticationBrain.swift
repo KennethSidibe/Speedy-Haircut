@@ -10,14 +10,29 @@ import Firebase
 
 class AuthenticationBrain: ObservableObject {
     
-    let auth = Auth.auth()
-    
+    //MARK: - Properties
+    private let auth = Auth.auth()
 //    Reponsible to check if the user is already signed in or no
-    @Published var signIn = false
+    @Published private var signIn = false
     var isSignin:Bool {
         return auth.currentUser != nil
     }
     
+    //MARK: - GET Methods
+    func getSignedUserUid() -> String? {
+        return auth.currentUser?.uid
+    }
+    
+    func isSignedIn() -> Bool {
+        return self.signIn
+    }
+    
+    //MARK: - Set methods
+    func setIsSignedIn(_ newValue:Bool) {
+        self.signIn = newValue
+    }
+    
+    //MARK: - Authentication methods
     func signUp(username:String, password:String, firstName: String, lastName: String, completionHandler: @escaping () -> ()) {
         
         auth.createUser(withEmail: username, password: password) { [weak self] (result, authError) in

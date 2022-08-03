@@ -26,7 +26,7 @@ struct ProfileSwitchView: View {
             LoadingView()
                 .onAppear{
                     
-                    let loggedUserUid = authBrain.auth.currentUser!.uid
+                    let loggedUserUid = authBrain.getSignedUserUid()!
                     dbBrain.setUserUid(userUid: loggedUserUid)
                     
                     Task {

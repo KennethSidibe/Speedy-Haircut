@@ -16,7 +16,7 @@ struct LoginSwitchView: View {
         
         NavigationView {
             
-            if authBrain.signIn {
+            if authBrain.isSignedIn() {
                 ProfileSwitchView()
                     .environmentObject(authBrain)
             }
@@ -27,7 +27,7 @@ struct LoginSwitchView: View {
         }
 //        If there is already a current user in our auth, we assign true to the signIn boolean
         .onAppear {
-            self.authBrain.signIn = self.authBrain.isSignin
+            self.authBrain.setIsSignedIn(true)
         }
         
     }
