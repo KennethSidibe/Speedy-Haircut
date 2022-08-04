@@ -290,16 +290,47 @@ class ReservationBrain: ObservableObject {
         return dates
     }
     
-    func generateRandomDay() -> Date {
+    func generateRandomQueueList() -> [Date] {
+        
+        let firstQueueDate = generateRandomDay(withTime: true)
+        let randomHourAddition = Int.random(in: 0...3)
+        let randomMinuteAddition = Int.random(in: 0...40)
+        
+        let randomHourAddition2 = Int.random(in: 0...3)
+        let randomMinuteAddition2 = Int.random(in: 0...40)
+        
+        var secondQueueDate = Calendar.current.date(byAdding: .hour, value: randomHourAddition, to: firstQueueDate)!
+        secondQueueDate = Calendar.current.date(byAdding: .minute, value: randomMinuteAddition, to: firstQueueDate)!
+        
+        var thirdQueueDateAddition = Calendar.current.date(byAdding: .hour, value: randomHourAddition2, to: secondQueueDate)!
+        thirdQueueDateAddition = Calendar.current.date(byAdding: .minute, value: randomMinuteAddition2, to: secondQueueDate)!
+        
+        let queueDates = [firstQueueDate, secondQueueDate, thirdQueueDateAddition]
+        
+        return queueDates
+    }
+    
+    func generateRandomDay(withTime:Bool = false) -> Date {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
+        if withTime {
+            dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        }
         
         let randomDay = Int.random(in: 1...31)
         let randomMonth = Int.random(in: 1...12)
-        let randomYear = Int.random(in: 1800...2500)
+        let randomYear = Int.random(in: 1800...2100)
         
-        let dateString = String(randomDay)+"-"+String(randomMonth)+"-"+String(randomYear)
+        var dateString = String(randomDay)+"-"+String(randomMonth)+"-"+String(randomYear)
+        if withTime {
+            let randomHour = Int.random(in: 6...19)
+            let randomMinute = Int.random(in: 5...50)
+            
+            let timeString = String(randomHour)+":"+String(randomMinute)
+            
+            dateString = String(randomDay)+"-"+String(randomMonth)+"-"+String(randomYear) + " " + timeString
+        }
         
         let date = dateFormatter.date(from: dateString)
         
