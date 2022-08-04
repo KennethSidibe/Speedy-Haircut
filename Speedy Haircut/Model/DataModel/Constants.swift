@@ -12,7 +12,7 @@ struct K {
     static let reservationCollectionName = "reservations"
     static let QueueCollectionName = "Queue"
     static let globalCollectionName = "global"
-    static let queueDataIdName = "QueueData"
+    static let queueDataDocumentName = "QueueData"
     static let maxReservationPerDay = 10
     static let closingHour = 21
 //  The shop opens on even days at 9
