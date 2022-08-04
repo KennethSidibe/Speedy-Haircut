@@ -11,15 +11,15 @@ import Firebase
 class DatabaseBrain: ObservableObject {
     
     //MARK: - Properties
+    @Published var t = 0
     @Published private var user = User()
     private var userUid:String = ""
     private var sortBrain = QuickSort()
-    private var reservations:([Reservation], [Date])?
-    private var queueList:([QueueUser], [Date])?
+    @Published private var reservations:([Reservation], [Date])?
+    @Published private var queueList:([QueueUser], [Date])?
 //    Reference to the db
     private let db = Firestore.firestore()
     @Published private var isDataAvailable = false
-    
     
     
     //MARK: - GET methods
@@ -50,6 +50,46 @@ class DatabaseBrain: ObservableObject {
         }
         
         return nil
+        
+    }
+    
+    func loadReservation() {
+        
+        let docReference = db.collection(K.reservationCollectionName)
+        var reservationsDate:[Date] = [Date]()
+        var reservations:[Reservation] = [Reservation]()
+        
+        let snapshot = docReference.addSnapshotListener { snapshot, error in
+            
+            guard error == nil else {
+                print("Error while loading reservation data, \(String(describing: error))")
+                return
+            }
+            
+            if let docs = snapshot?.documents {
+                
+                for doc in docs {
+                    
+                    let clientName = doc["clientName"] as! String
+                    let date = doc["date"] as! Timestamp
+                    let reservationId = doc.documentID
+                    
+                    let newReservation = Reservation(id: reservationId,
+                                                     clientName: clientName,
+                                                     date: date.dateValue())
+                    
+                    reservationsDate.append(date.dateValue())
+                    reservations.append(newReservation)
+                    
+                }
+                
+            }
+            
+            print("reservations count : ", reservationsDate.count)
+            
+            self.reservations = (reservations, reservationsDate)
+            
+        }
         
     }
     
