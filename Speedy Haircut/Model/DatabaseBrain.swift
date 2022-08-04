@@ -11,7 +11,6 @@ import Firebase
 class DatabaseBrain: ObservableObject {
     
     //MARK: - Properties
-    @Published var t = 0
     @Published private var user = User()
     private var userUid:String = ""
     private var sortBrain = QuickSort()
@@ -20,7 +19,7 @@ class DatabaseBrain: ObservableObject {
     @Published private var isBookingDataUpdated:Bool = false
 //    Reference to the db
     private let db = Firestore.firestore()
-    @Published private var isUserDataFetched = false
+    @Published private var isUserDataFetched:Bool = false
     
     
     //MARK: - GET methods
