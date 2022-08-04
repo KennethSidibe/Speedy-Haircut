@@ -268,17 +268,46 @@ extension ReservationView {
         self.pickedTimeString = reservBrain.getPickedTimeString()
     }
     
+    func setPickedDate(pickedDate:Date) {
+        self.pickedDate = pickedDate
+    }
+    func setPickedTime(pickedTime:Date) {
+        self.pickedTime = pickedTime
+    }
+    func setPickedDateString(pickedDateString:String) {
+        self.pickedDateString = pickedDateString
+    }
+    func setPickedTimeString(pickedTimeString:String) {
+        self.pickedTimeString = pickedTimeString
+    }
+    
 }
 
 struct ReservationView_Previews: PreviewProvider {
     
+    @EnvironmentObject private var dbBrain:DatabaseBrain
+    
     static var previews: some View {
-        let minuteSlot = ["15", "20", "25", "35", "50"]
-        let hourSlot = ["3", "4", "9", "12"]
-        let minutesFlipBrain = FlipViewModel(timeSlot: minuteSlot)
-        let hoursFlipBrain = FlipViewModel(timeSlot: hourSlot)
+        let reservBrainPreview = ReservationBrain()
+        let reservationsPreview:[Date] = reservBrainPreview.generateRandomDates()
+        let queueListPreview:[Date] = reservBrainPreview.generateRandomQueueList()
+        let pickedDatePreview = Date()
+        
+        
         ReservationView()
                 .environmentObject(DatabaseBrain())
+                .onAppear {
+                    
+                    reservBrainPreview.setBrain(
+                        reservations: reservationsPreview,
+                        queueDates: queueListPreview,
+                        datePicked: pickedDatePreview)
+                    
+                }
+    }
+    
+    func setInputForms(reservations:[Date], queueDates:[Date], pickedDate:Date?) {
+        
     }
     
     
