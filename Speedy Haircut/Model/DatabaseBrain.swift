@@ -68,6 +68,8 @@ class DatabaseBrain: ObservableObject {
                     
                     queueList = fetchedQueuelist
                     
+                    self.reservations = reservations
+                    self.queueList = queueList
                     self.isDataUpdated = true
                     
                     completionHandler( (reservations, queueList) )
