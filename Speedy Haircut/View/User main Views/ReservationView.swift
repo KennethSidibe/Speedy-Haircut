@@ -170,7 +170,7 @@ struct ReservationView: View {
                 
                 if let pickedTime = pickedTime, let pickedDate = pickedDate {
                     
-                    let reservationDate = reservBrain.getReservationDate(date: pickedDate,
+                    let reservationDate = reservBrain.getBookingDate(date: pickedDate,
                                                                          time: pickedTime)
                     
                     dbBrain.bookReservation(client: name, date: reservationDate) {
@@ -207,29 +207,54 @@ struct ReservationView: View {
                         let reservations = Reservations.1
                         let queueDates = QueueList.1
                         
-                        reservBrain.setBrain(
-                            reservations: reservations,
-                            queueDates: queueDates,
-                            datePicked: pickedDate)
-                        
-                        
-        //                Methods to set date and time input forms to first date & time reservable
-                        self.pickedDate = reservBrain.getFirstReservableDate()
-                        self.pickedTime = reservBrain.getFirstReservableTimeSlot()
-                        
-                        self.pickedDateString = reservBrain.getPickedDateString()
-                        self.pickedTimeString = reservBrain.getPickedTimeString()
+                        setInputForms(reservations: reservations,
+                                      queueDates: queueDates,
+                                      pickedDate: pickedDate)
                         
                     }
                     
                 }
                 
+            }
+        }
+        .onChange(of: dbBrain.hasDataUpdated()) { dataHasUpdated in
+            
+            if dataHasUpdated {
                 
+                guard let reservations = dbBrain.getReservationsDate(),
+                      let queueListDates = dbBrain.getQueueListDates() else {
+                    
+                    print("Reservations and queueList was found empty")
+                    
+                    return
+                }
                 
             }
+            
         }
         
     }
+}
+
+extension ReservationView {
+    
+    //MARK: - Set methods
+    func setInputForms(reservations:[Date], queueDates:[Date], pickedDate:Date?) {
+        
+        reservBrain.setBrain(
+            reservations: reservations,
+            queueDates: queueDates,
+            datePicked: pickedDate)
+        
+        
+//                Methods to set date and time input forms to first date & time reservable
+        self.pickedDate = reservBrain.getFirstReservableDate()
+        self.pickedTime = reservBrain.getFirstReservableTimeSlot()
+        
+        self.pickedDateString = reservBrain.getPickedDateString()
+        self.pickedTimeString = reservBrain.getPickedTimeString()
+    }
+    
 }
 
 struct ReservationView_Previews: PreviewProvider {
