@@ -13,8 +13,8 @@ class ReservationBrain: ObservableObject {
     private var queueDates:[Date]?
     private var reservations:[Date]?
     @Published private var pickedDate:Date?
-    @Published var pickedDateString:String?
-    @Published var pickedTimeString:String?
+    @Published private var pickedDateString:String?
+    @Published private var pickedTimeString:String?
     @Published private var pickedTime:Date?
     private var dateFormatter:DateFormatter = DateFormatter()
     private var calendar:Calendar {
@@ -40,6 +40,10 @@ class ReservationBrain: ObservableObject {
     func getPickedDateString() -> String {
         dateFormatter.dateFormat = "dd-MM-yyyy"
         let dateString = dateFormatter.string(from: Date())
+        
+        print("self.pickedDateString : \(self.pickedDateString)")
+        print()
+        
         
         return self.pickedDateString ?? dateString
     }
@@ -121,13 +125,43 @@ class ReservationBrain: ObservableObject {
         return unavailableDates
     }
     
+    func getOnlyDateFromDate(date:Date) -> String {
+        let day = Calendar.current.component(.day, from: date)
+        let dayString:String = {
+            if day < 10 {
+                return "0"+String(day)
+            }
+            else {
+                return String(day)
+            }
+        }()
+        let month = Calendar.current.component(.month, from: date)
+        let monthString:String = {
+            if month < 10 {
+                return "0"+String(month)
+            }
+            else {
+                return String(month)
+            }
+        }()
+        let year = Calendar.current.component(.year, from: date)
+        
+        let completeDate:String = dayString+"-"+monthString+"-"+String(year)
+        
+        return completeDate
+    }
+    
     func getFirstReservableDate() -> Date {
+        
+        self.dateFormatter.dateFormat = "dd-MM-yyyy"
         
         guard unavailableDates != nil else {
             print("Cannot return first reservable date, unavailable dates is nil")
             
             setAvailableTimSlotForDate(date: Date())
-            self.pickedDateString = dateFormatter.string(from: Date())
+            self.pickedDateString = getOnlyDateFromDate(date: Date())
+            
+            self.pickedDate = Date()
             
             return Date()
         }
@@ -142,10 +176,8 @@ class ReservationBrain: ObservableObject {
         for date in stride(from: today, to: nextYear, by: dayDurationInSeconds) {
             
             let dateNoTime:Date = {
-                dateFormatter.dateFormat = "dd-MM-yyyy"
-                
-                let dateString = dateFormatter.string(from: date)
-                let dateNoTime = dateFormatter.date(from: dateString)!
+                let dateString = self.dateFormatter.string(from: date)
+                let dateNoTime = self.dateFormatter.date(from: dateString)!
                 
                 return dateNoTime
             }()
@@ -154,13 +186,15 @@ class ReservationBrain: ObservableObject {
                 
                 setAvailableTimSlotForDate(date: dateNoTime)
                 
-                self.pickedDateString = dateFormatter.string(from: dateNoTime)
+                self.pickedDateString = getOnlyDateFromDate(date: dateNoTime)
+                self.pickedDate = dateNoTime
                 
                 return dateNoTime
             }
         }
         setAvailableTimSlotForDate(date: Date())
-        self.pickedDateString = dateFormatter.string(from: Date())
+        self.pickedDateString = getOnlyDateFromDate(date: Date())
+        self.pickedDate = Date()
         return Date()
     }
     
