@@ -87,7 +87,7 @@ class DatabaseBrain: ObservableObject {
         var reservations:[Reservation] = [Reservation]()
         
 //        Fetch reservations data
-        let reservationsSnapshot = reservationsDocReference.addSnapshotListener { snapshot, error in
+        reservationsDocReference.addSnapshotListener { reservationSnapshot, error in
             
             reservationsDate = []
             reservations = []
@@ -97,7 +97,7 @@ class DatabaseBrain: ObservableObject {
                 return
             }
             
-            if let docs = snapshot?.documents {
+            if let docs = reservationSnapshot?.documents {
                 
                 for doc in docs {
                     
@@ -130,7 +130,7 @@ class DatabaseBrain: ObservableObject {
         var queueDates:[Date] = [Date]()
         var queueList:[QueueUser] = [QueueUser]()
         
-        let queueSnapshot = queueDocReference.addSnapshotListener { snapshpot, error in
+        queueDocReference.addSnapshotListener { queueSnapshot, error in
             
             queueList = []
             queueDates = []
@@ -140,7 +140,7 @@ class DatabaseBrain: ObservableObject {
                 return
             }
             
-            if let documents = snapshpot?.documents {
+            if let documents = queueSnapshot?.documents {
                 
                 for document in documents {
                     
