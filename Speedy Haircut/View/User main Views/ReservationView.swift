@@ -16,7 +16,6 @@ struct TimePickerFlipBrains:Identifiable {
 struct ReservationView: View {
     
     @EnvironmentObject private var dbBrain:DatabaseBrain
-    @State var t:Int = 0
     @State private var isCalendarPickerShow:Bool = false
     @State private var isTimePickerShow:Bool = false
     private var reservBrain:ReservationBrain = ReservationBrain()
@@ -201,23 +200,35 @@ struct ReservationView: View {
             
             Task {
                 
+//                let reservations = dbBrain.getReservations()!.1
+//                let queueDates = dbBrain.getQueueList()!.1
                 
-                let reservations = dbBrain.getReservations()!.1
-                let queueDates = dbBrain.getQueueList()!.1
-                dbBrain.loadReservation()
+                dbBrain.fetchBookingData { Reservations, QueueList in
+                    
+                    DispatchQueue.main.async {
+                        
+                        
+                        let reservations = Reservations.1
+                        let queueDates = QueueList.1
+                        
+                        reservBrain.setBrain(
+                            reservations: reservations,
+                            queueDates: queueDates,
+                            datePicked: pickedDate)
+                        
+                        
+        //                Methods to set date and time input forms to first date & time reservable
+                        self.pickedDate = reservBrain.getFirstReservableDate()
+                        self.pickedTime = reservBrain.getFirstReservableTimeSlot()
+                        
+                        self.pickedDateString = reservBrain.getPickedDateString()
+                        self.pickedTimeString = reservBrain.getPickedTimeString()
+                        
+                    }
+                    
+                }
                 
-                reservBrain.setBrain(
-                    reservations: reservations,
-                    queueDates: queueDates,
-                    datePicked: pickedDate)
                 
-                
-//                Methods to set date and time input forms to first date & time reservable
-                self.pickedDate = reservBrain.getFirstReservableDate()
-                self.pickedTime = reservBrain.getFirstReservableTimeSlot()
-                
-                self.pickedDateString = reservBrain.getPickedDateString()
-                self.pickedTimeString = reservBrain.getPickedTimeString()
                 
             }
         }
