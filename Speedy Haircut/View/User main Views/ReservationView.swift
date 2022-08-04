@@ -219,17 +219,34 @@ struct ReservationView: View {
         }
         .onChange(of: dbBrain.hasDataUpdated()) { dataHasUpdated in
             
-            if dataHasUpdated {
+            DispatchQueue.main.async {
                 
-                guard let reservations = dbBrain.getReservationsDate(),
-                      let queueListDates = dbBrain.getQueueListDates() else {
+                if dataHasUpdated {
                     
-                    print("Reservations and queueList was found empty")
+                    guard let reservations = dbBrain.getReservationsDate(),
+                          let queueListDates = dbBrain.getQueueListDates() else {
+                        
+                        print("Reservations and queueList was found empty")
+                        
+                        return
+                    }
                     
-                    return
+                    setInputForms(reservations: reservations,
+                                  queueDates: queueListDates,
+                                  pickedDate: pickedDate)
+                    
+                    print("Form has been updated", terminator: "\n")
+                    print()
+                    print("Here are new values : \(reservations.sorted())")
+                    print()
+                    
+                    dbBrain.setisDataUpdate(false)
+                    
                 }
                 
             }
+            
+            
             
         }
         
@@ -241,13 +258,14 @@ extension ReservationView {
     //MARK: - Set methods
     func setInputForms(reservations:[Date], queueDates:[Date], pickedDate:Date?) {
         
+
         reservBrain.setBrain(
             reservations: reservations,
             queueDates: queueDates,
             datePicked: pickedDate)
         
         
-//                Methods to set date and time input forms to first date & time reservable
+//      Methods to set date and time input forms to first date & time reservable
         self.pickedDate = reservBrain.getFirstReservableDate()
         self.pickedTime = reservBrain.getFirstReservableTimeSlot()
         
