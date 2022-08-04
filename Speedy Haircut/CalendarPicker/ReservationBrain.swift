@@ -256,7 +256,7 @@ class ReservationBrain: ObservableObject {
         
     }
     
-    func getReservationDate(date pickedDate:Date, time pickedTime:Date) -> Date {
+    func getBookingDate(date pickedDate:Date, time pickedTime:Date) -> Date {
         
         dateFormatter.dateFormat = "dd-MM-yyyy"
         
