@@ -416,8 +416,11 @@ extension DatabaseBrain {
     func setIsDataAvailable(_ newValue: Bool) {
         self.isDataAvailable = newValue
     }
-    func setisDataUpdate(_ newValue:Bool) {
+    func setisDataUpdated(_ newValue:Bool) {
         self.isDataUpdated = newValue
+    }
+    func dataHasBeenUpdated() {
+        self.isDataUpdated = false
     }
     
 }
