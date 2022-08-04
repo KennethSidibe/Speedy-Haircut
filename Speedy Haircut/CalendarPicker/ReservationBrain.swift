@@ -276,6 +276,37 @@ class ReservationBrain: ObservableObject {
         
     }
     
+    func generateRandomDates() -> [Date] {
+        var dates:[Date] = [Date]()
+        let randomNumber = Int.random(in: 0...10)
+        
+        for _ in 0...randomNumber {
+            
+            let date = generateRandomDay()
+            
+            dates.append(date)
+        }
+        
+        return dates
+    }
+    
+    func generateRandomDay() -> Date {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        let randomDay = Int.random(in: 1...31)
+        let randomMonth = Int.random(in: 1...12)
+        let randomYear = Int.random(in: 1800...2500)
+        
+        let dateString = String(randomDay)+"-"+String(randomMonth)+"-"+String(randomYear)
+        
+        let date = dateFormatter.date(from: dateString)
+        
+        return date ?? Date()
+        
+    }
+    
     //MARK: - Set Methods
     func setBrain(reservations:[Date], queueDates:[Date], datePicked:Date?) {
         self.reservations = reservations
