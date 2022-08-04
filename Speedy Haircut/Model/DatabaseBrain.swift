@@ -53,13 +53,44 @@ class DatabaseBrain: ObservableObject {
         
     }
     
-    func loadReservation() {
+    func fetchBookingData(completionHandler: @escaping ( ( ([Reservation], [Date]),
+                                                           ([QueueUser], [Date]) ) ) -> ()) {
         
-        let docReference = db.collection(K.reservationCollectionName)
+            var reservations:([Reservation], [Date]) = ([Reservation](), [Date]() )
+            var queueList:([QueueUser], [Date]) = ( [QueueUser](), [Date]() )
+            
+            fetchReservations { fetchedReservations in
+                
+                reservations = fetchedReservations
+                
+                self.fetchQueueList { fetchedQueuelist in
+                    
+                    
+                    queueList = fetchedQueuelist
+                    
+                    self.reservations = reservations
+                    self.queueList = queueList
+                    
+                    completionHandler( (reservations, queueList) )
+                    
+                    
+                }
+            }
+            
+    }
+    
+    func fetchReservations(completionHandler: @escaping ( ([Reservation], [Date]) ) -> () ) {
+        
+        let reservationsDocReference = db.collection(K.reservationCollectionName)
+        
         var reservationsDate:[Date] = [Date]()
         var reservations:[Reservation] = [Reservation]()
         
-        let snapshot = docReference.addSnapshotListener { snapshot, error in
+//        Fetch reservations data
+        let reservationsSnapshot = reservationsDocReference.addSnapshotListener { snapshot, error in
+            
+            reservationsDate = []
+            reservations = []
             
             guard error == nil else {
                 print("Error while loading reservation data, \(String(describing: error))")
@@ -83,12 +114,53 @@ class DatabaseBrain: ObservableObject {
                     
                 }
                 
+                completionHandler( (reservations, reservationsDate) )
+                
             }
             
-            print("reservations count : ", reservationsDate.count)
+        }
+        
+    }
+    
+    func fetchQueueList(completionHandler: @escaping (([QueueUser], [Date])) -> ()) {
+        
+        //        Fetch queueData
+        let queueDocReference = db.collection(K.QueueCollectionName)
+        
+        var queueDates:[Date] = [Date]()
+        var queueList:[QueueUser] = [QueueUser]()
+        
+        let queueSnapshot = queueDocReference.addSnapshotListener { snapshpot, error in
             
-            self.reservations = (reservations, reservationsDate)
+            queueList = []
+            queueDates = []
             
+            guard error == nil else {
+                print("Error while loading reservation data, \(String(describing: error))")
+                return
+            }
+            
+            if let documents = snapshpot?.documents {
+                
+                for document in documents {
+                    
+                    let timestamp = document["timeEnteredQueue"] as? Timestamp
+                    
+                    let date = timestamp?.dateValue()
+                    let id = document.documentID
+                    let name = document["name"] as? String
+                    let lineNumber = document["lineNumber"] as? Int
+                    
+                    let queueUser = QueueUser(id: id, name: name, lineNumber: lineNumber, timeEnteredQueue: date)
+                    
+                    queueList.append(queueUser)
+                    queueDates.append(queueUser.timeEnteredQueue ?? Date())
+                    
+                }
+                
+                completionHandler( (queueList, queueDates) )
+                
+            }
         }
         
     }
