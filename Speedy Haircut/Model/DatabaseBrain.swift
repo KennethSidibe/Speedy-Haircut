@@ -68,9 +68,6 @@ class DatabaseBrain: ObservableObject {
                     
                     queueList = fetchedQueuelist
                     
-                    self.reservations = reservations
-                    self.queueList = queueList
-                    
                     completionHandler( (reservations, queueList) )
                     
                     
