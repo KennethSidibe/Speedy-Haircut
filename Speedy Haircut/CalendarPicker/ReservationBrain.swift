@@ -147,6 +147,22 @@ class ReservationBrain: ObservableObject {
         return completeDate
     }
     
+    func getOnlyTimeFromDate(date:Date) -> String {
+        let hour = Calendar.current.component(.hour, from: date)
+        let minutes = Calendar.current.component(.minute, from: date)
+        
+        let minutesString:String = {
+            if minutes < 10 {
+                return "0" + String(minutes)
+            }
+            return String(minutes)
+        }()
+        
+        let completeTime:String = String(hour)+":"+minutesString
+        
+        return completeTime
+    }
+    
     func getFirstReservableDate() -> Date {
         
         self.dateFormatter.dateFormat = "dd-MM-yyyy"
