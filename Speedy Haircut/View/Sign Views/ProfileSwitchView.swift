@@ -12,6 +12,7 @@ struct ProfileSwitchView: View {
     
     @EnvironmentObject private var authBrain:AuthenticationBrain
     @StateObject private var dbBrain = DatabaseBrain()
+    @State private var queueNumber:Int?
     
     var body: some View {
         
@@ -36,12 +37,22 @@ struct ProfileSwitchView: View {
                             self.dbBrain.setUser(user: currentUser)
                             await self.dbBrain.setDatabaseBrain()
                             
-                            // Delay to let loading animation play
-                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                            dbBrain.fetchQueueNumber { lineNumber in
                                 
+                                // Delay to let loading animation play
+                                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                                    
+                                    self.queueNumber = lineNumber
+                                    
+                                    print("Line has been updated : ", lineNumber)
+                                    
                                     self.dbBrain.userDataHasBeenFetched()
+                                    
+                                }
                                 
                             }
+                            
+                            
                         }
                     }
                 }

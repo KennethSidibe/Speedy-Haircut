@@ -16,6 +16,7 @@ class DatabaseBrain: ObservableObject {
     private var sortBrain = QuickSort()
     @Published private var reservations:([Reservation], [Date])?
     @Published private var queueList:([QueueUser], [Date])?
+    @Published private var queueNumber: Int?
     @Published private var isBookingDataUpdated:Bool = false
 //    Reference to the db
     private let db = Firestore.firestore()
@@ -166,6 +167,33 @@ class DatabaseBrain: ObservableObject {
         
     }
     
+    func fetchQueueNumber(completionHandler: @escaping (Int) -> () ) {
+        
+        let docReference = db.collection(K.globalCollectionName).document(K.queueDataDocumentName)
+        
+        docReference.addSnapshotListener { queueDataSnapshot, error in
+            
+            guard error == nil else {
+                
+                print("error while fetching queueData, \(error))")
+                return
+            }
+            
+            if let doc = queueDataSnapshot?.data() {
+                
+                let newQueueNumber = doc["peopleInLine"] as! Int
+                
+                self.queueNumber = newQueueNumber
+                self.hasQueueUpdated = true
+                
+                completionHandler(newQueueNumber)
+                
+            }
+            
+        }
+        
+    }
+    
     //MARK: - Database SET methods
     func setDatabaseBrain() async {
         
@@ -179,7 +207,7 @@ class DatabaseBrain: ObservableObject {
     
     func addToQueue(completionHandler: @escaping (Int) -> ()) {
             
-        let docReference = db.collection(K.globalCollectionName).document(K.queueDataIdName)
+        let docReference = db.collection(K.globalCollectionName).document(K.queueDataDocumentName)
         
         docReference.getDocument { snapshot, error in
             
@@ -227,7 +255,7 @@ class DatabaseBrain: ObservableObject {
     
     func updateQueueData(completionHandler: @escaping () -> ()) {
         
-        let docReference = db.collection(K.globalCollectionName).document(K.queueDataIdName)
+        let docReference = db.collection(K.globalCollectionName).document(K.queueDataDocumentName)
         
         let updateLineDoc = ["peopleInLine" : self.user.lineNumber]
         
@@ -400,8 +428,12 @@ extension DatabaseBrain {
         return self.queueList?.1
     }
     
-    func hasQueueBeenUpdated() -> Bool {
+    func isQueueUpdated() -> Bool {
         return self.hasQueueUpdated
+    }
+    
+    func getQueueNumber() -> Int? {
+        return self.queueNumber
     }
 
 }
@@ -431,10 +463,6 @@ extension DatabaseBrain {
     }
     
     func queueHasBeenUpdated() {
-        self.hasQueueUpdated = true
-    }
-    
-    func queueIsUpdating() {
         self.hasQueueUpdated = false
     }
     
