@@ -235,7 +235,7 @@ struct ReservationView: View {
                                   queueDates: queueListDates,
                                   pickedDate: pickedDate)
                     
-                    dbBrain.setisDataUpdated(false)
+                    dbBrain.bookingDataHasBeenUpdated()
                     
                 }
                 

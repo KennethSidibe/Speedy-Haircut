@@ -17,7 +17,7 @@ class DatabaseBrain: ObservableObject {
     private var sortBrain = QuickSort()
     @Published private var reservations:([Reservation], [Date])?
     @Published private var queueList:([QueueUser], [Date])?
-    @Published private var isDataUpdated:Bool = false
+    @Published private var isBookingDataUpdated:Bool = false
 //    Reference to the db
     private let db = Firestore.firestore()
     @Published private var isDataAvailable = false
@@ -70,7 +70,7 @@ class DatabaseBrain: ObservableObject {
                     
                     self.reservations = reservations
                     self.queueList = queueList
-                    self.isDataUpdated = true
+                    self.isBookingDataUpdated = true
                     
                     completionHandler( (reservations, queueList) )
                     
@@ -381,7 +381,7 @@ extension DatabaseBrain {
     }
     
     func hasDataUpdated() -> Bool {
-        return self.isDataUpdated
+        return self.isBookingDataUpdated
     }
     
     func getReservationsDate() -> [Date]? {
@@ -413,14 +413,14 @@ extension DatabaseBrain {
         self.user.id = userUid
     }
     
-    func setIsDataAvailable(_ newValue: Bool) {
-        self.isDataAvailable = newValue
+    func setIsBookingDataAvailable(_ newValue: Bool) {
+        self.isBookingDataUpdated = newValue
     }
     func setisDataUpdated(_ newValue:Bool) {
-        self.isDataUpdated = newValue
+        self.isBookingDataUpdated = newValue
     }
-    func dataHasBeenUpdated() {
-        self.isDataUpdated = false
+    func bookingDataHasBeenUpdated() {
+        self.isBookingDataUpdated = false
     }
     
 }
