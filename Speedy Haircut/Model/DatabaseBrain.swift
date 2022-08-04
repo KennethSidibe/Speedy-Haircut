@@ -20,7 +20,7 @@ class DatabaseBrain: ObservableObject {
     @Published private var isBookingDataUpdated:Bool = false
 //    Reference to the db
     private let db = Firestore.firestore()
-    @Published private var isDataAvailable = false
+    @Published private var isUserDataFetched = false
     
     
     //MARK: - GET methods
@@ -377,7 +377,7 @@ extension DatabaseBrain {
     }
     
     func isUserDataAvailable() -> Bool {
-        return self.isDataAvailable
+        return self.isUserDataFetched
     }
     
     func hasDataUpdated() -> Bool {
@@ -416,11 +416,15 @@ extension DatabaseBrain {
     func setIsBookingDataAvailable(_ newValue: Bool) {
         self.isBookingDataUpdated = newValue
     }
-    func setisDataUpdated(_ newValue:Bool) {
-        self.isBookingDataUpdated = newValue
-    }
     func bookingDataHasBeenUpdated() {
         self.isBookingDataUpdated = false
     }
+    func setisUserDataFetched(_ newValue:Bool) {
+        self.isUserDataFetched = newValue
+    }
+    func userDataHasBeenFetched() {
+        self.isUserDataFetched = true
+    }
+    
     
 }

@@ -39,8 +39,7 @@ struct ProfileSwitchView: View {
                             // Delay to let loading animation play
                             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                                 
-                                    self.dbBrain.setIsBookingDataAvailable(true) 
-                                
+                                    self.dbBrain.userDataHasBeenFetched()
                                 
                             }
                         }
