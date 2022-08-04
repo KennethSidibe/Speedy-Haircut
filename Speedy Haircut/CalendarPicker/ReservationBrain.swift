@@ -38,11 +38,9 @@ class ReservationBrain: ObservableObject {
     }
     
     func getPickedDateString() -> String {
+        
         dateFormatter.dateFormat = "dd-MM-yyyy"
         let dateString = dateFormatter.string(from: Date())
-        
-        print("self.pickedDateString : \(self.pickedDateString)")
-        print()
         
         
         return self.pickedDateString ?? dateString
