@@ -16,6 +16,7 @@ struct TimePickerFlipBrains:Identifiable {
 struct ReservationView: View {
     
     @EnvironmentObject private var dbBrain:DatabaseBrain
+    @State var t:Int = 0
     @State private var isCalendarPickerShow:Bool = false
     @State private var isTimePickerShow:Bool = false
     private var reservBrain:ReservationBrain = ReservationBrain()
@@ -200,8 +201,10 @@ struct ReservationView: View {
             
             Task {
                 
+                
                 let reservations = dbBrain.getReservations()!.1
                 let queueDates = dbBrain.getQueueList()!.1
+                dbBrain.loadReservation()
                 
                 reservBrain.setBrain(
                     reservations: reservations,
@@ -218,6 +221,7 @@ struct ReservationView: View {
                 
             }
         }
+        
     }
 }
 
