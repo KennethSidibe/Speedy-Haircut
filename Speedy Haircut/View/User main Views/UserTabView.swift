@@ -32,6 +32,7 @@ struct UserTabView: View {
             
             if #available(iOS 15.0, *) {
                 QueueView()
+                    .environmentObject(dbBrain)
                     .tag(2)
                     .badge(5)
                     .tabItem {
@@ -48,6 +49,7 @@ struct UserTabView: View {
             
             if #available(iOS 15.0, *) {
                 ReservationView()
+                    .environmentObject(dbBrain)
                     .tag(3)
                     .badge(7)
                     .tabItem {
