@@ -264,7 +264,7 @@ class ReservationBrain: ObservableObject {
         timeFormatter.dateFormat = "HH:mm"
         
         let dateString = getOnlyDateFromDate(date: pickedDate)
-        let timeString = timeFormatter.string(from: pickedTime)
+        let timeString = getOnlyTimeFromDate(date: pickedTime)
         
         let reservDateString = dateString + " " + timeString
         
