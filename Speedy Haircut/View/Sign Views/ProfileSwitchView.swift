@@ -63,8 +63,8 @@ struct profileView_Preview:PreviewProvider {
     static var previews: some View {
         ProfileSwitchView()
             .environmentObject(AuthenticationBrain())
-            .previewDevice(PreviewDevice(rawValue:"iPhone 12"))
-            .previewDisplayName("iPhone 12")
+            .previewDevice(PreviewDevice(rawValue:"iPhone 13 Pro Max"))
+            .previewDisplayName("iPhone 13 Pro Max")
         
     }
 }
