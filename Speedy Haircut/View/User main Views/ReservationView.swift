@@ -200,13 +200,9 @@ struct ReservationView: View {
             
             Task {
                 
-//                let reservations = dbBrain.getReservations()!.1
-//                let queueDates = dbBrain.getQueueList()!.1
-                
                 dbBrain.fetchBookingData { Reservations, QueueList in
                     
                     DispatchQueue.main.async {
-                        
                         
                         let reservations = Reservations.1
                         let queueDates = QueueList.1
