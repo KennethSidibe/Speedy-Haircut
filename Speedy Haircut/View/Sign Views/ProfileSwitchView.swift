@@ -44,8 +44,6 @@ struct ProfileSwitchView: View {
                                     
                                     self.queueNumber = lineNumber
                                     
-                                    print("Line has been updated : ", lineNumber)
-                                    
                                     self.dbBrain.userDataHasBeenFetched()
                                     
                                 }
