@@ -56,11 +56,6 @@ class DatabaseBrain: ObservableObject {
     //MARK: - SET methods
     func setDatabaseBrain() async {
         
-        guard user != nil else {
-            print("User cannot be found ")
-            return
-        }
-        
         let reservations = await fetchReservationList()
         let queueList = await fetchQueueList()
         
@@ -230,7 +225,7 @@ class DatabaseBrain: ObservableObject {
         dbReference.document(reservationId).setData(newReservation) { error in
             
             guard error == nil else {
-                print("Error while creating reservations, \(error)")
+                print("Error while creating reservations, \(String(describing: error))")
                 return
             }
             

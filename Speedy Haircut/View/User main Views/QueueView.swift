@@ -31,7 +31,7 @@ struct QueueView: View {
                         
                         Text(user.name!)
                         
-                        Text(String(user.lineNumber ?? 0) ?? "User")
+                        Text(String(user.lineNumber ?? 0) )
                         
                     }
                 }

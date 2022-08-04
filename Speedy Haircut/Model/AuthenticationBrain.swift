@@ -43,7 +43,7 @@ class AuthenticationBrain: ObservableObject {
             guard let self = self else { return }
             
             guard result != nil, authError == nil else {
-                print("SignUp Error, \(authError)")
+                print("SignUp Error, \(String(describing: authError))")
                 return
             }
             
@@ -60,7 +60,7 @@ class AuthenticationBrain: ObservableObject {
             db.collection(K.userCollectionName).document(newUserUid).setData(newUser) { dbError in
                 
                 guard dbError == nil else {
-                    print("Error while writing new user data to db, \(dbError)")
+                    print("Error while writing new user data to db, \(String(describing: dbError))")
                     return
                 }
                 
@@ -90,7 +90,7 @@ class AuthenticationBrain: ObservableObject {
             guard let self = self else { return }
             
             guard result != nil, error == nil else {
-                print("Login Error, \(error)")
+                print("Login Error, \(String(describing: error))")
                 return
             }
             
