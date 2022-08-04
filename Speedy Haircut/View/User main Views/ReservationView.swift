@@ -235,12 +235,7 @@ struct ReservationView: View {
                                   queueDates: queueListDates,
                                   pickedDate: pickedDate)
                     
-                    print("Form has been updated", terminator: "\n")
-                    print()
-                    print("Here are new values : \(reservations.sorted())")
-                    print()
-                    
-                    dbBrain.setisDataUpdate(false)
+                    dbBrain.setisDataUpdated(false)
                     
                 }
                 
