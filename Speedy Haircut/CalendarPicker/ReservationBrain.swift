@@ -39,9 +39,7 @@ class ReservationBrain: ObservableObject {
     
     func getPickedDateString() -> String {
         
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        let dateString = dateFormatter.string(from: Date())
-        
+        let dateString = getOnlyDateFromDate(date: Date())
         
         return self.pickedDateString ?? dateString
     }
@@ -173,12 +171,7 @@ class ReservationBrain: ObservableObject {
         
         for date in stride(from: today, to: nextYear, by: dayDurationInSeconds) {
             
-            let dateNoTime:Date = {
-                let dateString = self.dateFormatter.string(from: date)
-                let dateNoTime = self.dateFormatter.date(from: dateString)!
-                
-                return dateNoTime
-            }()
+            let dateNoTime:Date = getDateNoTime(date: date)
             
             if !(unavailableDates!.contains(dateNoTime)) {
                 
@@ -254,7 +247,7 @@ class ReservationBrain: ObservableObject {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm"
         
-        let dateString = dateFormatter.string(from: pickedDate)
+        let dateString = getOnlyDateFromDate(date: pickedDate)
         let timeString = timeFormatter.string(from: pickedTime)
         
         let reservDateString = dateString + " " + timeString
@@ -728,8 +721,6 @@ class ReservationBrain: ObservableObject {
     private func hasDayReachedMaximumReservations(date:Date, bookedDate:[Date], unavailableDays:[Date]?) -> Bool {
         
         var count = 0
-        
-        dateFormatter.dateFormat = "dd-MM-yyy"
         
 //        We iterate over all the reservations and if there is more than 10 occurences of that particular date in the booking date we add it to our unavailable days list
         for iterateDay in bookedDate {
