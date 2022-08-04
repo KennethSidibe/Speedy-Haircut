@@ -44,6 +44,8 @@
 		4C8D8E5A28710A48009F5C61 /* UserTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5928710A48009F5C61 /* UserTabView.swift */; };
 		4C8D8E5C28710C69009F5C61 /* ReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5B28710C69009F5C61 /* ReservationView.swift */; };
 		4C8D8E5E287115F7009F5C61 /* QueueList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5D287115F6009F5C61 /* QueueList.swift */; };
+		4C9083BC289C216100995603 /* AdministratorProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9083BB289C216100995603 /* AdministratorProfileView.swift */; };
+		4C9083BF289C228600995603 /* Admin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9083BE289C228600995603 /* Admin.swift */; };
 		4CD55F352875F745008DA74A /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD55F342875F745008DA74A /* Reservation.swift */; };
 		4CDE7BAD28871D1A00C012CE /* ReservationBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE7BAC28871D1A00C012CE /* ReservationBrain.swift */; };
 		4CDE7BAF28871E4200C012CE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE7BAE28871E4200C012CE /* Extensions.swift */; };
@@ -87,6 +89,8 @@
 		4C8D8E5928710A48009F5C61 /* UserTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabView.swift; sourceTree = "<group>"; };
 		4C8D8E5B28710C69009F5C61 /* ReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationView.swift; sourceTree = "<group>"; };
 		4C8D8E5D287115F6009F5C61 /* QueueList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueList.swift; sourceTree = "<group>"; };
+		4C9083BB289C216100995603 /* AdministratorProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdministratorProfileView.swift; sourceTree = "<group>"; };
+		4C9083BE289C228600995603 /* Admin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Admin.swift; sourceTree = "<group>"; };
 		4CD55F342875F745008DA74A /* Reservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
 		4CDE7BAC28871D1A00C012CE /* ReservationBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReservationBrain.swift; path = "Speedy Haircut/CalendarPicker/ReservationBrain.swift"; sourceTree = SOURCE_ROOT; };
 		4CDE7BAE28871E4200C012CE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -223,6 +227,7 @@
 		4C748D102877BAFF000F80E3 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				4C9083BE289C228600995603 /* Admin.swift */,
 				4C8D8E5D287115F6009F5C61 /* QueueList.swift */,
 				4C398AD2286CF255000188D5 /* Constants.swift */,
 				4CD55F342875F745008DA74A /* Reservation.swift */,
@@ -233,9 +238,18 @@
 			path = DataModel;
 			sourceTree = "<group>";
 		};
+		4C9083BD289C217800995603 /* Administrator Views */ = {
+			isa = PBXGroup;
+			children = (
+				4C9083BB289C216100995603 /* AdministratorProfileView.swift */,
+			);
+			path = "Administrator Views";
+			sourceTree = "<group>";
+		};
 		4CF5EEC528699DB300AEF857 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4C9083BD289C217800995603 /* Administrator Views */,
 				4C748CFA28778B32000F80E3 /* TimePicker Views */,
 				4C748D0E2877BA86000F80E3 /* User main Views */,
 				4C748D0F2877BAAF000F80E3 /* Loading Views */,
@@ -416,6 +430,7 @@
 				4C398AD5286D4E80000188D5 /* LoadingView.swift in Sources */,
 				4C0E00C0286EC9810054B309 /* ProfileView.swift in Sources */,
 				4C748D072877A5FA000F80E3 /* TimeSlot.swift in Sources */,
+				4C9083BC289C216100995603 /* AdministratorProfileView.swift in Sources */,
 				4CF5EEC828699DEB00AEF857 /* AuthenticationBrain.swift in Sources */,
 				4CEA638028753EF900619D7F /* Test.swift in Sources */,
 				4C0A09642882068200FC7665 /* MonthMetadata.swift in Sources */,
@@ -437,6 +452,7 @@
 				4C8D8E5A28710A48009F5C61 /* UserTabView.swift in Sources */,
 				4C0A09612882068200FC7665 /* CalendarDateCollectionViewCell.swift in Sources */,
 				4C0A095F2882068200FC7665 /* CalendarPickerFooterView.swift in Sources */,
+				4C9083BF289C228600995603 /* Admin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
