@@ -20,9 +20,10 @@ class DatabaseBrain: ObservableObject {
 //    Reference to the db
     private let db = Firestore.firestore()
     @Published private var isUserDataFetched:Bool = false
+    @Published private var hasQueueUpdated:Bool = false
     
     
-    //MARK: - GET methods
+    //MARK: - Database FETCH methods
     func getUserData(with uId:String) async -> User? {
         
         let currentUser = User()
@@ -165,7 +166,7 @@ class DatabaseBrain: ObservableObject {
         
     }
     
-    //MARK: - SET methods
+    //MARK: - Database SET methods
     func setDatabaseBrain() async {
         
         let reservations = await fetchReservationList()
@@ -398,6 +399,10 @@ extension DatabaseBrain {
     func getQueueListDates() -> [Date]? {
         return self.queueList?.1
     }
+    
+    func hasQueueBeenUpdated() -> Bool {
+        return self.hasQueueUpdated
+    }
 
 }
 
@@ -423,6 +428,14 @@ extension DatabaseBrain {
     }
     func userDataHasBeenFetched() {
         self.isUserDataFetched = true
+    }
+    
+    func queueHasBeenUpdated() {
+        self.hasQueueUpdated = true
+    }
+    
+    func queueIsUpdating() {
+        self.hasQueueUpdated = false
     }
     
     
