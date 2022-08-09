@@ -46,6 +46,7 @@
 		4C8D8E5E287115F7009F5C61 /* QueueList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D8E5D287115F6009F5C61 /* QueueList.swift */; };
 		4C9083BC289C216100995603 /* AdministratorProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9083BB289C216100995603 /* AdministratorProfileView.swift */; };
 		4C9083BF289C228600995603 /* Admin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9083BE289C228600995603 /* Admin.swift */; };
+		4C9083C1289D506100995603 /* ProfileReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9083C0289D506100995603 /* ProfileReservationView.swift */; };
 		4CD55F352875F745008DA74A /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD55F342875F745008DA74A /* Reservation.swift */; };
 		4CDE7BAD28871D1A00C012CE /* ReservationBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE7BAC28871D1A00C012CE /* ReservationBrain.swift */; };
 		4CDE7BAF28871E4200C012CE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE7BAE28871E4200C012CE /* Extensions.swift */; };
@@ -91,6 +92,7 @@
 		4C8D8E5D287115F6009F5C61 /* QueueList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueList.swift; sourceTree = "<group>"; };
 		4C9083BB289C216100995603 /* AdministratorProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdministratorProfileView.swift; sourceTree = "<group>"; };
 		4C9083BE289C228600995603 /* Admin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Admin.swift; sourceTree = "<group>"; };
+		4C9083C0289D506100995603 /* ProfileReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileReservationView.swift; sourceTree = "<group>"; };
 		4CD55F342875F745008DA74A /* Reservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
 		4CDE7BAC28871D1A00C012CE /* ReservationBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReservationBrain.swift; path = "Speedy Haircut/CalendarPicker/ReservationBrain.swift"; sourceTree = SOURCE_ROOT; };
 		4CDE7BAE28871E4200C012CE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				4C9083BB289C216100995603 /* AdministratorProfileView.swift */,
+				4C9083C0289D506100995603 /* ProfileReservationView.swift */,
 			);
 			path = "Administrator Views";
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				4CF5EECB286AAB8E00AEF857 /* LoginSwitchView.swift in Sources */,
 				4C748D0B2877B1CF000F80E3 /* TimePickerView.swift in Sources */,
 				4C4BF88E286981E7000AC23F /* Speedy_HaircutApp.swift in Sources */,
+				4C9083C1289D506100995603 /* ProfileReservationView.swift in Sources */,
 				4C8D8E5C28710C69009F5C61 /* ReservationView.swift in Sources */,
 				4C398ACF286CEFB0000188D5 /* DatabaseBrain.swift in Sources */,
 				4C8D8E5A28710A48009F5C61 /* UserTabView.swift in Sources */,
