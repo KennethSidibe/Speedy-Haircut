@@ -296,6 +296,7 @@ struct ReservationView_Previews: PreviewProvider {
         
         ReservationView()
                 .environmentObject(DatabaseBrain())
+                .previewDevice(PreviewDevice(rawValue:"iPhone 13 Pro Max"))
                 .onAppear {
                     
                     reservBrainPreview.setBrain(
