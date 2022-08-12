@@ -11,28 +11,34 @@ struct ProfileReservationView: View {
     
     var body: some View {
         
-        ZStack {
+        ZStack() {
             
             RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.red, lineWidth: 4)
-                .background(Color.white.opacity(0.7))
+                .foregroundColor(Color.pink)
+                .scaleEffect(x: 0.6, y: 0.6, anchor: .center)
                 .frame(width: 60, height: 150)
-                .offset(x: 129)
-                .shadow(radius: 5)
-                
-            
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.green, lineWidth: 4)
-                .frame(width: 60, height: 150)
-                .offset(x: 129+5)
-                .opacity(0.8)
+                .offset(x: -(140+20*2+13))
                 .shadow(radius: 5)
             
             RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.pink, lineWidth: 4)
+                .foregroundColor(Color.yellow)
+                .scaleEffect(x: 0.7, y: 0.7, anchor: .center)
                 .frame(width: 60, height: 150)
-                .offset(x: 129+5*2)
-                .opacity(0.5)
+                .offset(x: -(140+(20*2)))
+                .shadow(radius: 5)
+            
+            RoundedRectangle(cornerRadius: 20)
+                .foregroundColor(Color.blue)
+                .scaleEffect(x: 0.8, y: 0.8, anchor: .center)
+                .frame(width: 60, height: 150)
+                .offset(x: -(140+20*1))
+                .shadow(radius: 5)
+            
+            RoundedRectangle(cornerRadius: 20)
+                .foregroundColor(Color.red)
+                .scaleEffect(x: 0.9, y: 0.9, anchor: .center)
+                .frame(width: 60, height: 150)
+                .offset(x: -(140))
                 .shadow(radius: 5)
             
             HStack(alignment: .center) {
@@ -41,13 +47,10 @@ struct ProfileReservationView: View {
                     
                     Image(systemName: "person")
                         .resizable()
-                        .frame(maxHeight: 50)
                         .aspectRatio(contentMode: .fit)
                         .padding()
-                        
                     
                     Text("Ken")
-                        .padding(.bottom)
                     
                 }
                 
@@ -56,10 +59,8 @@ struct ProfileReservationView: View {
                     Text("Tue 25 \n Aug")
                         .multilineTextAlignment(.center)
                         .padding(.trailing)
-                        .padding(.leading)
 
                     Text("15: 30")
-                        .padding(.trailing)
 
                 }
                 .frame(maxHeight: .infinity)
@@ -79,6 +80,10 @@ struct ProfileReservationView: View {
             
             
         }
+        .onTapGesture {
+            print("Opening tiles")
+        }
+        
         
         
     }
